@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_filters',
     'apps.core',
     'apps.authentication',
+    'apps.pauta',
 ]
 
 MIDDLEWARE = [
