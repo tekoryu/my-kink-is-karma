@@ -1,0 +1,5 @@
+- Do not try to run the projects locally. Only through `docker compose --rm app sh -c COMMAND_EXAMPLE`.
+- Keep answers concise and direct
+- Suggest alternative solutions
+- Avoid unnecessary explanations
+- Prioritize technical details over generic advice
