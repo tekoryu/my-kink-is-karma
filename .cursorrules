@@ -3,3 +3,4 @@
 - Suggest alternative solutions
 - Avoid unnecessary explanations
 - Prioritize technical details over generic advice
+- when creating new features, use drf-spectacular when appropriate
