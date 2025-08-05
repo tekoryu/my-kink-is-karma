@@ -133,12 +133,6 @@ STATIC_ROOT = config('STATIC_ROOT', default=BASE_DIR / 'staticfiles')
 MEDIA_URL = config('MEDIA_URL', default='/media/')
 MEDIA_ROOT = config('MEDIA_ROOT', default=BASE_DIR / 'media')
 
-# Handle relative paths for local development
-if not STATIC_ROOT.startswith('/'):
-    STATIC_ROOT = BASE_DIR / STATIC_ROOT
-if not MEDIA_ROOT.startswith('/'):
-    MEDIA_ROOT = BASE_DIR / MEDIA_ROOT
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

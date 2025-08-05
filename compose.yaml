@@ -25,7 +25,8 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
-      - static_volume:/vol/web  
+      - static_volume:/vol/web/static
+      - media_volume:/vol/web/media  
     environment:
       - DEBUG=${DEBUG}
       - SECRET_KEY=${SECRET_KEY}
@@ -35,6 +36,8 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - STATIC_ROOT=${STATIC_ROOT}
+      - MEDIA_ROOT=${MEDIA_ROOT}
     depends_on:
       db:
         condition: service_healthy
