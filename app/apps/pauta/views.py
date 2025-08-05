@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
+from rest_framework.pagination import PageNumberPagination
 from .models import Tema
 from .serializers import TemaSerializer
 
@@ -18,3 +20,5 @@ class TemaViewSet(viewsets.ModelViewSet):
     
     queryset = Tema.objects.all()
     serializer_class = TemaSerializer
+    permission_classes = [AllowAny]  # Allow all operations for now
+    pagination_class = None  # Disable pagination for now
