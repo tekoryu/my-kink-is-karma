@@ -93,16 +93,6 @@ DATABASES = {
     }
 }
 
-# Fallback to SQLite for development if PostgreSQL is not available
-if not DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -125,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'UTC'
 
@@ -142,6 +132,12 @@ STATIC_ROOT = config('STATIC_ROOT', default=BASE_DIR / 'staticfiles')
 
 MEDIA_URL = config('MEDIA_URL', default='/media/')
 MEDIA_ROOT = config('MEDIA_ROOT', default=BASE_DIR / 'media')
+
+# Handle relative paths for local development
+if not STATIC_ROOT.startswith('/'):
+    STATIC_ROOT = BASE_DIR / STATIC_ROOT
+if not MEDIA_ROOT.startswith('/'):
+    MEDIA_ROOT = BASE_DIR / MEDIA_ROOT
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
