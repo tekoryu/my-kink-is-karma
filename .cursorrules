@@ -3,7 +3,7 @@
 - Suggest alternative solutions.
 - Avoid unnecessary explanations.
 - Prioritize technical details over generic advice.
-- when creating new features, use drf-spectacular when appropriate.
+- When creating new models, use drf-spectacular when appropriate and do not forget to register the model in django admin.
 - Never create README files or documentation if not asked to do it. Comments are allowed.
 - Always offer the alternatives before making changes. 
 - Include the (recommended) approach in the list.

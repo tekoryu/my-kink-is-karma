@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tema, Proposicao
+from .models import Tema, Proposicao, HistoricoAtualizacao
 
 
 @admin.register(Tema)
@@ -61,3 +61,31 @@ class ProposicaoAdmin(admin.ModelAdmin):
         return obj.identificador_completo
     identificador_completo.short_description = 'Identificador'
     identificador_completo.admin_order_field = 'tipo'
+
+
+@admin.register(HistoricoAtualizacao)
+class HistoricoAtualizacaoAdmin(admin.ModelAdmin):
+    """
+    Configuração do admin para o modelo HistoricoAtualizacao.
+    
+    Permite visualizar o histórico de atualizações das proposições legislativas.
+    """
+    
+    list_display = ['proposicao', 'data_atualizacao']
+    list_filter = ['data_atualizacao', 'proposicao__tema']
+    search_fields = ['proposicao__tipo', 'proposicao__numero', 'proposicao__tema__nome']
+    ordering = ['-data_atualizacao']
+    readonly_fields = ['data_atualizacao']
+    
+    fieldsets = (
+        ('Proposição', {
+            'fields': ('proposicao',)
+        }),
+        ('Dados da Atualização', {
+            'fields': ('dados_atualizados',)
+        }),
+        ('Metadados', {
+            'fields': ('data_atualizacao',),
+            'classes': ('collapse',)
+        }),
+    )
