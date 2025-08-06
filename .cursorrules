@@ -1,6 +1,7 @@
-- Do not try to run the projects locally. Only through `docker compose --rm app sh -c COMMAND_EXAMPLE`.
-- Keep answers concise and direct
-- Suggest alternative solutions
-- Avoid unnecessary explanations
-- Prioritize technical details over generic advice
-- when creating new features, use drf-spectacular when appropriate
+- Do not try to run the projects locally. Only through `docker compose run --rm app sh -c COMMAND_EXAMPLE`.
+- Keep answers concise and direct.
+- Suggest alternative solutions.
+- Avoid unnecessary explanations.
+- Prioritize technical details over generic advice.
+- when creating new features, use drf-spectacular when appropriate.
+- Never create README files or documentation if not asked to do it. Comments are allowed.

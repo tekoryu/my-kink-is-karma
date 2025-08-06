@@ -1,0 +1,494 @@
+[
+    {
+        "id": 1,
+        "nome": "PROGRAMA NACIONAL DE FORTALECIMENTO DA AGRICULTURA FAMILIAR – PRONAF E PLANO SAFRA DA AGRICULTURA FAMILIAR",
+        "proposicoes": [
+            {
+                "bill_description": "PROGRAMA NACIONAL DE FORTALECIMENTO DA AGRICULTURA FAMILIAR – PRONAF E PLANO SAFRA DA AGRICULTURA FAMILIAR",
+                "proposicao_type": "PL",
+                "identification_number": "4384",
+                "draft_year": "2023"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "nome": "POLÍTICA DE ESTOQUES PÚBLICOS",
+        "proposicoes": [
+            {
+                "bill_description": "POLÍTICA DE ESTOQUES PÚBLICOS",
+                "proposicao_type": "PL",
+                "identification_number": "1384",
+                "draft_year": "2011"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "nome": "REFORMA DA RENDA – ISENÇÃO DE IMPOSTO DE RENDA ATÉ 5 MIL REAIS",
+        "proposicoes": [
+            {
+                "bill_description": "REFORMA DA RENDA – ISENÇÃO DE IMPOSTO DE RENDA ATÉ 5 MIL REAIS",
+                "proposicao_type": "PL",
+                "identification_number": "1087",
+                "draft_year": "2025"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "nome": "COMITÊ GESTOR DO IBS",
+        "proposicoes": [
+            {
+                "bill_description": "COMITÊ GESTOR DO IBS",
+                "proposicao_type": "PLP",
+                "identification_number": "108",
+                "draft_year": "2024"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "nome": "IDADE MÍNIMA DE TRANSFERÊNCIA DOS MILITARES À RESERVA REMUNERADA",
+        "proposicoes": [
+            {
+                "bill_description": "IDADE MÍNIMA DE TRANSFERÊNCIA DOS MILITARES À RESERVA REMUNERADA",
+                "proposicao_type": "PL",
+                "identification_number": "4920",
+                "draft_year": "2024"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "nome": "REABERTURA DO PRAZO DE PARCELAMENTO DE DÍVIDAS PREVIDENCIÁRIAS DOS MUNICÍPIOS",
+        "proposicoes": [
+            {
+                "bill_description": "REABERTURA DO PRAZO DE PARCELAMENTO DE DÍVIDAS PREVIDENCIÁRIAS DOS MUNICÍPIOS",
+                "proposicao_type": "PEC",
+                "identification_number": "66",
+                "draft_year": "2023"
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "nome": "GARANTIA DE SIGILO E NÃO INCIDÊNCIA DE PREÇO SUPERIOR, VALOR OU ENCARGO ADICIONAL SOBRE O PIX",
+        "proposicoes": [
+            {
+                "bill_description": "GARANTIA DE SIGILO E NÃO INCIDÊNCIA DE PREÇO SUPERIOR, VALOR OU ENCARGO ADICIONAL SOBRE O PIX",
+                "proposicao_type": "PL",
+                "identification_number": "365",
+                "draft_year": "2025"
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "nome": "TRANSPARÊNCIA ARBITRAGEM E SISTEMA TUTELA PRIVADA",
+        "proposicoes": [
+            {
+                "bill_description": "TRANSPARÊNCIA ARBITRAGEM E SISTEMA TUTELA PRIVADA",
+                "proposicao_type": "PL",
+                "identification_number": "2925",
+                "draft_year": "2023"
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "nome": "REFORMA DO SETOR ELÉTRICO",
+        "proposicoes": [
+            {
+                "bill_description": "REFORMA DO SETOR ELÉTRICO",
+                "proposicao_type": "MP",
+                "identification_number": "1300",
+                "draft_year": "2025"
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "nome": "MP DO CRÉDITO CONSIGNADO",
+        "proposicoes": [
+            {
+                "bill_description": "MP DO CRÉDITO CONSIGNADO",
+                "proposicao_type": "MP",
+                "identification_number": "1292",
+                "draft_year": "2025"
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "nome": "POLÍTICA NACIONAL DE DESENVOLVIMENTO DA ECONOMIA CRIATIVA (PNDEC)",
+        "proposicoes": [
+            {
+                "bill_description": "POLÍTICA NACIONAL DE DESENVOLVIMENTO DA ECONOMIA CRIATIVA (PNDEC)",
+                "proposicao_type": "PL",
+                "identification_number": "2732",
+                "draft_year": "2022"
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "nome": "PROGRAMA ACREDITA EXPORTAÇÃO",
+        "proposicoes": [
+            {
+                "bill_description": "ACREDITA EXPORTAÇÃO",
+                "proposicao_type": "PLP",
+                "identification_number": "167",
+                "draft_year": "2024"
+            },
+            {
+                "bill_description": "REINTEGRA",
+                "proposicao_type": "PL",
+                "identification_number": "4043",
+                "draft_year": "2024"
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "nome": "LEI DE CONCESSÃO DE SERVIÇOS PÚBLICOS",
+        "proposicoes": [
+            {
+                "bill_description": "LEI DE CONCESSÃO DE SERVIÇOS PÚBLICOS",
+                "proposicao_type": "PL",
+                "identification_number": "7063",
+                "draft_year": "2017"
+            }
+        ]
+    },
+    {
+        "id": 14,
+        "nome": "CONSTITUIÇÃO DE SUBSIDIÁRIAS PELO BNDES - EXPORTAÇÃO DE SERVIÇOS",
+        "proposicoes": [
+            {
+                "bill_description": "CONSTITUIÇÃO DE SUBSIDIÁRIAS PELO BNDES - EXPORTAÇÃO DE SERVIÇOS",
+                "proposicao_type": "PL",
+                "identification_number": "5719",
+                "draft_year": "2023"
+            }
+        ]
+    },
+    {
+        "id": 15,
+        "nome": "POLÍTICA NACIONAL DE ECONOMIA CIRCULAR (PNEC)",
+        "proposicoes": [
+            {
+                "bill_description": "POLÍTICA NACIONAL DE ECONOMIA CIRCULAR (PNEC)",
+                "proposicao_type": "PL",
+                "identification_number": "1874",
+                "draft_year": "2022"
+            }
+        ]
+    },
+    {
+        "id": 16,
+        "nome": "ESTRATÉGIA NACIONAL DE SAÚDE",
+        "proposicoes": [
+            {
+                "bill_description": "ESTRATÉGIA NACIONAL DE SAÚDE",
+                "proposicao_type": "PL",
+                "identification_number": "2583",
+                "draft_year": "2020"
+            },
+            {
+                "bill_description": "INDUSTRIA DE INSUMOS DA SAÚDE",
+                "proposicao_type": "PL",
+                "identification_number": "1505",
+                "draft_year": "2022"
+            }
+        ]
+    },
+    {
+        "id": 17,
+        "nome": "DEVEDOR CONTUMAZ",
+        "proposicoes": [
+            {
+                "bill_description": "DEVEDOR CONTUMAZ",
+                "proposicao_type": "PLP",
+                "identification_number": "125",
+                "draft_year": "2022"
+            },
+            {
+                "bill_description": "NORMAS GERAIS DE PREVENÇÃO DE LÍTIGIO EM MATÉRIA TRIBUTÁRIA",
+                "proposicao_type": "PLP",
+                "identification_number": "124",
+                "draft_year": "2022"
+            },
+            {
+                "bill_description": "DEVEDOR CONTUMAZ",
+                "proposicao_type": "PL",
+                "identification_number": "15",
+                "draft_year": "2024"
+            }
+        ]
+    },
+    {
+        "id": 18,
+        "nome": "INSTITUIÇÕES SISTEMA DE PAGAMENTOS BRASILEIRO",
+        "proposicoes": [
+            {
+                "bill_description": "INSTITUIÇÕES SISTEMA DE PAGAMENTOS BRASILEIRO",
+                "proposicao_type": "PL",
+                "identification_number": "2926",
+                "draft_year": "2023"
+            }
+        ]
+    },
+    {
+        "id": 19,
+        "nome": "REGIME DE RESOLUÇÃO BANCÁRIA",
+        "proposicoes": [
+            {
+                "bill_description": "REGIME DE RESOLUÇÃO BANCÁRIA",
+                "proposicao_type": "PLP",
+                "identification_number": "281",
+                "draft_year": "2019"
+            }
+        ]
+    },
+    {
+        "id": 20,
+        "nome": "DESJUDICIALIZAÇÃO DA EXECUÇÃO CIVIL DE TÍTULO EXECUTIVO JUDICIAL E EXTRAJUDICIAL",
+        "proposicoes": [
+            {
+                "bill_description": "DESJUDICIALIZAÇÃO DA EXECUÇÃO CIVIL DE TÍTULO EXECUTIVO JUDICIAL E EXTRAJUDICIAL",
+                "proposicao_type": "PL",
+                "identification_number": "6204",
+                "draft_year": "2019"
+            }
+        ]
+    },
+    {
+        "id": 21,
+        "nome": "PLANO NACIONAL DE EDUCAÇÃO PARA O DECÊNIO 2024-2034",
+        "proposicoes": [
+            {
+                "bill_description": "PLANO NACIONAL DE EDUCAÇÃO PARA O DECÊNIO 2024-2034",
+                "proposicao_type": "PL",
+                "identification_number": "2614",
+                "draft_year": "2024"
+            }
+        ]
+    },
+    {
+        "id": 22,
+        "nome": "SISTEMA NACIONAL DE EDUCAÇÃO",
+        "proposicoes": [
+            {
+                "bill_description": "SISTEMA NACIONAL DE EDUCAÇÃO",
+                "proposicao_type": "PLP",
+                "identification_number": "235",
+                "draft_year": "2019"
+            }
+        ]
+    },
+    {
+        "id": 23,
+        "nome": "SANÇÕES PENAIS E ADMINISTRATIVAS DERIVADAS DE CONDUTAS E ATIVIDADES LESIVAS AO MEIO AMBIENTE",
+        "proposicoes": [
+            {
+                "bill_description": "SANÇÕES PENAIS E ADMINISTRATIVAS DERIVADAS DE CONDUTAS E ATIVIDADES LESIVAS AO MEIO AMBIENTE",
+                "proposicao_type": "PL",
+                "identification_number": "3339",
+                "draft_year": "2024"
+            }
+        ]
+    },
+    {
+        "id": 24,
+        "nome": "LEI DO PANTANAL",
+        "proposicoes": [
+            {
+                "bill_description": "LEI DO PANTANAL",
+                "proposicao_type": "PL",
+                "identification_number": "2334",
+                "draft_year": "2024"
+            }
+        ]
+    },
+    {
+        "id": 25,
+        "nome": "MAIOR EFETIVIDADE PARA O PLANO DE CONTINGÊNCIA DE PROTEÇÃO E DEFESA CIVIL",
+        "proposicoes": [
+            {
+                "bill_description": "MAIOR EFETIVIDADE PARA O PLANO DE CONTINGÊNCIA DE PROTEÇÃO E DEFESA CIVIL",
+                "proposicao_type": "PL",
+                "identification_number": "636",
+                "draft_year": "2023"
+            }
+        ]
+    },
+    {
+        "id": 26,
+        "nome": "DIRETRIZES DE FOMENTO À CONSTRUÇÃO DE CIDADES RESILIENTES ÀS MUDANÇAS CLIMÁTICAS",
+        "proposicoes": [
+            {
+                "bill_description": "DIRETRIZES DE FOMENTO À CONSTRUÇÃO DE CIDADES RESILIENTES ÀS MUDANÇAS CLIMÁTICAS",
+                "proposicao_type": "PL",
+                "identification_number": "380",
+                "draft_year": "2023"
+            }
+        ]
+    },
+    {
+        "id": 27,
+        "nome": " POLÍTICA NACIONAL PARA O DESENVOLVIMENTO DA ECONOMIA DA BIODIVERSIDADE",
+        "proposicoes": [
+            {
+                "bill_description": " POLÍTICA NACIONAL PARA O DESENVOLVIMENTO DA ECONOMIA DA BIODIVERSIDADE",
+                "proposicao_type": "PL",
+                "identification_number": "1855",
+                "draft_year": "2022"
+            }
+        ]
+    },
+    {
+        "id": 28,
+        "nome": "ACORDO DE ESCAZÚ",
+        "proposicoes": [
+            {
+                "bill_description": "ACORDO DE ESCAZÚ",
+                "proposicao_type": "MSC",
+                "identification_number": "209",
+                "draft_year": "2023"
+            }
+        ]
+    },
+    {
+        "id": 29,
+        "nome": "FUNDO DE REQUALIFICAÇÃO E RECUPERAÇÃO DE INFRAESRTUTURAS AFETADAS POR EVENTOS CLIMÁTICOS EXTREMOS",
+        "proposicoes": [
+            {
+                "bill_description": "FUNDO DE REQUALIFICAÇÃO E RECUPERAÇÃO DE INFRAESRTUTURAS AFETADAS POR EVENTOS CLIMÁTICOS EXTREMOS",
+                "proposicao_type": "PL",
+                "identification_number": "367",
+                "draft_year": "2025"
+            }
+        ]
+    },
+    {
+        "id": 30,
+        "nome": "PROTEÇÃO DE CRIANÇAS E ADOLESCENTES EM AMBIENTES DIGITAIS",
+        "proposicoes": [
+            {
+                "bill_description": "PROTEÇÃO DE CRIANÇAS E ADOLESCENTES EM AMBIENTES DIGITAIS",
+                "proposicao_type": "PL",
+                "identification_number": "2628",
+                "draft_year": "2022"
+            }
+        ]
+    },
+    {
+        "id": 31,
+        "nome": "DIREITO E A GARANTIA FUNDAMENTAL À LIVRE MANIFESTAÇÃO DO PENSAMENTO NA INTERNET",
+        "proposicoes": [
+            {
+                "bill_description": "DIREITO E A GARANTIA FUNDAMENTAL À LIVRE MANIFESTAÇÃO DO PENSAMENTO NA INTERNET",
+                "proposicao_type": "PL",
+                "identification_number": "4691",
+                "draft_year": "2024"
+            }
+        ]
+    },
+    {
+        "id": 32,
+        "nome": "MARCO LEGAL DA INTELIGÊNCIA ARTIFICIAL",
+        "proposicoes": [
+            {
+                "bill_description": "MARCO LEGAL DA INTELIGÊNCIA ARTIFICIAL",
+                "proposicao_type": "PL",
+                "identification_number": "2338",
+                "draft_year": "2022"
+            }
+        ]
+    },
+    {
+        "id": 33,
+        "nome": "PEC DA SEGURANÇA PÚBLICA",
+        "proposicoes": [
+            {
+                "bill_description": "PEC DA SEGURANÇA PÚBLICA",
+                "proposicao_type": "PEC",
+                "identification_number": "18",
+                "draft_year": "2025"
+            }
+        ]
+    },
+    {
+        "id": 34,
+        "nome": "PROTEÇÃO E ACOLHIMENTO DE TRABALHADORAS E TRABALHADORES RESGATADOS DE CONDIÇÃO ANÁLOGA À DE ESCRAVO",
+        "proposicoes": [
+            {
+                "bill_description": "PROTEÇÃO E ACOLHIMENTO DE TRABALHADORAS E TRABALHADORES RESGATADOS DE CONDIÇÃO ANÁLOGA À DE ESCRAVO",
+                "proposicao_type": "PL",
+                "identification_number": "5760",
+                "draft_year": "2023"
+            }
+        ]
+    },
+    {
+        "id": 35,
+        "nome": "ATENDIMENTO DE MULHERES INDÍGENAS VÍTIMAS DE VIOLÊNCIAS",
+        "proposicoes": [
+            {
+                "bill_description": "ATENDIMENTO DE MULHERES INDÍGENAS VÍTIMAS DE VIOLÊNCIAS",
+                "proposicao_type": "PL",
+                "identification_number": "4381",
+                "draft_year": "2023"
+            }
+        ]
+    },
+    {
+        "id": 36,
+        "nome": "RESERVA MÍNIMA DE PARTICIPAÇÃO DE MULHERES EM CONSELHOS DE ADMINISTRAÇÃO",
+        "proposicoes": [
+            {
+                "bill_description": "RESERVA MÍNIMA DE PARTICIPAÇÃO DE MULHERES EM CONSELHOS DE ADMINISTRAÇÃO",
+                "proposicao_type": "PL",
+                "identification_number": "1246",
+                "draft_year": "2021"
+            }
+        ]
+    },
+    {
+        "id": 37,
+        "nome": "CADEIA DO OURO: PARÂMETROS SOBRE A COMERCIALIZAÇÃO DO OURO",
+        "proposicoes": [
+            {
+                "bill_description": "CADEIA DO OURO: PARÂMETROS SOBRE A COMERCIALIZAÇÃO DO OURO",
+                "proposicao_type": "PL",
+                "identification_number": "836",
+                "draft_year": "2021"
+            }
+        ]
+    },
+    {
+        "id": 38,
+        "nome": "MP DO FUNDO SOCIAL PARA ENFRENTAR DESAFIOS SOCIOECONÔMICOS",
+        "proposicoes": [
+            {
+                "bill_description": "MP DO FUNDO SOCIAL PARA ENFRENTAR DESAFIOS SOCIOECONÔMICOS",
+                "proposicao_type": "MP",
+                "identification_number": "1291",
+                "draft_year": "2025"
+            }
+        ]
+    },
+    {
+        "id": 39,
+        "nome": "PROGRAMA AGORA TEM ESPECIALISTAS",
+        "proposicoes": [
+            {
+                "bill_description": "PROGRAMA AGORA TEM ESPECIALISTAS",
+                "proposicao_type": "MP",
+                "identification_number": "1301",
+                "draft_year": "2025"
+            }
+        ]
+    }
+]
