@@ -1,10 +1,12 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.exceptions import ValidationError
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiExample
 from drf_spectacular.types import OpenApiTypes
-from .models import Tema
-from .serializers import TemaSerializer
+from .models import Tema, Proposicao
+from .serializers import TemaSerializer, ProposicaoSerializer
+from .services import validar_e_buscar_dados_iniciais
 
 
 @extend_schema_view(
@@ -65,3 +67,81 @@ class TemaViewSet(viewsets.ModelViewSet):
     serializer_class = TemaSerializer
     permission_classes = [AllowAny]  # Allow all operations for now
     pagination_class = None  # Disable pagination for now
+
+
+@extend_schema_view(
+    list=extend_schema(
+        summary="Listar proposições",
+        description="Retorna uma lista de todas as proposições cadastradas",
+        tags=["proposições"],
+        responses={200: ProposicaoSerializer(many=True)},
+    ),
+    create=extend_schema(
+        summary="Criar proposição",
+        description="Cria uma nova proposição e valida na API externa",
+        tags=["proposições"],
+        request=ProposicaoSerializer,
+        responses={201: ProposicaoSerializer},
+    ),
+    retrieve=extend_schema(
+        summary="Obter proposição",
+        description="Retorna detalhes de uma proposição específica",
+        tags=["proposições"],
+        responses={200: ProposicaoSerializer},
+    ),
+    update=extend_schema(
+        summary="Atualizar proposição",
+        description="Atualiza completamente uma proposição existente",
+        tags=["proposições"],
+        request=ProposicaoSerializer,
+        responses={200: ProposicaoSerializer},
+    ),
+    partial_update=extend_schema(
+        summary="Atualizar proposição parcialmente",
+        description="Atualiza parcialmente uma proposição existente",
+        tags=["proposições"],
+        request=ProposicaoSerializer,
+        responses={200: ProposicaoSerializer},
+    ),
+    destroy=extend_schema(
+        summary="Excluir proposição",
+        description="Remove uma proposição existente",
+        tags=["proposições"],
+        responses={204: None},
+    ),
+)
+class ProposicaoViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet para o modelo Proposicao.
+    
+    Fornece as ações CRUD padrão:
+    - list: GET /api/proposicoes/
+    - create: POST /api/proposicoes/
+    - retrieve: GET /api/proposicoes/{id}/
+    - update: PUT /api/proposicoes/{id}/
+    - partial_update: PATCH /api/proposicoes/{id}/
+    - destroy: DELETE /api/proposicoes/{id}/
+    
+    Na criação, valida a proposição na API externa de forma não-bloqueante.
+    """
+    
+    queryset = Proposicao.objects.all()
+    serializer_class = ProposicaoSerializer
+    permission_classes = [AllowAny]  # Allow all operations for now
+    pagination_class = None  # Disable pagination for now
+    
+    def perform_create(self, serializer):
+        """
+        Salva a proposição e valida na API externa.
+        
+        Se a validação falhar, remove a proposição e levanta ValidationError.
+        """
+        proposicao = serializer.save()
+        
+        # Valida na API externa de forma não-bloqueante
+        if not validar_e_buscar_dados_iniciais(proposicao):
+            # Remove a proposição se a validação falhar
+            proposicao.delete()
+            raise ValidationError(
+                "A proposição não foi encontrada na API pública ou é inválida."
+            )
