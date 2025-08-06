@@ -94,3 +94,37 @@ class Proposicao(models.Model):
             str: Identificador no formato "TIPO NUMERO/ANO"
         """
         return f"{self.tipo} {self.numero}/{self.ano}"
+
+
+class HistoricoAtualizacao(models.Model):
+    """
+    Modelo para rastrear o histórico de atualizações de proposições legislativas.
+    
+    Armazena os dados recebidos da API externa a cada atualização, permitindo
+    acompanhar as mudanças ao longo do tempo e manter um registro completo
+    das alterações nas proposições.
+    """
+    
+    proposicao = models.ForeignKey(
+        Proposicao,
+        on_delete=models.CASCADE,
+        related_name='historicos_atualizacao',
+        help_text="Proposição à qual este histórico pertence"
+    )
+    
+    dados_atualizados = models.JSONField(
+        help_text="Dados recebidos da API externa na atualização"
+    )
+    
+    data_atualizacao = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Data e hora da atualização"
+    )
+    
+    class Meta:
+        verbose_name = "Histórico de Atualização"
+        verbose_name_plural = "Históricos de Atualização"
+        ordering = ['-data_atualizacao']
+    
+    def __str__(self):
+        return f"Atualização de {self.proposicao} em {self.data_atualizacao.strftime('%d/%m/%Y %H:%M')}"

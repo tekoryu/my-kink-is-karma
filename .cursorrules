@@ -3,6 +3,7 @@
 - Suggest alternative solutions.
 - Avoid unnecessary explanations.
 - Prioritize technical details over generic advice.
-- when creating new API endpoints, use drf-spectacular when appropriate.
+- when creating new features, use drf-spectacular when appropriate.
 - Never create README files or documentation if not asked to do it. Comments are allowed.
-- Offer the alternatives before printing any code. Wait for me to choose the desired one before printing code and explaining the alternative. Mark the recommended approach in the list.
+- Always offer the alternatives before making changes. 
+- Include the (recommended) approach in the list.

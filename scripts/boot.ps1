@@ -1,6 +1,6 @@
 $healthCheckUrl = "http://localhost:8000/health"
 $timeoutSeconds = 60
-$pollIntervalSeconds = 40
+$pollIntervalSeconds = 30
 
 
 Write-Host "Tearing down existing services and cleaning up Docker..."
@@ -10,11 +10,12 @@ docker system prune -a -f --volumes
 Write-Host "Building and starting services with 'docker compose up'..."
 docker compose up --build -d # The -d flag is crucial to run in the background
 
-Write-Host "Waiting for the service to become healthy at '$healthCheckUrl'..."
 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 $serviceReady = $false
 
 while ($stopwatch.Elapsed.TotalSeconds -lt $timeoutSeconds) {
+    Write-Host "Waiting for the service to become healthy at '$healthCheckUrl'..."
+    Start-Sleep -Seconds $pollIntervalSeconds
     try {
         $response = Invoke-WebRequest -Uri $healthCheckUrl -UseBasicParsing -ErrorAction Stop
         
@@ -29,8 +30,6 @@ while ($stopwatch.Elapsed.TotalSeconds -lt $timeoutSeconds) {
     catch {
         Write-Host "Waiting for service to respond... Retrying in $pollIntervalSeconds seconds."
     }
-    
-    Start-Sleep -Seconds $pollIntervalSeconds
 }
 
 $stopwatch.Stop()
