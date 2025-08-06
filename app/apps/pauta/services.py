@@ -56,7 +56,6 @@ def consultar_e_salvar_dados_iniciais(proposicao):
         
         # Pegar o primeiro resultado (deve ser único para a combinação tipo/numero/ano)
         dados_proposicao = dados[0]
-        print(dados[0])
 
         # Salvar no histórico de atualização
         HistoricoAtualizacao.objects.create(

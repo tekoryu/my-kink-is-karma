@@ -131,46 +131,43 @@ class Command(BaseCommand):
         
         # Informações básicas
         if 'identificacao' in dados:
-            ident = dados['identificacao']
-            if isinstance(ident, dict):
-                self.stdout.write(f"ID do Processo: {ident.get('id', 'N/A')}")
-                self.stdout.write(f"Identificação: {ident.get('identificacao', 'N/A')}")
-            else:
-                self.stdout.write(f"Identificação: {ident}")
+            self.stdout.write(f"Identificação: {dados['identificacao']}")
+        
+        if 'id' in dados:
+            self.stdout.write(f"ID do Processo: {dados['id']}")
+        
+        if 'codigoMateria' in dados:
+            self.stdout.write(f"Código da Matéria: {dados['codigoMateria']}")
         
         # Ementa
         if 'ementa' in dados:
             ementa = dados['ementa']
-            if isinstance(ementa, dict):
-                texto = ementa.get('texto', 'N/A')
-                self.stdout.write(f"Ementa: {texto[:100]}...")
-            else:
-                self.stdout.write(f"Ementa: {str(ementa)[:100]}...")
+            self.stdout.write(f"Ementa: {str(ementa)[:100]}...")
         
-        # Situação
-        if 'situacao' in dados:
-            situacao = dados['situacao']
-            if isinstance(situacao, dict):
-                self.stdout.write(f"Situação: {situacao.get('descricao', 'N/A')}")
-            else:
-                self.stdout.write(f"Situação: {situacao}")
+        # Tipo de documento
+        if 'tipoDocumento' in dados:
+            self.stdout.write(f"Tipo de Documento: {dados['tipoDocumento']}")
+        
+        # Data de apresentação
+        if 'dataApresentacao' in dados:
+            self.stdout.write(f"Data de Apresentação: {dados['dataApresentacao']}")
         
         # Autoria
         if 'autoria' in dados and dados['autoria']:
-            autores = dados['autoria']
-            if isinstance(autores, list) and len(autores) > 0:
-                primeiro_autor = autores[0]
-                if isinstance(primeiro_autor, dict):
-                    self.stdout.write(f"Primeiro Autor: {primeiro_autor.get('nome', 'N/A')}")
-                else:
-                    self.stdout.write(f"Primeiro Autor: {primeiro_autor}")
+            self.stdout.write(f"Autoria: {dados['autoria']}")
         
-        # Data de apresentação
-        if 'apresentacao' in dados:
-            apresentacao = dados['apresentacao']
-            if isinstance(apresentacao, dict):
-                self.stdout.write(f"Data de Apresentação: {apresentacao.get('data', 'N/A')}")
-            else:
-                self.stdout.write(f"Data de Apresentação: {apresentacao}")
+        # Situação/Tramitação
+        if 'tramitando' in dados:
+            self.stdout.write(f"Tramitando: {dados['tramitando']}")
+        
+        if 'objetivo' in dados:
+            self.stdout.write(f"Objetivo: {dados['objetivo']}")
+        
+        # Última atualização
+        if 'dataUltimaAtualizacao' in dados:
+            self.stdout.write(f"Última Atualização: {dados['dataUltimaAtualizacao']}")
+        
+        if 'ultimaInformacaoAtualizada' in dados:
+            self.stdout.write(f"Última Informação Atualizada: {dados['ultimaInformacaoAtualizada']}")
         
         self.stdout.write('='*50) 
