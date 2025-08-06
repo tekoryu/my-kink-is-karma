@@ -1,6 +1,8 @@
 import requests
 import logging
 from typing import Dict, Optional
+from django.utils import timezone
+from datetime import datetime
 from .models import HistoricoAtualizacao
 
 logger = logging.getLogger(__name__)
@@ -110,7 +112,27 @@ def _atualizar_campos_proposicao(proposicao, dados):
             campos_para_atualizar['tipo_documento'] = dados['tipoDocumento']
         
         if 'dataApresentacao' in dados:
-            campos_para_atualizar['sf_data_apresentacao'] = dados['dataApresentacao']
+            try:
+                # Parse the date string for presentation date
+                if isinstance(dados['dataApresentacao'], str):
+                    # Try different date formats for date only
+                    for fmt in ['%Y-%m-%d', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S']:
+                        try:
+                            parsed_date = datetime.strptime(dados['dataApresentacao'], fmt)
+                            campos_para_atualizar['sf_data_apresentacao'] = parsed_date.date()
+                            break
+                        except ValueError:
+                            continue
+                    else:
+                        logger.warning(f"Could not parse presentation date: {dados['dataApresentacao']}")
+                else:
+                    # If it's already a date/datetime object
+                    if hasattr(dados['dataApresentacao'], 'date'):
+                        campos_para_atualizar['sf_data_apresentacao'] = dados['dataApresentacao'].date()
+                    else:
+                        campos_para_atualizar['sf_data_apresentacao'] = dados['dataApresentacao']
+            except Exception as e:
+                logger.warning(f"Error parsing presentation date {dados['dataApresentacao']}: {e}")
         
         if 'autoria' in dados:
             campos_para_atualizar['sf_autoria'] = dados['autoria']
@@ -122,7 +144,27 @@ def _atualizar_campos_proposicao(proposicao, dados):
             campos_para_atualizar['sf_last_info'] = dados['ultimaInformacaoAtualizada']
         
         if 'dataUltimaAtualizacao' in dados:
-            campos_para_atualizar['sf_lastupdate_date'] = dados['dataUltimaAtualizacao']
+            try:
+                # Parse the date string and make it timezone-aware
+                if isinstance(dados['dataUltimaAtualizacao'], str):
+                    # Try different date formats
+                    for fmt in ['%Y-%m-%d %H:%M:%S.%f', '%Y-%m-%d %H:%M:%S', '%Y-%m-%d']:
+                        try:
+                            parsed_date = datetime.strptime(dados['dataUltimaAtualizacao'], fmt)
+                            campos_para_atualizar['sf_lastupdate_date'] = timezone.make_aware(parsed_date)
+                            break
+                        except ValueError:
+                            continue
+                    else:
+                        # If no format matches, use current timezone
+                        logger.warning(f"Could not parse date: {dados['dataUltimaAtualizacao']}")
+                        campos_para_atualizar['sf_lastupdate_date'] = timezone.now()
+                else:
+                    # If it's already a datetime object, make it timezone-aware
+                    campos_para_atualizar['sf_lastupdate_date'] = timezone.make_aware(dados['dataUltimaAtualizacao'])
+            except Exception as e:
+                logger.warning(f"Error parsing date {dados['dataUltimaAtualizacao']}: {e}")
+                campos_para_atualizar['sf_lastupdate_date'] = timezone.now()
         
         # Atualizar apenas se há campos para atualizar
         if campos_para_atualizar:
