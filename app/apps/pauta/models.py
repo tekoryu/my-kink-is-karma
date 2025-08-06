@@ -66,6 +66,79 @@ class Proposicao(models.Model):
         help_text="Ano da proposição"
     )
     
+    # Campos da API do Senado Federal
+    sf_id = models.BigIntegerField(
+        null=True,
+        blank=True,
+        help_text="ID do processo no sistema do Senado Federal"
+    )
+    
+    sf_codigo_materia = models.BigIntegerField(
+        null=True,
+        blank=True,
+        help_text="Código da matéria no sistema do Senado Federal"
+    )
+    
+    papel_sf = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        help_text="Objetivo do processo no Senado Federal (ex: Revisora)"
+    )
+    
+    tipo_conteudo = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="Tipo de conteúdo do processo (ex: Norma Geral)"
+    )
+    
+    ementa = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Ementa da proposição"
+    )
+    
+    tipo_documento = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="Tipo de documento do processo (ex: Projeto de Lei Ordinária)"
+    )
+    
+    sf_data_apresentacao = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Data de apresentação do processo no Senado Federal"
+    )
+    
+    sf_autoria = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True,
+        help_text="Autoria do processo (ex: Câmara dos Deputados)"
+    )
+    
+    sf_tramitando = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+        help_text="Indica se o processo está tramitando (ex: Sim, Não)"
+    )
+    
+    sf_last_info = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="Última informação atualizada do processo (ex: EVENTO_LEGISLATIVO)"
+    )
+    
+    sf_lastupdate_date = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Data da última atualização do processo no Senado Federal"
+    )
+    
     created_at = models.DateTimeField(
         auto_now_add=True,
         help_text="Data e hora de criação da proposição no sistema"

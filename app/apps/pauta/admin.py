@@ -35,9 +35,9 @@ class ProposicaoAdmin(admin.ModelAdmin):
     Permite gerenciar proposições legislativas associadas a temas específicos.
     """
     
-    list_display = ['identificador_completo', 'tema', 'created_at', 'updated_at']
-    list_filter = ['tema', 'tipo', 'ano', 'created_at', 'updated_at']
-    search_fields = ['tipo', 'numero', 'tema__nome']
+    list_display = ['identificador_completo', 'tema', 'sf_tramitando', 'created_at', 'updated_at']
+    list_filter = ['tema', 'tipo', 'ano', 'sf_tramitando', 'created_at', 'updated_at']
+    search_fields = ['tipo', 'numero', 'tema__nome', 'ementa', 'sf_autoria']
     ordering = ['tema__nome', 'ano', 'numero']
     readonly_fields = ['created_at', 'updated_at']
     
@@ -47,6 +47,18 @@ class ProposicaoAdmin(admin.ModelAdmin):
         }),
         ('Organização', {
             'fields': ('tema',)
+        }),
+        ('Dados da API - Senado Federal', {
+            'fields': (
+                'sf_id', 'sf_codigo_materia', 'papel_sf', 'tipo_conteudo',
+                'tipo_documento', 'sf_data_apresentacao', 'sf_autoria',
+                'sf_tramitando', 'sf_last_info', 'sf_lastupdate_date'
+            ),
+            'classes': ('collapse',)
+        }),
+        ('Conteúdo', {
+            'fields': ('ementa',),
+            'classes': ('collapse',)
         }),
         ('Metadados', {
             'fields': ('created_at', 'updated_at'),
