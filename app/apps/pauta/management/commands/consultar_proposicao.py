@@ -72,7 +72,7 @@ class Command(BaseCommand):
                 )
             else:
                 self.stdout.write(
-                    self.style.SUCCESS('Dados salvos no histórico de atualização')
+                    self.style.SUCCESS('Dados salvos no histórico de atualização e campos da proposição atualizados')
                 )
                 
         except Exception as e:

@@ -57,6 +57,9 @@ def consultar_e_salvar_dados_iniciais(proposicao):
         # Pegar o primeiro resultado (deve ser único para a combinação tipo/numero/ano)
         dados_proposicao = dados[0]
 
+        # Atualizar campos da Proposicao com dados da API
+        _atualizar_campos_proposicao(proposicao, dados_proposicao)
+        
         # Salvar no histórico de atualização
         HistoricoAtualizacao.objects.create(
             proposicao=proposicao,
@@ -73,6 +76,65 @@ def consultar_e_salvar_dados_iniciais(proposicao):
     except Exception as e:
         logger.error(f"Erro inesperado ao consultar API para {proposicao.identificador_completo}: {e}")
         return None
+
+
+def _atualizar_campos_proposicao(proposicao, dados):
+    """
+    Atualiza os campos da Proposicao com dados da API SF.
+    
+    Args:
+        proposicao: Instância do modelo Proposicao
+        dados: Dicionário com dados da API
+    """
+    try:
+        # Mapeamento de campos da API para campos do modelo
+        campos_para_atualizar = {}
+        
+        # Campos básicos
+        if 'id' in dados:
+            campos_para_atualizar['sf_id'] = dados['id']
+        
+        if 'codigoMateria' in dados:
+            campos_para_atualizar['sf_codigo_materia'] = dados['codigoMateria']
+        
+        if 'papel' in dados:
+            campos_para_atualizar['papel_sf'] = dados['papel']
+        
+        if 'tipoConteudo' in dados:
+            campos_para_atualizar['tipo_conteudo'] = dados['tipoConteudo']
+        
+        if 'ementa' in dados:
+            campos_para_atualizar['ementa'] = dados['ementa']
+        
+        if 'tipoDocumento' in dados:
+            campos_para_atualizar['tipo_documento'] = dados['tipoDocumento']
+        
+        if 'dataApresentacao' in dados:
+            campos_para_atualizar['sf_data_apresentacao'] = dados['dataApresentacao']
+        
+        if 'autoria' in dados:
+            campos_para_atualizar['sf_autoria'] = dados['autoria']
+        
+        if 'tramitando' in dados:
+            campos_para_atualizar['sf_tramitando'] = dados['tramitando']
+        
+        if 'ultimaInformacaoAtualizada' in dados:
+            campos_para_atualizar['sf_last_info'] = dados['ultimaInformacaoAtualizada']
+        
+        if 'dataUltimaAtualizacao' in dados:
+            campos_para_atualizar['sf_lastupdate_date'] = dados['dataUltimaAtualizacao']
+        
+        # Atualizar apenas se há campos para atualizar
+        if campos_para_atualizar:
+            for campo, valor in campos_para_atualizar.items():
+                setattr(proposicao, campo, valor)
+            
+            proposicao.save(update_fields=list(campos_para_atualizar.keys()))
+            logger.info(f"Campos atualizados para {proposicao.identificador_completo}: {list(campos_para_atualizar.keys())}")
+        
+    except Exception as e:
+        logger.error(f"Erro ao atualizar campos da proposição {proposicao.identificador_completo}: {e}")
+        raise
 
 def consultar_api_proposicao(proposicao) -> Optional[Dict]:
     """
