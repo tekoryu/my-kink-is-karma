@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='Tema',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nome', models.CharField(help_text='Nome do tema para organização das proposições (ex: Educação, Segurança Pública)', max_length=100, unique=True)),
+                ('nome', models.CharField(help_text='Nome do tema para organização das proposições (ex: Educação, Segurança Pública)', max_length=255, unique=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, help_text='Data e hora de criação do tema')),
                 ('updated_at', models.DateTimeField(auto_now=True, help_text='Data e hora da última atualização do tema')),
             ],
