@@ -107,32 +107,70 @@ class Command(BaseCommand):
         self.stdout.write('RESUMO DOS DADOS')
         self.stdout.write('='*50)
         
+        # Verificar se dados é uma string (XML) ou dict (JSON)
+        if isinstance(dados, str):
+            self.stdout.write("Dados retornados em formato XML/string")
+            self.stdout.write(f"Tamanho da resposta: {len(dados)} caracteres")
+            self.stdout.write("Primeiros 200 caracteres:")
+            self.stdout.write(dados[:200] + "...")
+            return
+        
+        # Verificar se dados é uma lista
+        if isinstance(dados, list):
+            if len(dados) > 0:
+                dados = dados[0]  # Pegar primeiro item
+            else:
+                self.stdout.write("Lista vazia retornada")
+                return
+        
+        # Verificar se dados é um dicionário
+        if not isinstance(dados, dict):
+            self.stdout.write(f"Formato de dados inesperado: {type(dados)}")
+            self.stdout.write(f"Conteúdo: {str(dados)[:200]}...")
+            return
+        
         # Informações básicas
         if 'identificacao' in dados:
             ident = dados['identificacao']
-            self.stdout.write(f"ID do Processo: {ident.get('id', 'N/A')}")
-            self.stdout.write(f"Identificação: {ident.get('identificacao', 'N/A')}")
+            if isinstance(ident, dict):
+                self.stdout.write(f"ID do Processo: {ident.get('id', 'N/A')}")
+                self.stdout.write(f"Identificação: {ident.get('identificacao', 'N/A')}")
+            else:
+                self.stdout.write(f"Identificação: {ident}")
         
         # Ementa
         if 'ementa' in dados:
             ementa = dados['ementa']
-            self.stdout.write(f"Ementa: {ementa.get('texto', 'N/A')[:100]}...")
+            if isinstance(ementa, dict):
+                texto = ementa.get('texto', 'N/A')
+                self.stdout.write(f"Ementa: {texto[:100]}...")
+            else:
+                self.stdout.write(f"Ementa: {str(ementa)[:100]}...")
         
         # Situação
         if 'situacao' in dados:
             situacao = dados['situacao']
-            self.stdout.write(f"Situação: {situacao.get('descricao', 'N/A')}")
+            if isinstance(situacao, dict):
+                self.stdout.write(f"Situação: {situacao.get('descricao', 'N/A')}")
+            else:
+                self.stdout.write(f"Situação: {situacao}")
         
         # Autoria
         if 'autoria' in dados and dados['autoria']:
             autores = dados['autoria']
             if isinstance(autores, list) and len(autores) > 0:
                 primeiro_autor = autores[0]
-                self.stdout.write(f"Primeiro Autor: {primeiro_autor.get('nome', 'N/A')}")
+                if isinstance(primeiro_autor, dict):
+                    self.stdout.write(f"Primeiro Autor: {primeiro_autor.get('nome', 'N/A')}")
+                else:
+                    self.stdout.write(f"Primeiro Autor: {primeiro_autor}")
         
         # Data de apresentação
         if 'apresentacao' in dados:
             apresentacao = dados['apresentacao']
-            self.stdout.write(f"Data de Apresentação: {apresentacao.get('data', 'N/A')}")
+            if isinstance(apresentacao, dict):
+                self.stdout.write(f"Data de Apresentação: {apresentacao.get('data', 'N/A')}")
+            else:
+                self.stdout.write(f"Data de Apresentação: {apresentacao}")
         
         self.stdout.write('='*50) 

@@ -38,8 +38,17 @@ def consultar_e_salvar_dados_iniciais(proposicao):
         response = requests.get(base_url, params=params, headers=headers, timeout=30)
         response.raise_for_status()
         
-        # Parsear resposta JSON
-        dados = response.json()
+        # Verificar o tipo de conteúdo retornado
+        content_type = response.headers.get('content-type', '')
+        
+        if 'application/json' in content_type:
+            # Parsear resposta JSON
+            dados = response.json()
+        else:
+            # Se não for JSON, retornar o texto como está
+            dados = response.text
+            logger.warning(f"API retornou {content_type} em vez de JSON para {proposicao.identificador_completo}")
+            return dados
         
         # Verificar se encontrou dados
         if not dados or not isinstance(dados, list) or len(dados) == 0:

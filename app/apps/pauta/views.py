@@ -6,7 +6,7 @@ from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiPara
 from drf_spectacular.types import OpenApiTypes
 from .models import Tema, Proposicao
 from .serializers import TemaSerializer, ProposicaoSerializer
-from .services import validar_e_buscar_dados_iniciais
+from .services import consultar_e_salvar_dados_iniciais
 
 
 @extend_schema_view(
@@ -138,9 +138,10 @@ class ProposicaoViewSet(viewsets.ModelViewSet):
         """
         proposicao = serializer.save()
         
-        # Valida na API externa de forma não-bloqueante
-        if not validar_e_buscar_dados_iniciais(proposicao):
-            # Remove a proposição se a validação falhar
+        # Consulta dados na API externa de forma não-bloqueante
+        dados = consultar_e_salvar_dados_iniciais(proposicao)
+        if dados is None:
+            # Remove a proposição se a consulta falhar
             proposicao.delete()
             raise ValidationError(
                 "A proposição não foi encontrada na API pública ou é inválida."

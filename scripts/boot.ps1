@@ -1,5 +1,5 @@
 $healthCheckUrl = "http://localhost:8000/health"
-$timeoutSeconds = 60
+$timeoutSeconds = 120
 $pollIntervalSeconds = 30
 
 
