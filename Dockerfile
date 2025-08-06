@@ -10,6 +10,7 @@ COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY ./scripts /scripts
 COPY ./app /app
+COPY ./data /data
 WORKDIR /app
 EXPOSE 8000
 
@@ -35,7 +36,8 @@ RUN python -m venv /py && \
     chown -R django-user:django-user /vol && \
     chown -R django-user:django-user /app && \
     chmod -R 755 /vol && \
-    chmod -R +x /scripts
+    chmod -R +x /scripts && \
+    apk add --no-cache curl
 
 
 ENV PATH="/scripts:/py/bin:$PATH"
