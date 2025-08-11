@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from apps.pauta.services import APISyncService
 import logging
+from apps.core.logging_utils import log_performance, log_error, log_database_operation
 
 logger = logging.getLogger(__name__)
 
@@ -32,49 +33,54 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        import time
+        start_time = time.time()
+        
         from apps.pauta.models import Proposicao
         
         service = APISyncService()
         
-        if options['proposicao_id']:
-            # Sincronizar proposição específica
-            try:
-                proposicao = Proposicao.objects.get(id=options['proposicao_id'])
-                self.stdout.write(f"Sincronizando proposição específica: {proposicao.identificador_completo}")
-                
-                if options['dry_run']:
-                    self.stdout.write("Modo dry-run: não serão feitas alterações no banco")
-                    # Simular busca sem salvar
-                    dados_senado = service.buscar_proposicao_senado(
-                        proposicao.tipo, proposicao.numero, proposicao.ano
-                    )
-                    dados_camara = service.buscar_proposicao_camara(
-                        proposicao.tipo, proposicao.numero, proposicao.ano
-                    )
+        try:
+        
+            if options['proposicao_id']:
+                # Sincronizar proposição específica
+                try:
+                    proposicao = Proposicao.objects.get(id=options['proposicao_id'])
+                    self.stdout.write(f"Sincronizando proposição específica: {proposicao.identificador_completo}")
                     
-                    self.stdout.write(f"Dados Senado: {dados_senado}")
-                    self.stdout.write(f"Dados Câmara: {dados_camara}")
-                else:
-                    success = service.sincronizar_proposicao(proposicao)
-                    if success:
-                        self.stdout.write(
-                            self.style.SUCCESS(f"Proposição {proposicao.identificador_completo} sincronizada com sucesso")
+                    if options['dry_run']:
+                        self.stdout.write("Modo dry-run: não serão feitas alterações no banco")
+                        # Simular busca sem salvar
+                        dados_senado = service.buscar_proposicao_senado(
+                            proposicao.tipo, proposicao.numero, proposicao.ano
                         )
-                    else:
-                        self.stdout.write(
-                            self.style.ERROR(f"Erro ao sincronizar proposição {proposicao.identificador_completo}")
+                        dados_camara = service.buscar_proposicao_camara(
+                            proposicao.tipo, proposicao.numero, proposicao.ano
                         )
                         
-            except Proposicao.DoesNotExist:
-                raise CommandError(f"Proposição com ID {options['proposicao_id']} não encontrada")
-        else:
-            # Sincronizar todas as proposições
-            if options['force']:
-                proposicoes = Proposicao.objects.all()
-                self.stdout.write("Modo force: sincronizando todas as proposições")
+                        self.stdout.write(f"Dados Senado: {dados_senado}")
+                        self.stdout.write(f"Dados Câmara: {dados_camara}")
+                    else:
+                        success = service.sincronizar_proposicao(proposicao)
+                        if success:
+                            self.stdout.write(
+                                self.style.SUCCESS(f"Proposição {proposicao.identificador_completo} sincronizada com sucesso")
+                            )
+                        else:
+                            self.stdout.write(
+                                self.style.ERROR(f"Erro ao sincronizar proposição {proposicao.identificador_completo}")
+                            )
+                            
+                except Proposicao.DoesNotExist:
+                    raise CommandError(f"Proposição com ID {options['proposicao_id']} não encontrada")
             else:
-                proposicoes = Proposicao.objects.filter(ultima_sincronizacao__isnull=True)
-                self.stdout.write("Sincronizando apenas proposições não sincronizadas")
+                # Sincronizar todas as proposições
+                if options['force']:
+                    proposicoes = Proposicao.objects.all()
+                    self.stdout.write("Modo force: sincronizando todas as proposições")
+                else:
+                    proposicoes = Proposicao.objects.filter(ultima_sincronizacao__isnull=True)
+                    self.stdout.write("Sincronizando apenas proposições não sincronizadas")
             
             total = proposicoes.count()
             self.stdout.write(f"Total de proposições a processar: {total}")
@@ -109,3 +115,19 @@ class Command(BaseCommand):
                                 f"Verifique os logs para detalhes dos {stats['erros']} erros"
                             )
                         )
+            
+            # Log performance metrics
+            duration = time.time() - start_time
+            log_performance('sync_proposicoes_command', duration, {
+                'total_processed': total,
+                'force': options['force'],
+                'dry_run': options['dry_run'],
+                'limit': options['limit']
+            })
+            
+        except Exception as e:
+            log_error(e, {
+                'command': 'sync_proposicoes',
+                'options': options
+            })
+            raise

@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiExample
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from apps.core.logging_utils import log_user_action, log_security_event, log_error
 
 
 @extend_schema(
@@ -66,25 +67,45 @@ def login_view(request):
     
     Recebe username e password e retorna informações do usuário se autenticado.
     """
-    username = request.data.get('username')
-    password = request.data.get('password')
-    
-    if not username or not password:
-        return Response(
-            {'error': 'Username e password são obrigatórios'},
-            status=status.HTTP_400_BAD_REQUEST
-        )
-    
-    user = authenticate(username=username, password=password)
-    
-    if user is not None:
-        return Response({
-            'message': 'Usuário autenticado com sucesso',
-            'user_id': user.id,
-            'username': user.username,
-        }, status=status.HTTP_200_OK)
-    else:
-        return Response(
-            {'error': 'Credenciais inválidas'},
-            status=status.HTTP_401_UNAUTHORIZED
-        )
+    try:
+        username = request.data.get('username')
+        password = request.data.get('password')
+        
+        if not username or not password:
+            log_security_event('login_failed', {
+                'reason': 'missing_credentials',
+                'username': username or 'not_provided'
+            })
+            return Response(
+                {'error': 'Username e password são obrigatórios'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            log_user_action(user, 'login_successful', {
+                'ip': request.META.get('REMOTE_ADDR'),
+                'user_agent': request.META.get('HTTP_USER_AGENT', '')
+            })
+            return Response({
+                'message': 'Usuário autenticado com sucesso',
+                'user_id': user.id,
+                'username': user.username,
+            }, status=status.HTTP_200_OK)
+        else:
+            log_security_event('login_failed', {
+                'reason': 'invalid_credentials',
+                'username': username,
+                'ip': request.META.get('REMOTE_ADDR')
+            })
+            return Response(
+                {'error': 'Credenciais inválidas'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+    except Exception as e:
+        log_error(e, {
+            'view': 'login_view',
+            'username': username if 'username' in locals() else 'unknown'
+        })
+        raise

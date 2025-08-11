@@ -1,3 +1,4 @@
+import logging
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.pagination import PageNumberPagination
@@ -11,6 +12,7 @@ from .serializers import (
     TemaSerializer, ProposicaoSerializer,
     EixoReadOnlySerializer, TemaReadOnlySerializer, ProposicaoReadOnlySerializer
 )
+from apps.core.logging_utils import log_database_operation, log_error, log_performance
 
 
 @extend_schema_view(
@@ -71,6 +73,59 @@ class TemaViewSet(viewsets.ModelViewSet):
     serializer_class = TemaSerializer
     permission_classes = [AllowAny]  # Allow all operations for now
     pagination_class = None  # Disable pagination for now
+    
+    def list(self, request, *args, **kwargs):
+        """Override list method to add logging"""
+        try:
+            import time
+            start_time = time.time()
+            
+            response = super().list(request, *args, **kwargs)
+            
+            duration = time.time() - start_time
+            log_performance('tema_list', duration, {'count': len(response.data)})
+            log_database_operation('SELECT', 'Tema', details=f'Retrieved {len(response.data)} temas')
+            
+            return response
+        except Exception as e:
+            log_error(e, {'view': 'TemaViewSet', 'action': 'list'})
+            raise
+    
+    def create(self, request, *args, **kwargs):
+        """Override create method to add logging"""
+        try:
+            response = super().create(request, *args, **kwargs)
+            log_database_operation('INSERT', 'Tema', response.data.get('id'), 
+                                 {'nome': response.data.get('nome')})
+            return response
+        except Exception as e:
+            log_error(e, {'view': 'TemaViewSet', 'action': 'create', 'data': request.data})
+            raise
+    
+    def update(self, request, *args, **kwargs):
+        """Override update method to add logging"""
+        try:
+            response = super().update(request, *args, **kwargs)
+            log_database_operation('UPDATE', 'Tema', response.data.get('id'), 
+                                 {'nome': response.data.get('nome')})
+            return response
+        except Exception as e:
+            log_error(e, {'view': 'TemaViewSet', 'action': 'update', 'data': request.data})
+            raise
+    
+    def destroy(self, request, *args, **kwargs):
+        """Override destroy method to add logging"""
+        try:
+            instance = self.get_object()
+            instance_id = instance.id
+            instance_name = instance.nome
+            
+            response = super().destroy(request, *args, **kwargs)
+            log_database_operation('DELETE', 'Tema', instance_id, {'nome': instance_name})
+            return response
+        except Exception as e:
+            log_error(e, {'view': 'TemaViewSet', 'action': 'destroy'})
+            raise
 
 
 @extend_schema_view(
