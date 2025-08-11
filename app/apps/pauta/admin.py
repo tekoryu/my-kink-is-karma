@@ -60,11 +60,11 @@ class ProposicaoAdmin(admin.ModelAdmin):
     Permite gerenciar proposições legislativas associadas a temas específicos.
     """
     
-    list_display = ['identificador_completo', 'tema', 'created_at', 'updated_at']
-    list_filter = ['tema', 'tipo', 'ano', 'created_at', 'updated_at']
-    search_fields = ['tipo', 'numero', 'tema__nome']
+    list_display = ['identificador_completo', 'tema', 'autor', 'casa_inicial', 'tem_dados_api', 'ultima_sincronizacao']
+    list_filter = ['tema', 'tipo', 'ano', 'casa_inicial', 'ultima_sincronizacao', 'created_at', 'updated_at']
+    search_fields = ['tipo', 'numero', 'tema__nome', 'autor']
     ordering = ['tema__nome', 'ano', 'numero']
-    readonly_fields = ['created_at', 'updated_at']
+    readonly_fields = ['created_at', 'updated_at', 'ultima_sincronizacao', 'erro_sincronizacao']
     
     fieldsets = (
         ('Identificação', {
@@ -72,6 +72,13 @@ class ProposicaoAdmin(admin.ModelAdmin):
         }),
         ('Organização', {
             'fields': ('tema',)
+        }),
+        ('Dados das APIs', {
+            'fields': ('sf_id', 'cd_id', 'autor', 'data_apresentacao', 'casa_inicial')
+        }),
+        ('Sincronização', {
+            'fields': ('ultima_sincronizacao', 'erro_sincronizacao'),
+            'classes': ('collapse',)
         }),
         ('Metadados', {
             'fields': ('created_at', 'updated_at'),
@@ -86,3 +93,11 @@ class ProposicaoAdmin(admin.ModelAdmin):
         return obj.identificador_completo
     identificador_completo.short_description = 'Identificador'
     identificador_completo.admin_order_field = 'tipo'
+    
+    def tem_dados_api(self, obj):
+        """
+        Indica se a proposição possui dados das APIs.
+        """
+        return obj.tem_dados_api
+    tem_dados_api.boolean = True
+    tem_dados_api.short_description = 'Dados API'

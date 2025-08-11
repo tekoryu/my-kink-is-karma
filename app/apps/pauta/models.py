@@ -92,6 +92,11 @@ class Proposicao(models.Model):
     (tipo, número e ano) que a distinguem de outras proposições.
     """
     
+    CASA_CHOICES = [
+        ('CD', 'Câmara dos Deputados'),
+        ('SF', 'Senado Federal'),
+    ]
+    
     tema = models.ForeignKey(
         Tema,
         on_delete=models.CASCADE,
@@ -110,6 +115,54 @@ class Proposicao(models.Model):
     
     ano = models.IntegerField(
         help_text="Ano da proposição"
+    )
+    
+    # Campos para IDs das APIs
+    sf_id = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text="ID da proposição na API do Senado Federal"
+    )
+    
+    cd_id = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text="ID da proposição na API da Câmara dos Deputados"
+    )
+    
+    # Campos para dados básicos
+    autor = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Nome do autor da proposição"
+    )
+    
+    data_apresentacao = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Data de apresentação da proposição"
+    )
+    
+    casa_inicial = models.CharField(
+        max_length=2,
+        choices=CASA_CHOICES,
+        null=True,
+        blank=True,
+        help_text="Casa onde a proposição foi iniciada"
+    )
+    
+    # Campos para controle de sincronização
+    ultima_sincronizacao = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Data e hora da última sincronização com as APIs"
+    )
+    
+    erro_sincronizacao = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Mensagem de erro da última tentativa de sincronização"
     )
     
     created_at = models.DateTimeField(
@@ -140,3 +193,23 @@ class Proposicao(models.Model):
             str: Identificador no formato "TIPO NUMERO/ANO"
         """
         return f"{self.tipo} {self.numero}/{self.ano}"
+    
+    @property
+    def tem_dados_api(self):
+        """
+        Verifica se a proposição possui dados das APIs.
+        
+        Returns:
+            bool: True se possui dados das APIs, False caso contrário
+        """
+        return bool(self.sf_id or self.cd_id)
+    
+    @property
+    def precisa_sincronizar(self):
+        """
+        Verifica se a proposição precisa ser sincronizada com as APIs.
+        
+        Returns:
+            bool: True se precisa sincronizar, False caso contrário
+        """
+        return not self.tem_dados_api or not self.ultima_sincronizacao
