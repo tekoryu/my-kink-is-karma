@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_serializer, OpenApiExample
-from .models import Tema, Proposicao
+from .models import Eixo, Tema, Proposicao
 
 
 @extend_schema_serializer(
@@ -78,3 +78,111 @@ class ProposicaoSerializer(serializers.ModelSerializer):
         model = Proposicao
         fields = ['id', 'tema', 'tipo', 'numero', 'ano']
         read_only_fields = ['id'] 
+
+
+@extend_schema_serializer(
+    examples=[
+        OpenApiExample(
+            'Eixo com temas',
+            value={
+                'id': 1,
+                'nome': 'Desenvolvimento Econômico',
+                'created_at': '2024-01-01T00:00:00Z',
+                'updated_at': '2024-01-01T00:00:00Z',
+                'temas_count': 5
+            },
+            description='Exemplo de um eixo com contagem de temas'
+        ),
+    ]
+)
+class EixoReadOnlySerializer(serializers.ModelSerializer):
+    """
+    Serializer read-only para o modelo Eixo com contagem de temas.
+    """
+    
+    temas_count = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Eixo
+        fields = ['id', 'nome', 'created_at', 'updated_at', 'temas_count']
+        read_only_fields = fields
+    
+    def get_temas_count(self, obj):
+        return obj.temas.count()
+
+
+@extend_schema_serializer(
+    examples=[
+        OpenApiExample(
+            'Tema com eixo e proposições',
+            value={
+                'id': 1,
+                'nome': 'Tecnologia',
+                'eixo_id': 1,
+                'eixo_nome': 'Desenvolvimento Econômico',
+                'proposicoes_count': 10,
+                'created_at': '2024-01-01T00:00:00Z',
+                'updated_at': '2024-01-01T00:00:00Z'
+            },
+            description='Exemplo de um tema com dados do eixo e contagem de proposições'
+        ),
+    ]
+)
+class TemaReadOnlySerializer(serializers.ModelSerializer):
+    """
+    Serializer read-only para o modelo Tema com dados do eixo e contagem de proposições.
+    """
+    
+    eixo_id = serializers.IntegerField(source='eixo.id')
+    eixo_nome = serializers.CharField(source='eixo.nome')
+    proposicoes_count = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Tema
+        fields = ['id', 'nome', 'eixo_id', 'eixo_nome', 'proposicoes_count', 'created_at', 'updated_at']
+        read_only_fields = fields
+    
+    def get_proposicoes_count(self, obj):
+        return obj.proposicoes.count()
+
+
+@extend_schema_serializer(
+    examples=[
+        OpenApiExample(
+            'Proposição completa',
+            value={
+                'id': 1,
+                'tipo': 'PL',
+                'numero': 4381,
+                'ano': 2023,
+                'identificador_completo': 'PL 4381/2023',
+                'tema_id': 1,
+                'tema_nome': 'Tecnologia',
+                'eixo_id': 1,
+                'eixo_nome': 'Desenvolvimento Econômico',
+                'created_at': '2024-01-01T00:00:00Z',
+                'updated_at': '2024-01-01T00:00:00Z'
+            },
+            description='Exemplo de uma proposição com dados completos do tema e eixo'
+        ),
+    ]
+)
+class ProposicaoReadOnlySerializer(serializers.ModelSerializer):
+    """
+    Serializer read-only para o modelo Proposicao com dados completos do tema e eixo.
+    """
+    
+    identificador_completo = serializers.CharField()
+    tema_id = serializers.IntegerField(source='tema.id')
+    tema_nome = serializers.CharField(source='tema.nome')
+    eixo_id = serializers.IntegerField(source='tema.eixo.id')
+    eixo_nome = serializers.CharField(source='tema.eixo.nome')
+    
+    class Meta:
+        model = Proposicao
+        fields = [
+            'id', 'tipo', 'numero', 'ano', 'identificador_completo',
+            'tema_id', 'tema_nome', 'eixo_id', 'eixo_nome',
+            'created_at', 'updated_at'
+        ]
+        read_only_fields = fields 

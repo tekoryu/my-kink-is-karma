@@ -2,10 +2,15 @@ from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import ValidationError
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiExample
 from drf_spectacular.types import OpenApiTypes
-from .models import Tema, Proposicao
-from .serializers import TemaSerializer, ProposicaoSerializer
+from .models import Eixo, Tema, Proposicao
+from .serializers import (
+    TemaSerializer, ProposicaoSerializer,
+    EixoReadOnlySerializer, TemaReadOnlySerializer, ProposicaoReadOnlySerializer
+)
 
 
 @extend_schema_view(
@@ -126,3 +131,104 @@ class ProposicaoViewSet(viewsets.ModelViewSet):
     serializer_class = ProposicaoSerializer
     permission_classes = [AllowAny]  # Allow all operations for now
     pagination_class = None  # Disable pagination for now
+
+
+@extend_schema_view(
+    list=extend_schema(
+        summary="Listar eixos (Power BI)",
+        description="Retorna uma lista de todos os eixos com contagem de temas para Power BI",
+        tags=["power-bi"],
+        responses={200: EixoReadOnlySerializer(many=True)},
+    ),
+    retrieve=extend_schema(
+        summary="Obter eixo (Power BI)",
+        description="Retorna detalhes de um eixo específico com contagem de temas",
+        tags=["power-bi"],
+        responses={200: EixoReadOnlySerializer},
+    ),
+)
+class EixoReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSet read-only para o modelo Eixo otimizado para Power BI.
+    
+    Fornece apenas operações de leitura:
+    - list: GET /api/bi/eixos/
+    - retrieve: GET /api/bi/eixos/{id}/
+    """
+    
+    queryset = Eixo.objects.prefetch_related('temas').all()
+    serializer_class = EixoReadOnlySerializer
+    permission_classes = [AllowAny]
+    pagination_class = None
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['nome']
+    ordering_fields = ['id', 'nome', 'created_at']
+    ordering = ['id']
+
+
+@extend_schema_view(
+    list=extend_schema(
+        summary="Listar temas (Power BI)",
+        description="Retorna uma lista de todos os temas com dados do eixo e contagem de proposições",
+        tags=["power-bi"],
+        responses={200: TemaReadOnlySerializer(many=True)},
+    ),
+    retrieve=extend_schema(
+        summary="Obter tema (Power BI)",
+        description="Retorna detalhes de um tema específico com dados do eixo e contagem de proposições",
+        tags=["power-bi"],
+        responses={200: TemaReadOnlySerializer},
+    ),
+)
+class TemaReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSet read-only para o modelo Tema otimizado para Power BI.
+    
+    Fornece apenas operações de leitura:
+    - list: GET /api/bi/temas/
+    - retrieve: GET /api/bi/temas/{id}/
+    """
+    
+    queryset = Tema.objects.select_related('eixo').prefetch_related('proposicoes').all()
+    serializer_class = TemaReadOnlySerializer
+    permission_classes = [AllowAny]
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['eixo__id', 'eixo__nome']
+    search_fields = ['nome', 'eixo__nome']
+    ordering_fields = ['id', 'nome', 'eixo__id', 'created_at']
+    ordering = ['eixo__id', 'nome']
+
+
+@extend_schema_view(
+    list=extend_schema(
+        summary="Listar proposições (Power BI)",
+        description="Retorna uma lista de todas as proposições com dados completos do tema e eixo",
+        tags=["power-bi"],
+        responses={200: ProposicaoReadOnlySerializer(many=True)},
+    ),
+    retrieve=extend_schema(
+        summary="Obter proposição (Power BI)",
+        description="Retorna detalhes de uma proposição específica com dados completos do tema e eixo",
+        tags=["power-bi"],
+        responses={200: ProposicaoReadOnlySerializer},
+    ),
+)
+class ProposicaoReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSet read-only para o modelo Proposicao otimizado para Power BI.
+    
+    Fornece apenas operações de leitura:
+    - list: GET /api/bi/proposicoes/
+    - retrieve: GET /api/bi/proposicoes/{id}/
+    """
+    
+    queryset = Proposicao.objects.select_related('tema__eixo').all()
+    serializer_class = ProposicaoReadOnlySerializer
+    permission_classes = [AllowAny]
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['tipo', 'ano', 'tema__id', 'tema__nome', 'tema__eixo__id', 'tema__eixo__nome']
+    search_fields = ['tipo', 'tema__nome', 'tema__eixo__nome']
+    ordering_fields = ['id', 'tipo', 'numero', 'ano', 'tema__nome', 'created_at']
+    ordering = ['tema__nome', 'ano', 'numero']

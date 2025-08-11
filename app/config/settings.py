@@ -167,7 +167,9 @@ SPECTACULAR_SETTINGS = {
     'SCHEMA_PATH_PREFIX': '/api/',
     'TAGS': [
         {'name': 'temas', 'description': 'Operações relacionadas aos temas'},
+        {'name': 'proposições', 'description': 'Operações relacionadas às proposições'},
         {'name': 'authentication', 'description': 'Operações de autenticação'},
+        {'name': 'power-bi', 'description': 'Endpoints read-only otimizados para Power BI'},
     ],
 }
 
