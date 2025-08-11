@@ -42,8 +42,7 @@ class Proposicao(models.Model):
     Modelo para representar proposições legislativas que serão monitoradas pelo sistema.
     
     Cada proposição está associada a um tema e possui identificadores únicos
-    (tipo, número e ano) que a distinguem de outras proposições. O sistema
-    monitora o andamento destas proposições através de APIs públicas.
+    (tipo, número e ano) que a distinguem de outras proposições.
     """
     
     tema = models.ForeignKey(
@@ -64,79 +63,6 @@ class Proposicao(models.Model):
     
     ano = models.IntegerField(
         help_text="Ano da proposição"
-    )
-    
-    # Campos da API do Senado Federal
-    sf_id = models.BigIntegerField(
-        null=True,
-        blank=True,
-        help_text="ID do processo no sistema do Senado Federal"
-    )
-    
-    sf_codigo_materia = models.BigIntegerField(
-        null=True,
-        blank=True,
-        help_text="Código da matéria no sistema do Senado Federal"
-    )
-    
-    papel_sf = models.CharField(
-        max_length=50,
-        null=True,
-        blank=True,
-        help_text="Objetivo do processo no Senado Federal (ex: Revisora)"
-    )
-    
-    tipo_conteudo = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        help_text="Tipo de conteúdo do processo (ex: Norma Geral)"
-    )
-    
-    ementa = models.TextField(
-        null=True,
-        blank=True,
-        help_text="Ementa da proposição"
-    )
-    
-    tipo_documento = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        help_text="Tipo de documento do processo (ex: Projeto de Lei Ordinária)"
-    )
-    
-    sf_data_apresentacao = models.DateField(
-        null=True,
-        blank=True,
-        help_text="Data de apresentação do processo no Senado Federal"
-    )
-    
-    sf_autoria = models.CharField(
-        max_length=200,
-        null=True,
-        blank=True,
-        help_text="Autoria do processo (ex: Câmara dos Deputados)"
-    )
-    
-    sf_tramitando = models.CharField(
-        max_length=10,
-        null=True,
-        blank=True,
-        help_text="Indica se o processo está tramitando (ex: Sim, Não)"
-    )
-    
-    sf_last_info = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        help_text="Última informação atualizada do processo (ex: EVENTO_LEGISLATIVO)"
-    )
-    
-    sf_lastupdate_date = models.DateTimeField(
-        null=True,
-        blank=True,
-        help_text="Data da última atualização do processo no Senado Federal"
     )
     
     created_at = models.DateTimeField(
@@ -167,37 +93,3 @@ class Proposicao(models.Model):
             str: Identificador no formato "TIPO NUMERO/ANO"
         """
         return f"{self.tipo} {self.numero}/{self.ano}"
-
-
-class HistoricoAtualizacao(models.Model):
-    """
-    Modelo para rastrear o histórico de atualizações de proposições legislativas.
-    
-    Armazena os dados recebidos da API externa a cada atualização, permitindo
-    acompanhar as mudanças ao longo do tempo e manter um registro completo
-    das alterações nas proposições.
-    """
-    
-    proposicao = models.ForeignKey(
-        Proposicao,
-        on_delete=models.CASCADE,
-        related_name='historicos_atualizacao',
-        help_text="Proposição à qual este histórico pertence"
-    )
-    
-    dados_atualizados = models.JSONField(
-        help_text="Dados recebidos da API externa na atualização"
-    )
-    
-    data_atualizacao = models.DateTimeField(
-        auto_now_add=True,
-        help_text="Data e hora da atualização"
-    )
-    
-    class Meta:
-        verbose_name = "Histórico de Atualização"
-        verbose_name_plural = "Históricos de Atualização"
-        ordering = ['-data_atualizacao']
-    
-    def __str__(self):
-        return f"Atualização de {self.proposicao} em {self.data_atualizacao.strftime('%d/%m/%Y %H:%M')}"

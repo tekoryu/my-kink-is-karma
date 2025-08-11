@@ -44,20 +44,9 @@ class TemaSerializer(serializers.ModelSerializer):
                 'tema': 1,
                 'tipo': 'PL',
                 'numero': 4381,
-                'ano': 2023,
-                'sf_id': 8797561,
-                'sf_codigo_materia': 167384,
-                'papel_sf': 'Revisora',
-                'tipo_conteudo': 'Norma Geral',
-                'ementa': 'Estabelece medidas a serem adotadas pelas delegacias de polícia...',
-                'tipo_documento': 'Projeto de Lei Ordinária',
-                'sf_data_apresentacao': '2025-02-26',
-                'sf_autoria': 'Câmara dos Deputados',
-                'sf_tramitando': 'Sim',
-                'sf_last_info': 'EVENTO_LEGISLATIVO',
-                'sf_lastupdate_date': '2025-07-03T16:39:41.242'
+                'ano': 2023
             },
-            description='Exemplo de uma proposição válida com dados da API do Senado Federal'
+            description='Exemplo de uma proposição válida'
         ),
         OpenApiExample(
             'Criação de proposição',
@@ -67,7 +56,7 @@ class TemaSerializer(serializers.ModelSerializer):
                 'numero': 4381,
                 'ano': 2023
             },
-            description='Exemplo para criação de uma nova proposição (campos obrigatórios)'
+            description='Exemplo para criação de uma nova proposição'
         ),
     ]
 )
@@ -75,7 +64,7 @@ class ProposicaoSerializer(serializers.ModelSerializer):
     """
     Serializer para o modelo Proposicao.
     
-    Expõe os campos básicos e os dados da API do Senado Federal para operações CRUD.
+    Expõe os campos básicos para operações CRUD.
     O campo tema é um PrimaryKeyRelatedField para permitir associação
     direta via ID do tema.
     """
@@ -87,10 +76,5 @@ class ProposicaoSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Proposicao
-        fields = [
-            'id', 'tema', 'tipo', 'numero', 'ano',
-            'sf_id', 'sf_codigo_materia', 'papel_sf', 'tipo_conteudo',
-            'ementa', 'tipo_documento', 'sf_data_apresentacao', 'sf_autoria',
-            'sf_tramitando', 'sf_last_info', 'sf_lastupdate_date'
-        ]
+        fields = ['id', 'tema', 'tipo', 'numero', 'ano']
         read_only_fields = ['id'] 

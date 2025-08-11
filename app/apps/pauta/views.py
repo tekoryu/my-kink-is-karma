@@ -6,7 +6,6 @@ from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiPara
 from drf_spectacular.types import OpenApiTypes
 from .models import Tema, Proposicao
 from .serializers import TemaSerializer, ProposicaoSerializer
-from .services import consultar_e_salvar_dados_iniciais
 
 
 @extend_schema_view(
@@ -78,7 +77,7 @@ class TemaViewSet(viewsets.ModelViewSet):
     ),
     create=extend_schema(
         summary="Criar proposição",
-        description="Cria uma nova proposição e valida na API externa",
+        description="Cria uma nova proposição",
         tags=["proposições"],
         request=ProposicaoSerializer,
         responses={201: ProposicaoSerializer},
@@ -121,28 +120,9 @@ class ProposicaoViewSet(viewsets.ModelViewSet):
     - update: PUT /api/proposicoes/{id}/
     - partial_update: PATCH /api/proposicoes/{id}/
     - destroy: DELETE /api/proposicoes/{id}/
-    
-    Na criação, valida a proposição na API externa de forma não-bloqueante.
     """
     
     queryset = Proposicao.objects.all()
     serializer_class = ProposicaoSerializer
     permission_classes = [AllowAny]  # Allow all operations for now
     pagination_class = None  # Disable pagination for now
-    
-    def perform_create(self, serializer):
-        """
-        Salva a proposição e valida na API externa.
-        
-        Se a validação falhar, remove a proposição e levanta ValidationError.
-        """
-        proposicao = serializer.save()
-        
-        # Consulta dados na API externa de forma não-bloqueante
-        dados = consultar_e_salvar_dados_iniciais(proposicao)
-        if dados is None:
-            # Remove a proposição se a consulta falhar
-            proposicao.delete()
-            raise ValidationError(
-                "A proposição não foi encontrada na API pública ou é inválida."
-            )
