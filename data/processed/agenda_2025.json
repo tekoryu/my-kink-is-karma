@@ -1,199 +1,229 @@
 {
-  "temas": [
+  "eixos": [
     {
-      "nome": "PROGRAMA NACIONAL DE FORTALECIMENTO DA AGRICULTURA FAMILIAR – PRONAF E PLANO SAFRA DA AGRICULTURA FAMILIAR",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
+      "id": 1,
+      "nome": "Agenda econômica para um Brasil mais justo",
+      "temas": [
+        {
+          "nome": "PROGRAMA NACIONAL DE FORTALECIMENTO DA AGRICULTURA FAMILIAR – PRONAF E PLANO SAFRA DA AGRICULTURA FAMILIAR",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "POLÍTICA DE ESTOQUES PÚBLICOS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "REFORMA DA RENDA – ISENÇÃO DE IMPOSTO DE RENDA ATÉ 5 MIL REAIS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "COMITÊ GESTOR DO IBS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "IDADE MÍNIMA DE TRANSFERÊNCIA DOS MILITARES À RESERVA REMUNERADA",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "REABERTURA DO PRAZO DE PARCELAMENTO DE DÍVIDAS PREVIDENCIÁRIAS DOS MUNICÍPIOS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "GARANTIA DE SIGILO E NÃO INCIDÊNCIA DE PREÇO SUPERIOR, VALOR OU ENCARGO ADICIONAL SOBRE O PIX",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "TRANSPARÊNCIA ARBITRAGEM E SISTEMA TUTELA PRIVADA",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "REFORMA DO SETOR ELÉTRICO",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        }
+      ]
     },
     {
-      "nome": "POLÍTICA DE ESTOQUES PÚBLICOS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
+      "id": 2,
+      "nome": "Estímulo ao empreendedorismo e ao investimento",
+      "temas": [
+        {
+          "nome": "MP DO CRÉDITO CONSIGNADO",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "POLÍTICA NACIONAL DE DESENVOLVIMENTO DA ECONOMIA CRIATIVA (PNDEC)",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "PROGRAMA ACREDITA EXPORTAÇÃO",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "LEI DE CONCESSÃO DE SERVIÇOS PÚBLICOS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "CONSTITUIÇÃO DE SUBSIDIÁRIAS PELO BNDES - EXPORTAÇÃO DE SERVIÇOS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "POLÍTICA NACIONAL DE ECONOMIA CIRCULAR (PNEC)",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "ESTRATÉGIA NACIONAL DE SAÚDE",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "DEVEDOR CONTUMAZ",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "INSTITUIÇÕES SISTEMA DE PAGAMENTOS BRASILEIRO",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "REGIME DE RESOLUÇÃO BANCÁRIA",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "DESJUDICIALIZAÇÃO DA EXECUÇÃO CIVIL DE TÍTULO EXECUTIVO JUDICIAL E EXTRAJUDICIAL",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        }
+      ]
     },
     {
-      "nome": "REFORMA DA RENDA – ISENÇÃO DE IMPOSTO DE RENDA ATÉ 5 MIL REAIS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
+      "id": 3,
+      "nome": "Desenvolvimento Sustentável e Educação",
+      "temas": [
+        {
+          "nome": "PLANO NACIONAL DE EDUCAÇÃO PARA O DECÊNIO 2024-2034",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "SISTEMA NACIONAL DE EDUCAÇÃO",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "SANÇÕES PENAIS E ADMINISTRATIVAS DERIVADAS DE CONDUTAS E ATIVIDADES LESIVAS AO MEIO AMBIENTE",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "LEI DO PANTANAL",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "MAIOR EFETIVIDADE PARA O PLANO DE CONTINGÊNCIA DE PROTEÇÃO E DEFESA CIVIL",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "DIRETRIZES DE FOMENTO À CONSTRUÇÃO DE CIDADES RESILIENTES ÀS MUDANÇAS CLIMÁTICAS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": " POLÍTICA NACIONAL PARA O DESENVOLVIMENTO DA ECONOMIA DA BIODIVERSIDADE",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "ACORDO DE ESCAZÚ",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "FUNDO DE REQUALIFICAÇÃO E RECUPERAÇÃO DE INFRAESRTUTURAS AFETADAS POR EVENTOS CLIMÁTICOS EXTREMOS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        }
+      ]
     },
     {
-      "nome": "COMITÊ GESTOR DO IBS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
+      "id": 4,
+      "nome": "Proteção às famílias e aos negócios no ambiente digital",
+      "temas": [
+        {
+          "nome": "PROTEÇÃO DE CRIANÇAS E ADOLESCENTES EM AMBIENTES DIGITAIS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "DIREITO E A GARANTIA FUNDAMENTAL À LIVRE MANIFESTAÇÃO DO PENSAMENTO NA INTERNET",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "MARCO LEGAL DA INTELIGÊNCIA ARTIFICIAL",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        }
+      ]
     },
     {
-      "nome": "IDADE MÍNIMA DE TRANSFERÊNCIA DOS MILITARES À RESERVA REMUNERADA",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "REABERTURA DO PRAZO DE PARCELAMENTO DE DÍVIDAS PREVIDENCIÁRIAS DOS MUNICÍPIOS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "GARANTIA DE SIGILO E NÃO INCIDÊNCIA DE PREÇO SUPERIOR, VALOR OU ENCARGO ADICIONAL SOBRE O PIX",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "TRANSPARÊNCIA ARBITRAGEM E SISTEMA TUTELA PRIVADA",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "REFORMA DO SETOR ELÉTRICO",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "MP DO CRÉDITO CONSIGNADO",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "POLÍTICA NACIONAL DE DESENVOLVIMENTO DA ECONOMIA CRIATIVA (PNDEC)",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "PROGRAMA ACREDITA EXPORTAÇÃO",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "LEI DE CONCESSÃO DE SERVIÇOS PÚBLICOS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "CONSTITUIÇÃO DE SUBSIDIÁRIAS PELO BNDES - EXPORTAÇÃO DE SERVIÇOS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "POLÍTICA NACIONAL DE ECONOMIA CIRCULAR (PNEC)",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "ESTRATÉGIA NACIONAL DE SAÚDE",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "DEVEDOR CONTUMAZ",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "INSTITUIÇÕES SISTEMA DE PAGAMENTOS BRASILEIRO",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "REGIME DE RESOLUÇÃO BANCÁRIA",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "DESJUDICIALIZAÇÃO DA EXECUÇÃO CIVIL DE TÍTULO EXECUTIVO JUDICIAL E EXTRAJUDICIAL",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "PLANO NACIONAL DE EDUCAÇÃO PARA O DECÊNIO 2024-2034",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "SISTEMA NACIONAL DE EDUCAÇÃO",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "SANÇÕES PENAIS E ADMINISTRATIVAS DERIVADAS DE CONDUTAS E ATIVIDADES LESIVAS AO MEIO AMBIENTE",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "LEI DO PANTANAL",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "MAIOR EFETIVIDADE PARA O PLANO DE CONTINGÊNCIA DE PROTEÇÃO E DEFESA CIVIL",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "DIRETRIZES DE FOMENTO À CONSTRUÇÃO DE CIDADES RESILIENTES ÀS MUDANÇAS CLIMÁTICAS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": " POLÍTICA NACIONAL PARA O DESENVOLVIMENTO DA ECONOMIA DA BIODIVERSIDADE",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "ACORDO DE ESCAZÚ",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "FUNDO DE REQUALIFICAÇÃO E RECUPERAÇÃO DE INFRAESRTUTURAS AFETADAS POR EVENTOS CLIMÁTICOS EXTREMOS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "PROTEÇÃO DE CRIANÇAS E ADOLESCENTES EM AMBIENTES DIGITAIS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "DIREITO E A GARANTIA FUNDAMENTAL À LIVRE MANIFESTAÇÃO DO PENSAMENTO NA INTERNET",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "MARCO LEGAL DA INTELIGÊNCIA ARTIFICIAL",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "PEC DA SEGURANÇA PÚBLICA",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "PROTEÇÃO E ACOLHIMENTO DE TRABALHADORAS E TRABALHADORES RESGATADOS DE CONDIÇÃO ANÁLOGA À DE ESCRAVO",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "ATENDIMENTO DE MULHERES INDÍGENAS VÍTIMAS DE VIOLÊNCIAS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "RESERVA MÍNIMA DE PARTICIPAÇÃO DE MULHERES EM CONSELHOS DE ADMINISTRAÇÃO",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "CADEIA DO OURO: PARÂMETROS SOBRE A COMERCIALIZAÇÃO DO OURO",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "MP DO FUNDO SOCIAL PARA ENFRENTAR DESAFIOS SOCIOECONÔMICOS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
-    },
-    {
-      "nome": "PROGRAMA AGORA TEM ESPECIALISTAS",
-      "created_at": "2024-01-01T00:00:00Z",
-      "updated_at": "2024-12-19T00:00:00Z"
+      "id": 5,
+      "nome": "Justiça social",
+      "temas": [
+        {
+          "nome": "PEC DA SEGURANÇA PÚBLICA",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "PROTEÇÃO E ACOLHIMENTO DE TRABALHADORAS E TRABALHADORES RESGATADOS DE CONDIÇÃO ANÁLOGA À DE ESCRAVO",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "ATENDIMENTO DE MULHERES INDÍGENAS VÍTIMAS DE VIOLÊNCIAS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "RESERVA MÍNIMA DE PARTICIPAÇÃO DE MULHERES EM CONSELHOS DE ADMINISTRAÇÃO",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "CADEIA DO OURO: PARÂMETROS SOBRE A COMERCIALIZAÇÃO DO OURO",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "MP DO FUNDO SOCIAL PARA ENFRENTAR DESAFIOS SOCIOECONÔMICOS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        },
+        {
+          "nome": "PROGRAMA AGORA TEM ESPECIALISTAS",
+          "created_at": "2024-01-01T00:00:00Z",
+          "updated_at": "2024-12-19T00:00:00Z"
+        }
+      ]
     }
   ],
   "proposicoes": [
@@ -542,4 +572,4 @@
       "updated_at": "2024-12-19T00:00:00Z"
     }
   ]
-} 
+}
