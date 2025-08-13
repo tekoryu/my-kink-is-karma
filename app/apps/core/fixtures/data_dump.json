@@ -1,0 +1,1668 @@
+[
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 4,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 5,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 6,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add Tema",
+        "content_type": 7,
+        "codename": "add_tema"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change Tema",
+        "content_type": 7,
+        "codename": "change_tema"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete Tema",
+        "content_type": 7,
+        "codename": "delete_tema"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view Tema",
+        "content_type": 7,
+        "codename": "view_tema"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add Proposição",
+        "content_type": 8,
+        "codename": "add_proposicao"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change Proposição",
+        "content_type": 8,
+        "codename": "change_proposicao"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete Proposição",
+        "content_type": 8,
+        "codename": "delete_proposicao"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view Proposição",
+        "content_type": 8,
+        "codename": "view_proposicao"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add Eixo",
+        "content_type": 9,
+        "codename": "add_eixo"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change Eixo",
+        "content_type": 9,
+        "codename": "change_eixo"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete Eixo",
+        "content_type": 9,
+        "codename": "delete_eixo"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view Eixo",
+        "content_type": 9,
+        "codename": "view_eixo"
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$ann2RynKQ9ZcdS5sQeQp05$3iWEA1A/6zKffdPnpvU5vfwLZggRUXRdD7XXmzSQtjU=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "tekoryu",
+        "first_name": "",
+        "last_name": "",
+        "email": "chedou@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-08-13T13:56:32.707Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "pauta",
+        "model": "tema"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "pauta",
+        "model": "proposicao"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "pauta",
+        "model": "eixo"
+    }
+},
+{
+    "model": "pauta.eixo",
+    "pk": 1,
+    "fields": {
+        "nome": "Agenda econômica para um Brasil mais justo",
+        "created_at": "2025-08-13T13:56:05.267Z",
+        "updated_at": "2025-08-13T13:56:05.267Z"
+    }
+},
+{
+    "model": "pauta.eixo",
+    "pk": 2,
+    "fields": {
+        "nome": "Estímulo ao empreendedorismo e ao investimento",
+        "created_at": "2025-08-13T13:56:05.293Z",
+        "updated_at": "2025-08-13T13:56:05.293Z"
+    }
+},
+{
+    "model": "pauta.eixo",
+    "pk": 3,
+    "fields": {
+        "nome": "Desenvolvimento Sustentável e Educação",
+        "created_at": "2025-08-13T13:56:05.321Z",
+        "updated_at": "2025-08-13T13:56:05.321Z"
+    }
+},
+{
+    "model": "pauta.eixo",
+    "pk": 4,
+    "fields": {
+        "nome": "Proteção às famílias e aos negócios no ambiente digital",
+        "created_at": "2025-08-13T13:56:05.343Z",
+        "updated_at": "2025-08-13T13:56:05.343Z"
+    }
+},
+{
+    "model": "pauta.eixo",
+    "pk": 5,
+    "fields": {
+        "nome": "Justiça social",
+        "created_at": "2025-08-13T13:56:05.354Z",
+        "updated_at": "2025-08-13T13:56:05.354Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 1,
+    "fields": {
+        "eixo": 1,
+        "nome": "PROGRAMA NACIONAL DE FORTALECIMENTO DA AGRICULTURA FAMILIAR – PRONAF E PLANO SAFRA DA AGRICULTURA FAMILIAR",
+        "created_at": "2025-08-13T13:56:05.272Z",
+        "updated_at": "2025-08-13T13:56:05.272Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 2,
+    "fields": {
+        "eixo": 1,
+        "nome": "POLÍTICA DE ESTOQUES PÚBLICOS",
+        "created_at": "2025-08-13T13:56:05.275Z",
+        "updated_at": "2025-08-13T13:56:05.275Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 3,
+    "fields": {
+        "eixo": 1,
+        "nome": "REFORMA DA RENDA – ISENÇÃO DE IMPOSTO DE RENDA ATÉ 5 MIL REAIS",
+        "created_at": "2025-08-13T13:56:05.277Z",
+        "updated_at": "2025-08-13T13:56:05.277Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 4,
+    "fields": {
+        "eixo": 1,
+        "nome": "COMITÊ GESTOR DO IBS",
+        "created_at": "2025-08-13T13:56:05.279Z",
+        "updated_at": "2025-08-13T13:56:05.279Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 5,
+    "fields": {
+        "eixo": 1,
+        "nome": "IDADE MÍNIMA DE TRANSFERÊNCIA DOS MILITARES À RESERVA REMUNERADA",
+        "created_at": "2025-08-13T13:56:05.281Z",
+        "updated_at": "2025-08-13T13:56:05.281Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 6,
+    "fields": {
+        "eixo": 1,
+        "nome": "REABERTURA DO PRAZO DE PARCELAMENTO DE DÍVIDAS PREVIDENCIÁRIAS DOS MUNICÍPIOS",
+        "created_at": "2025-08-13T13:56:05.283Z",
+        "updated_at": "2025-08-13T13:56:05.283Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 7,
+    "fields": {
+        "eixo": 1,
+        "nome": "GARANTIA DE SIGILO E NÃO INCIDÊNCIA DE PREÇO SUPERIOR, VALOR OU ENCARGO ADICIONAL SOBRE O PIX",
+        "created_at": "2025-08-13T13:56:05.286Z",
+        "updated_at": "2025-08-13T13:56:05.286Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 8,
+    "fields": {
+        "eixo": 1,
+        "nome": "TRANSPARÊNCIA ARBITRAGEM E SISTEMA TUTELA PRIVADA",
+        "created_at": "2025-08-13T13:56:05.288Z",
+        "updated_at": "2025-08-13T13:56:05.288Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 9,
+    "fields": {
+        "eixo": 1,
+        "nome": "REFORMA DO SETOR ELÉTRICO",
+        "created_at": "2025-08-13T13:56:05.290Z",
+        "updated_at": "2025-08-13T13:56:05.290Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 10,
+    "fields": {
+        "eixo": 2,
+        "nome": "MP DO CRÉDITO CONSIGNADO",
+        "created_at": "2025-08-13T13:56:05.295Z",
+        "updated_at": "2025-08-13T13:56:05.295Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 11,
+    "fields": {
+        "eixo": 2,
+        "nome": "POLÍTICA NACIONAL DE DESENVOLVIMENTO DA ECONOMIA CRIATIVA (PNDEC)",
+        "created_at": "2025-08-13T13:56:05.297Z",
+        "updated_at": "2025-08-13T13:56:05.297Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 12,
+    "fields": {
+        "eixo": 2,
+        "nome": "PROGRAMA ACREDITA EXPORTAÇÃO",
+        "created_at": "2025-08-13T13:56:05.299Z",
+        "updated_at": "2025-08-13T13:56:05.299Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 13,
+    "fields": {
+        "eixo": 2,
+        "nome": "LEI DE CONCESSÃO DE SERVIÇOS PÚBLICOS",
+        "created_at": "2025-08-13T13:56:05.301Z",
+        "updated_at": "2025-08-13T13:56:05.301Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 14,
+    "fields": {
+        "eixo": 2,
+        "nome": "CONSTITUIÇÃO DE SUBSIDIÁRIAS PELO BNDES - EXPORTAÇÃO DE SERVIÇOS",
+        "created_at": "2025-08-13T13:56:05.304Z",
+        "updated_at": "2025-08-13T13:56:05.304Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 15,
+    "fields": {
+        "eixo": 2,
+        "nome": "POLÍTICA NACIONAL DE ECONOMIA CIRCULAR (PNEC)",
+        "created_at": "2025-08-13T13:56:05.307Z",
+        "updated_at": "2025-08-13T13:56:05.307Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 16,
+    "fields": {
+        "eixo": 2,
+        "nome": "ESTRATÉGIA NACIONAL DE SAÚDE",
+        "created_at": "2025-08-13T13:56:05.309Z",
+        "updated_at": "2025-08-13T13:56:05.309Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 17,
+    "fields": {
+        "eixo": 2,
+        "nome": "DEVEDOR CONTUMAZ",
+        "created_at": "2025-08-13T13:56:05.311Z",
+        "updated_at": "2025-08-13T13:56:05.311Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 18,
+    "fields": {
+        "eixo": 2,
+        "nome": "INSTITUIÇÕES SISTEMA DE PAGAMENTOS BRASILEIRO",
+        "created_at": "2025-08-13T13:56:05.314Z",
+        "updated_at": "2025-08-13T13:56:05.314Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 19,
+    "fields": {
+        "eixo": 2,
+        "nome": "REGIME DE RESOLUÇÃO BANCÁRIA",
+        "created_at": "2025-08-13T13:56:05.316Z",
+        "updated_at": "2025-08-13T13:56:05.316Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 20,
+    "fields": {
+        "eixo": 2,
+        "nome": "DESJUDICIALIZAÇÃO DA EXECUÇÃO CIVIL DE TÍTULO EXECUTIVO JUDICIAL E EXTRAJUDICIAL",
+        "created_at": "2025-08-13T13:56:05.318Z",
+        "updated_at": "2025-08-13T13:56:05.318Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 21,
+    "fields": {
+        "eixo": 3,
+        "nome": "PLANO NACIONAL DE EDUCAÇÃO PARA O DECÊNIO 2024-2034",
+        "created_at": "2025-08-13T13:56:05.323Z",
+        "updated_at": "2025-08-13T13:56:05.323Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 22,
+    "fields": {
+        "eixo": 3,
+        "nome": "SISTEMA NACIONAL DE EDUCAÇÃO",
+        "created_at": "2025-08-13T13:56:05.325Z",
+        "updated_at": "2025-08-13T13:56:05.325Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 23,
+    "fields": {
+        "eixo": 3,
+        "nome": "SANÇÕES PENAIS E ADMINISTRATIVAS DERIVADAS DE CONDUTAS E ATIVIDADES LESIVAS AO MEIO AMBIENTE",
+        "created_at": "2025-08-13T13:56:05.327Z",
+        "updated_at": "2025-08-13T13:56:05.327Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 24,
+    "fields": {
+        "eixo": 3,
+        "nome": "LEI DO PANTANAL",
+        "created_at": "2025-08-13T13:56:05.329Z",
+        "updated_at": "2025-08-13T13:56:05.329Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 25,
+    "fields": {
+        "eixo": 3,
+        "nome": "MAIOR EFETIVIDADE PARA O PLANO DE CONTINGÊNCIA DE PROTEÇÃO E DEFESA CIVIL",
+        "created_at": "2025-08-13T13:56:05.332Z",
+        "updated_at": "2025-08-13T13:56:05.332Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 26,
+    "fields": {
+        "eixo": 3,
+        "nome": "DIRETRIZES DE FOMENTO À CONSTRUÇÃO DE CIDADES RESILIENTES ÀS MUDANÇAS CLIMÁTICAS",
+        "created_at": "2025-08-13T13:56:05.334Z",
+        "updated_at": "2025-08-13T13:56:05.334Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 27,
+    "fields": {
+        "eixo": 3,
+        "nome": "POLÍTICA NACIONAL PARA O DESENVOLVIMENTO DA ECONOMIA DA BIODIVERSIDADE",
+        "created_at": "2025-08-13T13:56:05.336Z",
+        "updated_at": "2025-08-13T13:56:05.336Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 28,
+    "fields": {
+        "eixo": 3,
+        "nome": "ACORDO DE ESCAZÚ",
+        "created_at": "2025-08-13T13:56:05.339Z",
+        "updated_at": "2025-08-13T13:56:05.339Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 29,
+    "fields": {
+        "eixo": 3,
+        "nome": "FUNDO DE REQUALIFICAÇÃO E RECUPERAÇÃO DE INFRAESRTUTURAS AFETADAS POR EVENTOS CLIMÁTICOS EXTREMOS",
+        "created_at": "2025-08-13T13:56:05.341Z",
+        "updated_at": "2025-08-13T13:56:05.341Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 30,
+    "fields": {
+        "eixo": 4,
+        "nome": "PROTEÇÃO DE CRIANÇAS E ADOLESCENTES EM AMBIENTES DIGITAIS",
+        "created_at": "2025-08-13T13:56:05.345Z",
+        "updated_at": "2025-08-13T13:56:05.345Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 31,
+    "fields": {
+        "eixo": 4,
+        "nome": "DIREITO E A GARANTIA FUNDAMENTAL À LIVRE MANIFESTAÇÃO DO PENSAMENTO NA INTERNET",
+        "created_at": "2025-08-13T13:56:05.348Z",
+        "updated_at": "2025-08-13T13:56:05.348Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 32,
+    "fields": {
+        "eixo": 4,
+        "nome": "MARCO LEGAL DA INTELIGÊNCIA ARTIFICIAL",
+        "created_at": "2025-08-13T13:56:05.351Z",
+        "updated_at": "2025-08-13T13:56:05.351Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 33,
+    "fields": {
+        "eixo": 5,
+        "nome": "PEC DA SEGURANÇA PÚBLICA",
+        "created_at": "2025-08-13T13:56:05.356Z",
+        "updated_at": "2025-08-13T13:56:05.356Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 34,
+    "fields": {
+        "eixo": 5,
+        "nome": "PROTEÇÃO E ACOLHIMENTO DE TRABALHADORAS E TRABALHADORES RESGATADOS DE CONDIÇÃO ANÁLOGA À DE ESCRAVO",
+        "created_at": "2025-08-13T13:56:05.358Z",
+        "updated_at": "2025-08-13T13:56:05.358Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 35,
+    "fields": {
+        "eixo": 5,
+        "nome": "ATENDIMENTO DE MULHERES INDÍGENAS VÍTIMAS DE VIOLÊNCIAS",
+        "created_at": "2025-08-13T13:56:05.361Z",
+        "updated_at": "2025-08-13T13:56:05.361Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 36,
+    "fields": {
+        "eixo": 5,
+        "nome": "RESERVA MÍNIMA DE PARTICIPAÇÃO DE MULHERES EM CONSELHOS DE ADMINISTRAÇÃO",
+        "created_at": "2025-08-13T13:56:05.363Z",
+        "updated_at": "2025-08-13T13:56:05.363Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 37,
+    "fields": {
+        "eixo": 5,
+        "nome": "CADEIA DO OURO: PARÂMETROS SOBRE A COMERCIALIZAÇÃO DO OURO",
+        "created_at": "2025-08-13T13:56:05.365Z",
+        "updated_at": "2025-08-13T13:56:05.365Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 38,
+    "fields": {
+        "eixo": 5,
+        "nome": "MP DO FUNDO SOCIAL PARA ENFRENTAR DESAFIOS SOCIOECONÔMICOS",
+        "created_at": "2025-08-13T13:56:05.368Z",
+        "updated_at": "2025-08-13T13:56:05.368Z"
+    }
+},
+{
+    "model": "pauta.tema",
+    "pk": 39,
+    "fields": {
+        "eixo": 5,
+        "nome": "PROGRAMA AGORA TEM ESPECIALISTAS",
+        "created_at": "2025-08-13T13:56:05.371Z",
+        "updated_at": "2025-08-13T13:56:05.371Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 1,
+    "fields": {
+        "tema": 1,
+        "tipo": "PL",
+        "numero": 4384,
+        "ano": 2023,
+        "sf_id": null,
+        "cd_id": 2477342,
+        "autor": "Senado Federal - Beto Faro",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T16:58:42.176Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.374Z",
+        "updated_at": "2025-08-13T16:58:42.176Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 2,
+    "fields": {
+        "tema": 2,
+        "tipo": "PL",
+        "numero": 1384,
+        "ano": 2011,
+        "sf_id": null,
+        "cd_id": 502669,
+        "autor": "Beto Faro",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T16:58:50.311Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.377Z",
+        "updated_at": "2025-08-13T16:58:50.311Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 3,
+    "fields": {
+        "tema": 3,
+        "tipo": "PL",
+        "numero": 1087,
+        "ano": 2025,
+        "sf_id": null,
+        "cd_id": 2487436,
+        "autor": "Poder Executivo",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T16:58:55.791Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.379Z",
+        "updated_at": "2025-08-13T16:58:55.791Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 4,
+    "fields": {
+        "tema": 4,
+        "tipo": "PLP",
+        "numero": 108,
+        "ano": 2024,
+        "sf_id": 8746627,
+        "cd_id": 2438459,
+        "autor": "Câmara dos Deputados",
+        "data_apresentacao": "2024-11-11",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T16:58:58.882Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.382Z",
+        "updated_at": "2025-08-13T16:58:58.882Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 5,
+    "fields": {
+        "tema": 5,
+        "tipo": "PL",
+        "numero": 4920,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2480445,
+        "autor": "Poder Executivo",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T16:59:01.627Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.384Z",
+        "updated_at": "2025-08-13T16:59:01.627Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 6,
+    "fields": {
+        "tema": 6,
+        "tipo": "PEC",
+        "numero": 66,
+        "ano": 2023,
+        "sf_id": 8865064,
+        "cd_id": 2454495,
+        "autor": "Câmara dos Deputados",
+        "data_apresentacao": "2025-07-16",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T16:59:05.493Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.388Z",
+        "updated_at": "2025-08-13T16:59:05.493Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 7,
+    "fields": {
+        "tema": 7,
+        "tipo": "PL",
+        "numero": 365,
+        "ano": 2025,
+        "sf_id": 8832086,
+        "cd_id": 2483498,
+        "autor": "Senador Dr. Hiran (PP/RR)",
+        "data_apresentacao": "2025-05-19",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T16:59:10.081Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.391Z",
+        "updated_at": "2025-08-13T16:59:10.081Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 8,
+    "fields": {
+        "tema": 8,
+        "tipo": "PL",
+        "numero": 2925,
+        "ano": 2023,
+        "sf_id": null,
+        "cd_id": 2367421,
+        "autor": "Poder Executivo",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T16:59:14.646Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.393Z",
+        "updated_at": "2025-08-13T16:59:14.646Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 9,
+    "fields": {
+        "tema": 9,
+        "tipo": "MP",
+        "numero": 1300,
+        "ano": 2025,
+        "sf_id": 8834254,
+        "cd_id": null,
+        "autor": "Presidência da República",
+        "data_apresentacao": "2025-05-21",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T16:59:46.881Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.396Z",
+        "updated_at": "2025-08-13T16:59:46.881Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 10,
+    "fields": {
+        "tema": 10,
+        "tipo": "MP",
+        "numero": 1292,
+        "ano": 2025,
+        "sf_id": null,
+        "cd_id": null,
+        "autor": null,
+        "data_apresentacao": null,
+        "casa_inicial": null,
+        "ultima_sincronizacao": "2025-08-13T16:59:49.041Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.398Z",
+        "updated_at": "2025-08-13T16:59:49.041Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 11,
+    "fields": {
+        "tema": 11,
+        "tipo": "PL",
+        "numero": 2732,
+        "ano": 2022,
+        "sf_id": null,
+        "cd_id": 2336649,
+        "autor": "Lídice da Mata",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T16:59:53.995Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.401Z",
+        "updated_at": "2025-08-13T16:59:53.996Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 12,
+    "fields": {
+        "tema": 12,
+        "tipo": "PLP",
+        "numero": 167,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2463712,
+        "autor": "Poder Executivo",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:00:15.027Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.403Z",
+        "updated_at": "2025-08-13T17:00:15.027Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 13,
+    "fields": {
+        "tema": 12,
+        "tipo": "PL",
+        "numero": 4043,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2463709,
+        "autor": "Poder Executivo",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:00:19.710Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.406Z",
+        "updated_at": "2025-08-13T17:00:19.710Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 14,
+    "fields": {
+        "tema": 13,
+        "tipo": "PL",
+        "numero": 7063,
+        "ano": 2017,
+        "sf_id": null,
+        "cd_id": 2124888,
+        "autor": "Senado Federal - Antonio Carlos Valadares",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:00:22.487Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.409Z",
+        "updated_at": "2025-08-13T17:00:22.487Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 15,
+    "fields": {
+        "tema": 14,
+        "tipo": "PL",
+        "numero": 5719,
+        "ano": 2023,
+        "sf_id": null,
+        "cd_id": 2406845,
+        "autor": "Poder Executivo",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:00:25.437Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.411Z",
+        "updated_at": "2025-08-13T17:00:25.437Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 16,
+    "fields": {
+        "tema": 15,
+        "tipo": "PL",
+        "numero": 1874,
+        "ano": 2022,
+        "sf_id": null,
+        "cd_id": 2422879,
+        "autor": "Senado Federal - Comissão de Meio Ambiente",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:00:36.091Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.413Z",
+        "updated_at": "2025-08-13T17:00:36.091Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 17,
+    "fields": {
+        "tema": 16,
+        "tipo": "PL",
+        "numero": 2583,
+        "ano": 2020,
+        "sf_id": 8863804,
+        "cd_id": 2252295,
+        "autor": "Câmara dos Deputados",
+        "data_apresentacao": "2025-07-15",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:00:49.502Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.416Z",
+        "updated_at": "2025-08-13T17:00:49.502Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 18,
+    "fields": {
+        "tema": 16,
+        "tipo": "PL",
+        "numero": 1505,
+        "ano": 2022,
+        "sf_id": 8268881,
+        "cd_id": null,
+        "autor": "Senador Eduardo Gomes (PL/TO)",
+        "data_apresentacao": "2022-06-06",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:01:00.045Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.418Z",
+        "updated_at": "2025-08-13T17:01:00.045Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 19,
+    "fields": {
+        "tema": 17,
+        "tipo": "PLP",
+        "numero": 125,
+        "ano": 2022,
+        "sf_id": 8305123,
+        "cd_id": null,
+        "autor": "Senador Rodrigo Pacheco (PSD/MG)",
+        "data_apresentacao": "2022-09-16",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:01:10.843Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.421Z",
+        "updated_at": "2025-08-13T17:01:10.844Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 20,
+    "fields": {
+        "tema": 17,
+        "tipo": "PLP",
+        "numero": 124,
+        "ano": 2022,
+        "sf_id": null,
+        "cd_id": 2481858,
+        "autor": "Senado Federal - Rodrigo Pacheco",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:02:42.295Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.424Z",
+        "updated_at": "2025-08-13T17:02:42.296Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 21,
+    "fields": {
+        "tema": 17,
+        "tipo": "PL",
+        "numero": 15,
+        "ano": 2024,
+        "sf_id": 8624702,
+        "cd_id": 2416861,
+        "autor": "Senador Alessandro Vieira (MDB/SE)",
+        "data_apresentacao": "2024-02-23",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:02:47.311Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.426Z",
+        "updated_at": "2025-08-13T17:02:47.311Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 22,
+    "fields": {
+        "tema": 18,
+        "tipo": "PL",
+        "numero": 2926,
+        "ano": 2023,
+        "sf_id": 8756671,
+        "cd_id": 2367423,
+        "autor": "Câmara dos Deputados",
+        "data_apresentacao": "2024-11-29",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:02:57.717Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.429Z",
+        "updated_at": "2025-08-13T17:02:57.717Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 23,
+    "fields": {
+        "tema": 19,
+        "tipo": "PLP",
+        "numero": 281,
+        "ano": 2019,
+        "sf_id": null,
+        "cd_id": 2236186,
+        "autor": "Poder Executivo",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:03:00.199Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.431Z",
+        "updated_at": "2025-08-13T17:03:00.200Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 24,
+    "fields": {
+        "tema": 20,
+        "tipo": "PL",
+        "numero": 6204,
+        "ano": 2019,
+        "sf_id": 7846496,
+        "cd_id": null,
+        "autor": "Senadora Soraya Thronicke (PSL/MS)",
+        "data_apresentacao": "2019-11-20",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:03:02.266Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.433Z",
+        "updated_at": "2025-08-13T17:03:02.266Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 25,
+    "fields": {
+        "tema": 21,
+        "tipo": "PL",
+        "numero": 2614,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2443764,
+        "autor": "Poder Executivo",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:03:07.497Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.436Z",
+        "updated_at": "2025-08-13T17:03:07.497Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 26,
+    "fields": {
+        "tema": 22,
+        "tipo": "PLP",
+        "numero": 235,
+        "ano": 2019,
+        "sf_id": null,
+        "cd_id": 2318217,
+        "autor": "Senado Federal - Flávio Arns",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:03:10.960Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.439Z",
+        "updated_at": "2025-08-13T17:03:10.960Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 27,
+    "fields": {
+        "tema": 23,
+        "tipo": "PL",
+        "numero": 3339,
+        "ano": 2024,
+        "sf_id": 8847238,
+        "cd_id": 2455564,
+        "autor": "Câmara dos Deputados",
+        "data_apresentacao": "2025-06-13",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:03:12.865Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.441Z",
+        "updated_at": "2025-08-13T17:03:12.865Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 28,
+    "fields": {
+        "tema": 24,
+        "tipo": "PL",
+        "numero": 2334,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2440254,
+        "autor": "Camila Jara",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:03:15.542Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.444Z",
+        "updated_at": "2025-08-13T17:03:15.542Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 29,
+    "fields": {
+        "tema": 25,
+        "tipo": "PL",
+        "numero": 636,
+        "ano": 2023,
+        "sf_id": 8397263,
+        "cd_id": 2349176,
+        "autor": "Câmara dos Deputados",
+        "data_apresentacao": "2023-03-24",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:03:17.837Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.446Z",
+        "updated_at": "2025-08-13T17:03:17.838Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 30,
+    "fields": {
+        "tema": 26,
+        "tipo": "PL",
+        "numero": 380,
+        "ano": 2023,
+        "sf_id": 8511238,
+        "cd_id": 2347317,
+        "autor": "Senador Marcos do Val (PODEMOS/ES)",
+        "data_apresentacao": "2023-08-08",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:03:21.784Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.449Z",
+        "updated_at": "2025-08-13T17:03:21.784Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 31,
+    "fields": {
+        "tema": 27,
+        "tipo": "PL",
+        "numero": 1855,
+        "ano": 2022,
+        "sf_id": 8283559,
+        "cd_id": null,
+        "autor": "Comissão de Meio Ambiente",
+        "data_apresentacao": "2022-07-01",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:03:25.951Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.451Z",
+        "updated_at": "2025-08-13T17:03:25.951Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 32,
+    "fields": {
+        "tema": 28,
+        "tipo": "MSC",
+        "numero": 209,
+        "ano": 2023,
+        "sf_id": null,
+        "cd_id": 2362125,
+        "autor": "Poder Executivo",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:03:29.960Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.454Z",
+        "updated_at": "2025-08-13T17:03:29.960Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 33,
+    "fields": {
+        "tema": 29,
+        "tipo": "PL",
+        "numero": 367,
+        "ano": 2025,
+        "sf_id": 8872121,
+        "cd_id": 2483501,
+        "autor": "Senadora Augusta Brito (PT/CE)",
+        "data_apresentacao": "2025-07-31",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:03:43.131Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.456Z",
+        "updated_at": "2025-08-13T17:03:43.131Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 34,
+    "fields": {
+        "tema": 30,
+        "tipo": "PL",
+        "numero": 2628,
+        "ano": 2022,
+        "sf_id": null,
+        "cd_id": 2477340,
+        "autor": "Senado Federal - Alessandro Vieira",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:03:48.105Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.459Z",
+        "updated_at": "2025-08-13T17:03:48.105Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 35,
+    "fields": {
+        "tema": 31,
+        "tipo": "PL",
+        "numero": 4691,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2475865,
+        "autor": "Dani Cunha",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:03:53.343Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.461Z",
+        "updated_at": "2025-08-13T17:03:53.343Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 36,
+    "fields": {
+        "tema": 32,
+        "tipo": "PL",
+        "numero": 2338,
+        "ano": 2022,
+        "sf_id": null,
+        "cd_id": 2334264,
+        "autor": "Otoni de Paula",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:03:57.778Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.464Z",
+        "updated_at": "2025-08-13T17:03:57.778Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 37,
+    "fields": {
+        "tema": 33,
+        "tipo": "PEC",
+        "numero": 18,
+        "ano": 2025,
+        "sf_id": null,
+        "cd_id": 2500080,
+        "autor": "Poder Executivo",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:04:01.857Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.466Z",
+        "updated_at": "2025-08-13T17:04:01.857Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 38,
+    "fields": {
+        "tema": 34,
+        "tipo": "PL",
+        "numero": 5760,
+        "ano": 2023,
+        "sf_id": 8774941,
+        "cd_id": 2407561,
+        "autor": "Câmara dos Deputados",
+        "data_apresentacao": "2024-12-13",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:04:06.151Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.469Z",
+        "updated_at": "2025-08-13T17:04:06.151Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 39,
+    "fields": {
+        "tema": 35,
+        "tipo": "PL",
+        "numero": 4381,
+        "ano": 2023,
+        "sf_id": 8797561,
+        "cd_id": 2386490,
+        "autor": "Câmara dos Deputados",
+        "data_apresentacao": "2025-02-26",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:04:11.413Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.472Z",
+        "updated_at": "2025-08-13T17:04:11.413Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 40,
+    "fields": {
+        "tema": 36,
+        "tipo": "PL",
+        "numero": 1246,
+        "ano": 2021,
+        "sf_id": null,
+        "cd_id": 2277019,
+        "autor": "Erika Kokay",
+        "data_apresentacao": null,
+        "casa_inicial": "CD",
+        "ultima_sincronizacao": "2025-08-13T17:04:15.350Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.474Z",
+        "updated_at": "2025-08-13T17:04:15.350Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 41,
+    "fields": {
+        "tema": 37,
+        "tipo": "PL",
+        "numero": 836,
+        "ano": 2021,
+        "sf_id": 8158697,
+        "cd_id": 2426153,
+        "autor": "Senador Fernando Collor (PROS/AL)",
+        "data_apresentacao": "2021-10-29",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:04:23.182Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.477Z",
+        "updated_at": "2025-08-13T17:04:23.183Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 42,
+    "fields": {
+        "tema": 38,
+        "tipo": "MP",
+        "numero": 1291,
+        "ano": 2025,
+        "sf_id": null,
+        "cd_id": null,
+        "autor": null,
+        "data_apresentacao": null,
+        "casa_inicial": null,
+        "ultima_sincronizacao": "2025-08-13T17:04:25.904Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.479Z",
+        "updated_at": "2025-08-13T17:04:25.904Z"
+    }
+},
+{
+    "model": "pauta.proposicao",
+    "pk": 43,
+    "fields": {
+        "tema": 39,
+        "tipo": "MP",
+        "numero": 1301,
+        "ano": 2025,
+        "sf_id": 8841950,
+        "cd_id": null,
+        "autor": "Presidência da República",
+        "data_apresentacao": "2025-05-30",
+        "casa_inicial": "SF",
+        "ultima_sincronizacao": "2025-08-13T17:04:28.218Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-13T13:56:05.482Z",
+        "updated_at": "2025-08-13T17:04:28.218Z"
+    }
+}
+]

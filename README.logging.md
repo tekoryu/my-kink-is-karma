@@ -352,6 +352,8 @@ Get-Content .\app\logs\api.log -Wait -Tail 50
 Select-String -Path .\app\logs\info.log -Pattern "Performance"
 ```
 
+
+
 Note:
 - Use -Tail N to start with the last N lines; omit it to stream entire file.
 - Paths in PowerShell use backslashes; leading .\ ensures relative to project root.

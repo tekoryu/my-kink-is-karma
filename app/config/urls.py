@@ -17,7 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+
 from apps.core.views import health_check
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
