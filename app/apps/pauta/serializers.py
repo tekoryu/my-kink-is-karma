@@ -202,6 +202,8 @@ class ProposicaoReadOnlySerializer(serializers.ModelSerializer):
         model = Proposicao
         fields = [
             'id', 'tipo', 'numero', 'ano', 'identificador_completo',
+            'sf_id', 'cd_id', 'autor', 'data_apresentacao', 'casa_inicial',
+            'ultima_sincronizacao', 'erro_sincronizacao',
             'tema_id', 'tema_nome', 'eixo_id', 'eixo_nome',
             'created_at', 'updated_at'
         ]
