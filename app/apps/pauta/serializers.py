@@ -44,9 +44,18 @@ class TemaSerializer(serializers.ModelSerializer):
                 'tema': 1,
                 'tipo': 'PL',
                 'numero': 4381,
-                'ano': 2023
+                'ano': 2023,
+                'sf_id': 8797561,
+                'cd_id': 2386490,
+                'autor': 'Deputado João Silva',
+                'data_apresentacao': '2023-01-15',
+                'casa_inicial': 'CD',
+                'ultima_sincronizacao': '2024-01-01T10:00:00Z',
+                'erro_sincronizacao': None,
+                'created_at': '2024-01-01T00:00:00Z',
+                'updated_at': '2024-01-01T10:00:00Z'
             },
-            description='Exemplo de uma proposição válida'
+            description='Exemplo de uma proposição válida com todos os campos'
         ),
         OpenApiExample(
             'Criação de proposição',
@@ -54,7 +63,14 @@ class TemaSerializer(serializers.ModelSerializer):
                 'tema': 1,
                 'tipo': 'PL',
                 'numero': 4381,
-                'ano': 2023
+                'ano': 2023,
+                'sf_id': None,
+                'cd_id': None,
+                'autor': None,
+                'data_apresentacao': None,
+                'casa_inicial': None,
+                'ultima_sincronizacao': None,
+                'erro_sincronizacao': None
             },
             description='Exemplo para criação de uma nova proposição'
         ),
@@ -64,7 +80,7 @@ class ProposicaoSerializer(serializers.ModelSerializer):
     """
     Serializer para o modelo Proposicao.
     
-    Expõe os campos básicos para operações CRUD.
+    Expõe todos os campos para operações CRUD.
     O campo tema é um PrimaryKeyRelatedField para permitir associação
     direta via ID do tema.
     """
@@ -76,8 +92,12 @@ class ProposicaoSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Proposicao
-        fields = ['id', 'tema', 'tipo', 'numero', 'ano']
-        read_only_fields = ['id'] 
+        fields = [
+            'id', 'tema', 'tipo', 'numero', 'ano', 'sf_id', 'cd_id',
+            'autor', 'data_apresentacao', 'casa_inicial', 'ultima_sincronizacao',
+            'erro_sincronizacao', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at'] 
 
 
 @extend_schema_serializer(
