@@ -8,3 +8,5 @@
 - Always offer the alternatives before making changes. 
 - Include the (recommended) approach in the list.
 - Remember of creating log entries when appliable.
+- When creating a file that will be runned via docker, check if the file is in WORKDIR directory.
+- When 

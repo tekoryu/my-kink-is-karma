@@ -101,7 +101,10 @@ class Command(BaseCommand):
             else:
                 # Executar sincronização real
                 with transaction.atomic():
-                    stats = service.sincronizar_todas_proposicoes(limit=options['limit'])
+                    stats = service.sincronizar_todas_proposicoes(
+                        limit=options['limit'], 
+                        force=options['force']
+                    )
                     
                     self.stdout.write(
                         self.style.SUCCESS(

@@ -146,10 +146,16 @@ class APISyncService:
                         str(numero) in identificacao and 
                         str(ano) in identificacao):
                         
+                        # Extrair autor da estrutura complexa
+                        autor = self._extrair_autor_senado(processo.get('autoria', {}))
+                        
+                        # Processar data de apresentação
+                        data_apresentacao = self._processar_data(processo.get('dataApresentacao'))
+                        
                         return {
                             'sf_id': processo.get('id'),
-                            'autor': processo.get('autoria'),
-                            'data_apresentacao': processo.get('dataApresentacao'),
+                            'autor': autor,
+                            'data_apresentacao': data_apresentacao,
                             'casa_inicial': 'SF'
                         }
             
@@ -170,10 +176,13 @@ class APISyncService:
                 # Buscar autores separadamente
                 autores = self._buscar_autores_camara(proposicao.get('id'))
                 
+                # Processar data de apresentação
+                data_apresentacao = self._processar_data(proposicao.get('dataApresentacao'))
+                
                 return {
                     'cd_id': proposicao.get('id'),
                     'autor': autores[0] if autores else None,
-                    'data_apresentacao': proposicao.get('dataApresentacao'),
+                    'data_apresentacao': data_apresentacao,
                     'casa_inicial': 'CD'
                 }
             
@@ -197,6 +206,41 @@ class APISyncService:
                     return autor.get('NomeParlamentar') or autor.get('Nome')
             return None
         except Exception:
+            return None
+    
+    def _processar_data(self, data_str: str) -> Optional[str]:
+        """
+        Processa string de data para formato compatível com DateField.
+        
+        Args:
+            data_str: String da data no formato da API
+            
+        Returns:
+            String no formato YYYY-MM-DD ou None se inválida
+        """
+        if not data_str:
+            return None
+            
+        try:
+            # Tentar diferentes formatos de data
+            from datetime import datetime
+            
+            # Formato comum: "2023-01-15T00:00:00"
+            if 'T' in data_str:
+                data_str = data_str.split('T')[0]
+            
+            # Verificar se já está no formato correto
+            if len(data_str) == 10 and data_str.count('-') == 2:
+                # Validar se é uma data válida
+                datetime.strptime(data_str, '%Y-%m-%d')
+                return data_str
+            
+            # Outros formatos podem ser adicionados aqui
+            logger.warning(f"Formato de data não reconhecido: {data_str}")
+            return None
+            
+        except (ValueError, AttributeError) as e:
+            logger.warning(f"Erro ao processar data '{data_str}': {e}")
             return None
     
     def _buscar_autores_camara(self, proposicao_id: int) -> list:
@@ -279,21 +323,25 @@ class APISyncService:
             proposicao.save()
             return False
     
-    def sincronizar_todas_proposicoes(self, limit: Optional[int] = None) -> Dict[str, int]:
+    def sincronizar_todas_proposicoes(self, limit: Optional[int] = None, force: bool = False) -> Dict[str, int]:
         """
-        Sincroniza todas as proposições que precisam de sincronização.
+        Sincroniza proposições com as APIs.
         
         Args:
             limit: Limite de proposições a processar (None para todas)
+            force: Se True, sincroniza todas as proposições, mesmo as já sincronizadas
             
         Returns:
             Dict com estatísticas da sincronização
         """
         from .models import Proposicao
         
-        proposicoes = Proposicao.objects.filter(
-            ultima_sincronizacao__isnull=True
-        ).order_by('created_at')
+        if force:
+            proposicoes = Proposicao.objects.all().order_by('created_at')
+        else:
+            proposicoes = Proposicao.objects.filter(
+                ultima_sincronizacao__isnull=True
+            ).order_by('created_at')
         
         if limit:
             proposicoes = proposicoes[:limit]

@@ -1,0 +1,346 @@
+{
+    "id": 8797561,
+    "codigoMateria": 167384,
+    "identificacao": "PL 4381/2023",
+    "sigla": "PL",
+    "descricaoSigla": "Projeto de Lei",
+    "numero": "4381",
+    "ano": 2023,
+    "objetivo": "Revisora",
+    "casaIdentificadora": "SF",
+    "siglaEnteIdentificador": "SF",
+    "identificacaoExterna": {},
+    "conteudo": {
+      "id": 7599956,
+      "idTipo": 11,
+      "siglaTipo": "NORMA_GERAL",
+      "tipo": "Norma Geral",
+      "ementa": "Estabelece medidas a serem adotadas pelas delegacias de polícia e demais órgãos de justiça e de segurança pública para atendimento de mulheres indígenas vítimas de violência doméstica e familiar, nas hipóteses previstas na Lei nº 11.340, de 7 de agosto de 2006 (Lei Maria da Penha), com ênfase nas medidas protetivas de urgência; e institui a Semana da Mulher Indígena.",
+      "tipoNormaIndicada": "LEI"
+    },
+    "documento": {
+      "id": 9907478,
+      "siglaTipo": "PROJETO_LEI_ORDINARIA",
+      "tipo": "Projeto de Lei Ordinária",
+      "dataApresentacao": "2025-02-26",
+      "indexacao": " CRIAÇÃO ,  LEI FEDERAL ,  PROVIDENCIA ,  DELEGACIA ,  POLICIA ,  ORGÃOS ,  JUSTIÇA ,  SEGURANÇA PUBLICA ,  ATENDIMENTO ,  MULHER ,  COMUNIDADE INDIGENA ,  VITIMA ,  VIOLENCIA DOMESTICA ,  LEI MARIA DA PENHA ,  PROTEÇÃO ,  URGENCIA ,  INTIMAÇÃO ,  FUNDAÇÃO NACIONAL DOS POVOS INDIGENAS (FUNAI) ,  MINISTERIO PUBLICO FEDERAL ,  DIREITOS ,  ASSISTENCIA JURIDICA ,  ASSISTENCIA PSICOLOGICA ,  ASSISTENCIA SOCIAL ,  ACOMPANHAMENTO . DIA NACIONAL ,  CELEBRAÇÃO ,  SEMANA ,  MULHER ,  COMUNIDADE INDIGENA ,  CONSCIENTIZAÇÃO ,  PREVENÇÃO ,  VIOLENCIA DOMESTICA .",
+      "url": "https://legis.senado.gov.br/sdleg-getter/documento?dm=9907478",
+      "autoria": [
+        {
+          "autor": "Câmara dos Deputados",
+          "siglaTipo": "CAMARA",
+          "descricaoTipo": "CAMARA",
+          "ordem": 1,
+          "outrosAutoresNaoInformados": "Não",
+          "idEnte": 2,
+          "siglaEnte": "CD",
+          "casaEnte": "CD",
+          "ente": "Câmara dos Deputados"
+        }
+      ],
+      "resumoAutoria": "Câmara dos Deputados"
+    },
+    "tramitando": "Sim",
+    "classificacoes": [
+      {
+        "codigo": 33805422,
+        "descricao": "Processo Penal",
+        "descricaoHierarquia": "Jurídico / Processo / Processo Penal"
+      },
+      {
+        "codigo": 33809408,
+        "descricao": "Mulheres",
+        "descricaoHierarquia": "Política Social / Proteção Social / Mulheres"
+      },
+      {
+        "codigo": 33809438,
+        "descricao": "População Indígena",
+        "descricaoHierarquia": "Política Social / Proteção Social / População Indígena"
+      },
+      {
+        "codigo": 33809619,
+        "descricao": "Segurança Pública",
+        "descricaoHierarquia": "Soberania, Defesa Nacional e Ordem Pública / Defesa do Estado e das Instituições Democráticas / Segurança Pública"
+      }
+    ],
+    "autoriaIniciativa": [
+      {
+        "autor": "Célia Xakriabá",
+        "sexo": "F",
+        "siglaTipo": "DEPUTADO",
+        "descricaoTipo": "DEPUTADO",
+        "ordem": 1,
+        "outrosAutoresNaoInformados": "Não",
+        "codigoParlamentar": 6417,
+        "siglaPartido": "PSOL",
+        "partido": "Partido Socialismo e Liberdade",
+        "siglaCargo": "DEPUTADO",
+        "cargo": "Deputada Federal",
+        "idEnte": 2,
+        "siglaEnte": "CD",
+        "casaEnte": "CD",
+        "ente": "Câmara dos Deputados"
+      }
+    ],
+    "idProcessoCasaInicial": 8797560,
+    "identificacaoProcessoInicial": "PL 4381/2023",
+    "siglaCasaIniciadora": "CD",
+    "comissaoMpv": "{}",
+    "outrosNumeros": [
+      {
+        "idOutroProcesso": 8797560,
+        "sigla": "PL",
+        "numero": "04381",
+        "ano": 2023,
+        "tramitando": "Sim",
+        "externaAoCongresso": "Não",
+        "casaIdentificadora": "CD",
+        "siglaEnteIdentificador": "CD",
+        "enteIdentificador": "Câmara dos Deputados"
+      }
+    ],
+    "despachos": [
+      {
+        "id": 9915505,
+        "data": "2025-03-17",
+        "siglaTipoMotivacao": "DECISAO_PRESID",
+        "tipoMotivacao": "Decisão da Presidência",
+        "cancelado": "Não",
+        "encontroLegislativo": {
+          "colegiado": {}
+        },
+        "providencias": [
+          {
+            "id": 8802734,
+            "tipo": "ANALISE",
+            "descricao": "Análise",
+            "ordem": 1,
+            "analiseTempo": "SUCESSIVA",
+            "analiseConteudo": "MATERIA",
+            "reexame": "Não",
+            "unidadesDestinatarias": [
+              {
+                "ordem": 1,
+                "tipoAnaliseDeliberacao": "NAO_TERMINATIVA",
+                "colegiado": {
+                  "codigo": 834,
+                  "sigla": "CDH",
+                  "casa": "SF",
+                  "nome": "Comissão de Direitos Humanos e Legislação Participativa"
+                }
+              },
+              {
+                "ordem": 2,
+                "tipoAnaliseDeliberacao": "NAO_TERMINATIVA",
+                "colegiado": {
+                  "codigo": 2429,
+                  "sigla": "CSP",
+                  "casa": "SF",
+                  "nome": "Comissão de Segurança Pública"
+                }
+              },
+              {
+                "ordem": 3,
+                "tipoAnaliseDeliberacao": "NAO_TERMINATIVA",
+                "colegiado": {
+                  "codigo": 34,
+                  "sigla": "CCJ",
+                  "casa": "SF",
+                  "nome": "Comissão de Constituição, Justiça e Cidadania"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "autuacoes": [
+      {
+        "numero": 1,
+        "descricao": "Autuação Principal",
+        "codigoColegiadoControleAtual": 834,
+        "casaColegiadoControleAtual": "SF",
+        "siglaColegiadoControleAtual": "CDH",
+        "nomeColegiadoControleAtual": "Comissão de Direitos Humanos e Legislação Participativa",
+        "idEnteControleAtual": 55302,
+        "siglaEnteControleAtual": "SACDH",
+        "nomeEnteControleAtual": "Secretaria de Apoio à Comissão de Direitos Humanos e Legislação Participativa",
+        "situacoes": [
+          {
+            "idTipo": 175,
+            "sigla": "AGDESP",
+            "descricao": "AGUARDANDO DESPACHO",
+            "inicio": "2025-02-27",
+            "fim": "2025-03-17"
+          },
+          {
+            "idTipo": 177,
+            "sigla": "MATDESP",
+            "descricao": "MATÉRIA DESPACHADA",
+            "inicio": "2025-03-17",
+            "fim": "2025-03-18"
+          },
+          {
+            "idTipo": 87,
+            "sigla": "AGDREL",
+            "descricao": "AGUARDANDO DESIGNAÇÃO DO RELATOR",
+            "inicio": "2025-03-18",
+            "fim": "2025-04-11"
+          },
+          {
+            "idTipo": 91,
+            "sigla": "RELATOR",
+            "descricao": "MATÉRIA COM A RELATORIA",
+            "inicio": "2025-04-11"
+          }
+        ],
+        "informesLegislativos": [
+          {
+            "id": 2229857,
+            "data": "2025-02-27",
+            "colegiado": {
+              "codigo": 1998,
+              "casa": "SF",
+              "sigla": "PLEN",
+              "nome": "Plenário do Senado Federal"
+            },
+            "enteAdministrativo": {
+              "id": 55312,
+              "casa": "SF",
+              "sigla": "SLSF",
+              "nome": "Secretaria Legislativa do Senado Federal"
+            },
+            "descricao": "Autuado o Projeto de Lei nº 4381/2023, proveniente da Câmara dos Deputados. O projeto vai à publicação.",
+            "idSituacaoIniciada": 175,
+            "siglaSituacaoIniciada": "AGDESP",
+            "documentosAssociados": [
+              {
+                "id": 9907478,
+                "tipo": "Projeto de Lei Ordinária",
+                "siglaTipo": "PROJETO_LEI_ORDINARIA",
+                "identificacao": "PL 4381/2023",
+                "descricao": "Estabelece medidas a serem adotadas pelas delegacias de polícia e demais órgãos de justiça e de segurança pública para atendimento de mulheres indígenas vítimas de violência doméstica e familiar, nas hipóteses previstas na Lei nº 11.340, de 7 de agosto de 2006 (Lei Maria da Penha), com ênfase nas medidas protetivas de urgência; e institui a Semana da Mulher Indígena.",
+                "data": "2025-02-26T12:08:04",
+                "autoria": "Câmara dos Deputados",
+                "url": "http://legis.senado.leg.br/sdleg-getter/documento?dm=9907478"
+              },
+              {
+                "id": 9907823,
+                "tipo": "Avulso inicial da matéria",
+                "siglaTipo": "AVULSO_INICIAL",
+                "identificacao": "Avulso inicial da matéria - SF254038527073",
+                "descricao": "-",
+                "data": "2025-02-27T00:00:00",
+                "autoria": "Senado Federal",
+                "url": "http://legis.senado.leg.br/sdleg-getter/documento?dm=9907823"
+              }
+            ]
+          },
+          {
+            "id": 2231574,
+            "data": "2025-03-17",
+            "colegiado": {
+              "codigo": 1998,
+              "casa": "SF",
+              "sigla": "PLEN",
+              "nome": "Plenário do Senado Federal"
+            },
+            "enteAdministrativo": {
+              "id": 13594,
+              "casa": "SF",
+              "sigla": "SEADI",
+              "nome": "Secretaria de Atas e Diários"
+            },
+            "descricao": "A matéria vai à CDH, em seguida à CSP e, posteriormente, à CCJ.",
+            "idSituacaoIniciada": 177,
+            "siglaSituacaoIniciada": "MATDESP"
+          },
+          {
+            "id": 2231622,
+            "data": "2025-03-18",
+            "colegiado": {
+              "codigo": 834,
+              "casa": "SF",
+              "sigla": "CDH",
+              "nome": "Comissão de Direitos Humanos e Legislação Participativa"
+            },
+            "enteAdministrativo": {
+              "id": 55302,
+              "casa": "SF",
+              "sigla": "SACDH",
+              "nome": "Secretaria de Apoio à Comissão de Direitos Humanos e Legislação Participativa"
+            },
+            "descricao": "Recebido na CDH. Matéria aguardando distribuição.",
+            "idSituacaoIniciada": 87,
+            "siglaSituacaoIniciada": "AGDREL"
+          },
+          {
+            "id": 2234963,
+            "data": "2025-04-11",
+            "colegiado": {
+              "codigo": 834,
+              "casa": "SF",
+              "sigla": "CDH",
+              "nome": "Comissão de Direitos Humanos e Legislação Participativa"
+            },
+            "enteAdministrativo": {
+              "id": 55302,
+              "casa": "SF",
+              "sigla": "SACDH",
+              "nome": "Secretaria de Apoio à Comissão de Direitos Humanos e Legislação Participativa"
+            },
+            "descricao": "Distribuído à Senadora Augusta Brito, para emitir relatório.",
+            "idSituacaoIniciada": 91,
+            "siglaSituacaoIniciada": "RELATOR"
+          }
+        ],
+        "movimentacoes": [
+          {
+            "id": 9915469,
+            "dataEnvio": "2025-03-17 16:17:03",
+            "enteOrigem": {
+              "id": 55312,
+              "casa": "SF",
+              "sigla": "SLSF",
+              "nome": "Secretaria Legislativa do Senado Federal"
+            },
+            "dataRecebimento": "2025-03-17 16:36:38",
+            "enteDestino": {
+              "id": 13594,
+              "casa": "SF",
+              "sigla": "SEADI",
+              "nome": "Secretaria de Atas e Diários"
+            },
+            "colegiadoDestino": {}
+          },
+          {
+            "id": 9915518,
+            "dataEnvio": "2025-03-17 16:49:27",
+            "enteOrigem": {
+              "id": 13594,
+              "casa": "SF",
+              "sigla": "SEADI",
+              "nome": "Secretaria de Atas e Diários"
+            },
+            "dataRecebimento": "2025-03-18 08:47:19",
+            "enteDestino": {
+              "id": 55302,
+              "casa": "SF",
+              "sigla": "SACDH",
+              "nome": "Secretaria de Apoio à Comissão de Direitos Humanos e Legislação Participativa"
+            },
+            "colegiadoDestino": {
+              "codigo": 834,
+              "casa": "SF",
+              "sigla": "CDH",
+              "nome": "Comissão de Direitos Humanos e Legislação Participativa"
+            }
+          }
+        ]
+      }
+    ],
+    "deliberacao": {},
+    "normaGerada": {},
+    "ultimaInformacaoAtualizada": "EVENTO_LEGISLATIVO",
+    "dthUltimaAtualizacao": "2025-07-03T16:39:41.242000"
+  }
