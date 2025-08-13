@@ -322,19 +322,61 @@ All log files are stored in the `app/logs/` directory:
 
 ### Log Analysis Commands
 
+The following examples show both Unix-like (bash) and Windows PowerShell equivalents.
+
 ```bash
-# View recent errors
+# View recent errors (Unix/Linux/macOS)
 tail -f app/logs/error.log
 
-# Search for specific user actions
+# Search for specific user actions (Unix/Linux/macOS)
 grep "login_successful" app/logs/security.log
 
-# Monitor API requests
+# Monitor API requests (Unix/Linux/macOS)
 tail -f app/logs/api.log
 
-# Check performance metrics
+# Check performance metrics (Unix/Linux/macOS)
 grep "Performance" app/logs/info.log
 ```
+
+```powershell
+# View recent errors (Windows PowerShell 7+)
+Get-Content .\app\logs\error.log -Wait -Tail 50
+
+# Search for specific user actions (Windows PowerShell)
+Select-String -Path .\app\logs\security.log -Pattern "login_successful"
+
+# Monitor API requests (Windows PowerShell)
+Get-Content .\app\logs\api.log -Wait -Tail 50
+
+# Check performance metrics (Windows PowerShell)
+Select-String -Path .\app\logs\info.log -Pattern "Performance"
+```
+
+Note:
+- Use -Tail N to start with the last N lines; omit it to stream entire file.
+- Paths in PowerShell use backslashes; leading .\ ensures relative to project root.
+- For filtering multiple files in PowerShell, you can pass a wildcard path (e.g., .\app\logs\*.log) to Select-String.
+
+### Services Logging (APISyncService)
+
+The APISyncService in apps/pauta/services.py uses Python's logging with logger = logging.getLogger(__name__). When imported, the logger name resolves to apps.pauta.services and inherits the configuration from the apps.pauta logger family defined in settings.
+
+What is logged:
+- INFO:
+  - Start of a proposition sync: "Sincronizando proposição: <identificador>"
+  - Successful sync completion: "Proposição <identificador> sincronizada com sucesso"
+- WARNING:
+  - Non-200 responses from Senado/Câmara APIs, including the status code
+- ERROR:
+  - Request exceptions to external APIs
+  - Exceptions while processing API responses
+  - Exceptions during synchronization (also stored into proposicao.erro_sincronizacao)
+
+Where the logs go:
+- INFO and WARNING entries will appear in app/logs/info.log
+- ERROR entries will appear in app/logs/error.log
+
+Tip: To focus on synchronization activity only, filter by module name in the log line (module typically includes services) or search for keywords like "Sincronizando proposição" and "sincronizada com sucesso".
 
 ### Docker Commands
 
