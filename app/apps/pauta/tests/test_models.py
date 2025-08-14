@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
-from apps.pauta.models import Tema, Proposicao
+from apps.pauta.models import Eixo, Tema, Proposicao
 
 
 class TemaModelTest(TestCase):
@@ -10,38 +10,42 @@ class TemaModelTest(TestCase):
     
     Verifica a criação, validações e constraints do modelo Tema.
     """
+
+    def setUp(self):
+        # Cria um eixo padrão para associar aos temas durante os testes
+        self.eixo = Eixo.objects.create(id=1, nome="Eixo Padrão")
     
     def test_criar_tema_valido(self):
         """Testa a criação de um tema com dados válidos."""
-        tema = Tema.objects.create(nome="Educação")
+        tema = Tema.objects.create(eixo=self.eixo, nome="Educação")
         self.assertEqual(tema.nome, "Educação")
         self.assertIsNotNone(tema.created_at)
         self.assertIsNotNone(tema.updated_at)
     
     def test_tema_nome_unico(self):
         """Testa que não é possível criar dois temas com o mesmo nome."""
-        Tema.objects.create(nome="Educação")
+        Tema.objects.create(eixo=self.eixo, nome="Educação")
         
         with self.assertRaises(IntegrityError):
-            Tema.objects.create(nome="Educação")
+            Tema.objects.create(eixo=self.eixo, nome="Educação")
     
     def test_tema_nome_nao_pode_ser_vazio(self):
         """Testa que o nome do tema não pode ser vazio."""
         # Django não valida strings vazias no nível do banco para CharField
         # A validação acontece no nível do formulário/serializer
         # Este teste verifica que o modelo aceita strings vazias no banco
-        tema = Tema.objects.create(nome="")
+        tema = Tema.objects.create(eixo=self.eixo, nome="")
         self.assertEqual(tema.nome, "")
     
     def test_tema_nome_nao_pode_ser_nulo(self):
         """Testa que o nome do tema não pode ser nulo."""
         # Django valida null=False no nível do banco
         with self.assertRaises(IntegrityError):
-            Tema.objects.create(nome=None)
+            Tema.objects.create(eixo=self.eixo, nome=None)
     
     def test_str_representation(self):
         """Testa a representação string do modelo."""
-        tema = Tema.objects.create(nome="Segurança Pública")
+        tema = Tema.objects.create(eixo=self.eixo, nome="Segurança Pública")
         self.assertEqual(str(tema), "Segurança Pública")
 
 
@@ -54,7 +58,8 @@ class ProposicaoModelTest(TestCase):
     
     def setUp(self):
         """Configuração inicial para os testes."""
-        self.tema = Tema.objects.create(nome="Educação")
+        self.eixo = Eixo.objects.create(id=2, nome="Eixo Teste")
+        self.tema = Tema.objects.create(eixo=self.eixo, nome="Educação")
     
     def test_criar_proposicao_valida(self):
         """Testa a criação de uma proposição com dados válidos."""
@@ -91,7 +96,7 @@ class ProposicaoModelTest(TestCase):
     
     def test_proposicao_diferentes_temas_mesmo_identificador(self):
         """Testa que proposições com mesmo identificador em temas diferentes não são permitidas."""
-        tema2 = Tema.objects.create(nome="Saúde")
+        tema2 = Tema.objects.create(eixo=self.eixo, nome="Saúde")
         
         Proposicao.objects.create(
             tema=self.tema,
@@ -173,10 +178,13 @@ class ModelIntegrationTest(TestCase):
     """
     Testes de integração entre os modelos Tema e Proposicao.
     """
+
+    def setUp(self):
+        self.eixo = Eixo.objects.create(id=3, nome="Eixo Integração")
     
     def test_relacionamento_tema_proposicoes(self):
         """Testa o relacionamento entre tema e proposições."""
-        tema = Tema.objects.create(nome="Educação")
+        tema = Tema.objects.create(eixo=self.eixo, nome="Educação")
         
         proposicao1 = Proposicao.objects.create(
             tema=tema,

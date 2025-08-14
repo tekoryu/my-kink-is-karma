@@ -4,8 +4,12 @@
 
 from django.db import migrations
 from django.core.management import call_command
+from django.conf import settings as django_settings
 
 def load_fixture(apps, schema_editor):
+    # Skip loading fixtures during test runs
+    if getattr(django_settings, 'TESTING', False):
+        return
     call_command('loaddata', 'data_dump.json')
 
 def unload_fixture(apps, schema_editor):

@@ -8,6 +8,10 @@ from django.conf import settings
 
 
 def load_agenda_data_with_eixos(apps, schema_editor):
+    # Skip data loading during test runs to keep test database deterministic
+    from django.conf import settings as django_settings
+    if getattr(django_settings, 'TESTING', False):
+        return
     """
     Load agenda data from JSON file into the database with the new eixos structure.
     Creates Eixo, Tema and Proposicao objects based on the agenda_2025.json file.

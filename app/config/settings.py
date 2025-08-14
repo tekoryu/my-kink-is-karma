@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -85,6 +86,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# Detect testing mode
+TESTING = any(arg in sys.argv for arg in ['test', 'pytest'])
+
+# Default: PostgreSQL (for dev/prod)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -95,6 +100,15 @@ DATABASES = {
         'PORT': config('DB_PORT', default='5432'),
     }
 }
+
+# Use SQLite automatically for tests unless explicitly disabled
+if TESTING and config('USE_SQLITE_FOR_TESTS', default=True, cast=bool):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -134,6 +148,9 @@ STATIC_URL = config('STATIC_URL', default='/static/')
 STATIC_ROOT = config('STATIC_ROOT', default=BASE_DIR / 'staticfiles')
 
 MEDIA_URL = config('MEDIA_URL', default='/media/')
+# Ensure MEDIA_URL ends with a slash to satisfy Django system checks
+if not str(MEDIA_URL).endswith('/'):
+    MEDIA_URL = f"{MEDIA_URL}/"
 MEDIA_ROOT = config('MEDIA_ROOT', default=BASE_DIR / 'media')
 
 # Default primary key field type

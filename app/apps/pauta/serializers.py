@@ -26,12 +26,14 @@ class TemaSerializer(serializers.ModelSerializer):
     """
     Serializer para o modelo Tema.
     
-    Expõe os campos id e nome para operações CRUD.
+    Inclui referência ao eixo para operações de escrita. A resposta pode incluir o campo eixo.
     """
+
+    eixo = serializers.PrimaryKeyRelatedField(queryset=Eixo.objects.all(), required=True)
     
     class Meta:
         model = Tema
-        fields = ['id', 'nome']
+        fields = ['id', 'nome', 'eixo']
         read_only_fields = ['id']
 
 

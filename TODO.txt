@@ -1,4 +1,4 @@
-* rever o campo 'autor' e entender que valor é esse
-* rever o campo 'casa_inicial'
-* rever o valor 'data_apresentacao' 
+* consertar o campo autor
+* consertar casa inicial
+* checar se data_apresentacao ta certinho
 * rever o valor 'ultima_sincronizacao' para acertar a data

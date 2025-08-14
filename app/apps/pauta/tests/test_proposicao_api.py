@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from ..models import Tema, Proposicao
+from ..models import Eixo, Tema, Proposicao
 
 
 class ProposicaoAPITestCase(TestCase):

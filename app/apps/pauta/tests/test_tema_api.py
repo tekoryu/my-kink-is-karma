@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
-from apps.pauta.models import Tema
+from apps.pauta.models import Eixo, Tema
 
 
 class TemaAPITestCase(TestCase):
@@ -16,14 +16,19 @@ class TemaAPITestCase(TestCase):
         """Configuração inicial para os testes."""
         self.client = APIClient()
         self.temas_url = reverse('pauta:tema-list')
+
+        # Cria um eixo padrão e inclui nos payloads
+        self.eixo = Eixo.objects.create(id=10, nome='Eixo API')
         
         # Dados de teste
         self.tema_data = {
-            'nome': 'Educação'
+            'nome': 'Educação',
+            'eixo': self.eixo.id,
         }
         
         self.tema_data_2 = {
-            'nome': 'Segurança Pública'
+            'nome': 'Segurança Pública',
+            'eixo': self.eixo.id,
         }
     
     def test_criar_tema_sucesso(self):
@@ -117,8 +122,8 @@ class TemaAPITestCase(TestCase):
         Deve retornar status 200 e a lista de temas.
         """
         # Cria alguns temas
-        tema1 = Tema.objects.create(nome=self.tema_data['nome'])
-        tema2 = Tema.objects.create(nome=self.tema_data_2['nome'])
+        tema1 = Tema.objects.create(eixo=self.eixo, nome=self.tema_data['nome'])
+        tema2 = Tema.objects.create(eixo=self.eixo, nome=self.tema_data_2['nome'])
         
         response = self.client.get(self.temas_url)
         
