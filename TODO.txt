@@ -1,4 +1,6 @@
-* consertar o campo autor 
+* consertar o campo autor [DONE]
 * consertar casa inicial [DONE]
-* checar se data_apresentacao ta certinho
-* rever o valor 'ultima_sincronizacao' para acertar a data
+* checar se data_apresentacao ta certinho [DONE]
+* verificar os que ainda não tem nome de autor:
+	- proposições que mudaram de nome
+	- medidas provisórias

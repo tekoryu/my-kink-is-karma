@@ -1,424 +1,905 @@
 [
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 1,
     "fields": {
-        "name": "Can add log entry",
-        "content_type": 1,
-        "codename": "add_logentry"
+        "tema": 1,
+        "tipo": "PL",
+        "numero": 4384,
+        "ano": 2023,
+        "sf_id": 8536620,
+        "cd_id": null,
+        "autor": "Senador Beto Faro (PT/PA)",
+        "data_apresentacao": "2023-09-11",
+        "casa_inicial": "SF",
+        "ementa": "Institui o Programa Nacional de Fortalecimento da Agricultura Familiar – PRONAF, o Plano Safra da Agricultura Familiar, e dá outras providências.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:01.183Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.161Z",
+        "updated_at": "2025-08-14T21:33:01.183Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 2,
     "fields": {
-        "name": "Can change log entry",
-        "content_type": 1,
-        "codename": "change_logentry"
+        "tema": 2,
+        "tipo": "PL",
+        "numero": 1384,
+        "ano": 2011,
+        "sf_id": null,
+        "cd_id": 502669,
+        "autor": "Deputado Beto Faro (PT/PA)",
+        "data_apresentacao": "2011-05-18",
+        "casa_inicial": "CD",
+        "ementa": "Dispõe sobre critérios complementares para a execução da política de estoques públicos vinculados ao programa de garantia dos preços mínimos e dá outras providências.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:02.791Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.164Z",
+        "updated_at": "2025-08-14T21:33:02.791Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 3,
     "fields": {
-        "name": "Can delete log entry",
-        "content_type": 1,
-        "codename": "delete_logentry"
+        "tema": 3,
+        "tipo": "PL",
+        "numero": 1087,
+        "ano": 2025,
+        "sf_id": null,
+        "cd_id": 2487436,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2025-03-18",
+        "casa_inicial": "CD",
+        "ementa": "Altera a legislação do imposto sobre a renda para instituir a redução do imposto devido nas bases de cálculo mensal e anual e a tributação mínima para as pessoas físicas que auferem altas rendas, e dá outras providências.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:04.813Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.167Z",
+        "updated_at": "2025-08-14T21:33:04.813Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 4,
     "fields": {
-        "name": "Can view log entry",
-        "content_type": 1,
-        "codename": "view_logentry"
+        "tema": 4,
+        "tipo": "PLP",
+        "numero": 108,
+        "ano": 2024,
+        "sf_id": 8746627,
+        "cd_id": 2438459,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2024-06-05",
+        "casa_inicial": "CD",
+        "ementa": "Institui o Comitê Gestor do Imposto sobre Bens e Serviços - CG-IBS, dispõe sobre o processo administrativo tributário relativo ao lançamento de ofício do Imposto sobre Bens e Serviços - IBS, sobre a distribuição para os entes federativos do produto da arrecadação do IBS, e sobre o Imposto sobre TransmissãoCausa mortis e Doação de Quaisquer Bens ou Direitos - ITCMD, e dá outras providências.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:06.194Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.170Z",
+        "updated_at": "2025-08-14T21:33:06.194Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 5,
     "fields": {
-        "name": "Can add permission",
-        "content_type": 2,
-        "codename": "add_permission"
+        "tema": 5,
+        "tipo": "PL",
+        "numero": 4920,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2480445,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2024-12-17",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Lei nº 3.765, de 4 de maio de 1960, e estabelece idade mínima de transferência dos militares à reserva remunerada, a pedido.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:08.314Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.172Z",
+        "updated_at": "2025-08-14T21:33:08.314Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 6,
     "fields": {
-        "name": "Can change permission",
-        "content_type": 2,
-        "codename": "change_permission"
+        "tema": 6,
+        "tipo": "PEC",
+        "numero": 66,
+        "ano": 2023,
+        "sf_id": 8594291,
+        "cd_id": null,
+        "autor": "Senador Jader Barbalho (MDB/PA), Senador Luis Carlos Heinze (PP/RS), Senador Hamilton Mourão (REPUBLICANOS/RS), Senador Davi Alcolumbre (UNIÃO/AP), Senador Mecias de Jesus (REPUBLICANOS/RR), Senador Eduardo Braga (MDB/AM), Senador Styvenson Valentim (PODEMOS/RN), Senador Izalci Lucas (PSDB/DF), Senador Wellington Fagundes (PL/MT), Senador Confúcio Moura (MDB/RO), Senador Fernando Dueire (MDB/PE), Senador Eduardo Gomes (PL/TO), Senador Lucas Barreto (PSD/AP), Senadora Eliziane Gama (PSD/MA), Senadora Mara Gabrilli (PSD/SP), Senador Alessandro Vieira (MDB/SE), Senador Beto Faro (PT/PA), Senador Weverton (PDT/MA), Senador Zequinha Marinho (PODEMOS/PA), Senador Jorge Kajuru (PSB/GO), Senador Angelo Coronel (PSD/BA), Senador Efraim Filho (UNIÃO/PB), Senadora Tereza Cristina (PP/MS), Senador Esperidião Amin (PP/SC), Senador Nelsinho Trad (PSD/MS), Senador Plínio Valério (PSDB/AM), Senador Giordano (MDB/SP)",
+        "data_apresentacao": "2023-11-28",
+        "casa_inicial": "SF",
+        "ementa": "Abre novo prazo de parcelamento especial de débitos dos municípios com seus Regimes Próprios de Previdência Social dos Servidores Públicos e com o Regime Geral de Previdência Social.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:08.917Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.174Z",
+        "updated_at": "2025-08-14T21:33:08.917Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 7,
     "fields": {
-        "name": "Can delete permission",
-        "content_type": 2,
-        "codename": "delete_permission"
+        "tema": 7,
+        "tipo": "PL",
+        "numero": 365,
+        "ano": 2025,
+        "sf_id": null,
+        "cd_id": 2483498,
+        "autor": "Deputado José Guimarães (PT/CE)",
+        "data_apresentacao": "2025-02-11",
+        "casa_inicial": "CD",
+        "ementa": "Dispõe sobre medidas para ampliar e garantir a efetividade do sigilo e a não incidência de preço superior, valor ou encargo adicional sobre os pagamentos realizados por meio de arranjo de Pagamentos Instantâneos – Pix, instituído pelo Banco Central do Brasil.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:13.620Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.177Z",
+        "updated_at": "2025-08-14T21:33:13.620Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 8,
     "fields": {
-        "name": "Can view permission",
-        "content_type": 2,
-        "codename": "view_permission"
+        "tema": 8,
+        "tipo": "PL",
+        "numero": 2925,
+        "ano": 2023,
+        "sf_id": null,
+        "cd_id": 2367421,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2023-06-02",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Lei nº 6.385, de 7 de dezembro de 1976, e a Lei nº 6.404, de 15 de dezembro de 1976, para dispor sobre a transparência em processos arbitrais e o sistema de tutela privada de direitos de investidores do mercado de valores mobiliários.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:15.115Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.179Z",
+        "updated_at": "2025-08-14T21:33:15.115Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 9,
     "fields": {
-        "name": "Can add group",
-        "content_type": 3,
-        "codename": "add_group"
+        "tema": 9,
+        "tipo": "MPV",
+        "numero": 1300,
+        "ano": 2025,
+        "sf_id": 8834254,
+        "cd_id": 2515300,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2025-05-21",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Lei nº 9.074, de 7 de julho de 1995, a Lei nº 9.427, de 26 de dezembro de 1996, a Lei nº 10.438, de 26 de abril de 2002, a Lei nº 10.848, de 15 de março de 2004, a Lei nº 12.111, de 9 de dezembro de 2009, a Lei nº 12.212, de 20 de janeiro de 2010, a Lei nº 13.203, de 8 de dezembro de 2015, e a Lei nº 14.300, de 6 de janeiro de 2022.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:46:39.102Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.181Z",
+        "updated_at": "2025-08-14T21:46:39.102Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 10,
     "fields": {
-        "name": "Can change group",
-        "content_type": 3,
-        "codename": "change_group"
+        "tema": 10,
+        "tipo": "MPV",
+        "numero": 1292,
+        "ano": 2025,
+        "sf_id": 8801358,
+        "cd_id": 2486800,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2025-03-12",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Lei nº 10.820, de 17 de dezembro de 2003, que trata sobre as operações de crédito consignado de empregados regidos pela Consolidação das Leis do Trabalho, aprovada pelo Decreto-Lei nº 5.452, de 1º de maio de 1943, de trabalhadores regidos pela Lei nº 5.889, de 8 de junho de 1973, e pela Lei Complementar nº 150, de 1º de junho de 2015, e de diretores não empregados com direito ao Fundo de Garantia do Tempo de Serviço - FGTS, para dispor sobre a operacionalização das operações de crédito consignado por meio de sistemas ou de plataformas digitais.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:46:40.543Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.184Z",
+        "updated_at": "2025-08-14T21:46:40.543Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 11,
     "fields": {
-        "name": "Can delete group",
-        "content_type": 3,
-        "codename": "delete_group"
+        "tema": 11,
+        "tipo": "PL",
+        "numero": 2732,
+        "ano": 2022,
+        "sf_id": null,
+        "cd_id": 2336649,
+        "autor": "Deputada Lídice da Mata (PSB/BA)",
+        "data_apresentacao": "2022-11-07",
+        "casa_inicial": "CD",
+        "ementa": "Institui Política Nacional de Desenvolvimento da Economia Criativa (PNDEC).",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:18.927Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.187Z",
+        "updated_at": "2025-08-14T21:33:18.927Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 12,
     "fields": {
-        "name": "Can view group",
-        "content_type": 3,
-        "codename": "view_group"
+        "tema": 12,
+        "tipo": "PLP",
+        "numero": 167,
+        "ano": 2024,
+        "sf_id": 8800573,
+        "cd_id": 2463712,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2024-10-21",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Lei Complementar nº 123, de 14 de dezembro de 2006, para permitir apuração de crédito a microempresas e empresas de pequeno porte optantes pelo Simples Nacional, na hipótese de devolução total ou parcial de resíduo tributário remanescente na cadeia de produção de bens exportados.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:20.367Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.189Z",
+        "updated_at": "2025-08-14T21:33:20.367Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 13,
     "fields": {
-        "name": "Can add user",
-        "content_type": 4,
-        "codename": "add_user"
+        "tema": 12,
+        "tipo": "PL",
+        "numero": 4043,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2463709,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2024-10-21",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Lei nº 13.043, de 13 de novembro de 2014, para permitir alíquota diferenciada por porte de empresa no Regime Especial de Reintegração de Valores Tributários para as Empresas Exportadoras - Reintegra.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:21.698Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.191Z",
+        "updated_at": "2025-08-14T21:33:21.698Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 14,
     "fields": {
-        "name": "Can change user",
-        "content_type": 4,
-        "codename": "change_user"
+        "tema": 13,
+        "tipo": "PL",
+        "numero": 7063,
+        "ano": 2017,
+        "sf_id": null,
+        "cd_id": 2124888,
+        "autor": null,
+        "data_apresentacao": "2017-03-08",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Lei nº  11.079, de 30 de dezembro de 2004, para reduzir o valor mínimo dos contratos de parcerias público-privadas celebrados por Estados, pelo Distrito Federal e por Municípios.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:46:41.154Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.194Z",
+        "updated_at": "2025-08-14T21:46:41.154Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 15,
     "fields": {
-        "name": "Can delete user",
-        "content_type": 4,
-        "codename": "delete_user"
+        "tema": 14,
+        "tipo": "PL",
+        "numero": 5719,
+        "ano": 2023,
+        "sf_id": null,
+        "cd_id": 2406845,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2023-11-27",
+        "casa_inicial": "CD",
+        "ementa": "Autoriza o Banco Nacional de Desenvolvimento Econômico e Social a constituir subsidiárias integrais ou controladas, e altera a Lei nº 10.184, de 12 de fevereiro de 2001, que dispõe sobre a concessão de financiamento vinculado à exportação de bens ou serviços nacionais.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:25.054Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.196Z",
+        "updated_at": "2025-08-14T21:33:25.055Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 16,
     "fields": {
-        "name": "Can view user",
-        "content_type": 4,
-        "codename": "view_user"
+        "tema": 15,
+        "tipo": "PL",
+        "numero": 1874,
+        "ano": 2022,
+        "sf_id": 8283731,
+        "cd_id": null,
+        "autor": "Comissão de Meio Ambiente",
+        "data_apresentacao": "2022-07-01",
+        "casa_inicial": "SF",
+        "ementa": "Institui a Política Nacional de Economia Circular e altera a Lei nº 10.332, de 19 de dezembro de 2001, a Lei nº 12.351, de 22 de\r\ndezembro de 2010, e a Lei nº 14.133, de 1º de abril de 2021, para adequá-las à nova política.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:26.425Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.198Z",
+        "updated_at": "2025-08-14T21:33:26.425Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 17,
     "fields": {
-        "name": "Can add content type",
-        "content_type": 5,
-        "codename": "add_contenttype"
+        "tema": 16,
+        "tipo": "PL",
+        "numero": 2583,
+        "ano": 2020,
+        "sf_id": 8863804,
+        "cd_id": 2252295,
+        "autor": "Deputada Carmen Zanotto (CIDADANIA/SC)",
+        "data_apresentacao": "2020-05-12",
+        "casa_inicial": "CD",
+        "ementa": "Institui a Estratégia Nacional de Saúde objetivando estabelecer uma estratégia nacional para incentivo às indústrias nacionais que produzam itens essenciais ao sistema de saúde nacional, bem como  a pesquisa e desenvolvimento de produtos, insumos, medicamentos e materiais, com vistas a dar autonomia ao nosso país quanto a produção destes itens.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:28.075Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.201Z",
+        "updated_at": "2025-08-14T21:33:28.075Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 18,
     "fields": {
-        "name": "Can change content type",
-        "content_type": 5,
-        "codename": "change_contenttype"
+        "tema": 16,
+        "tipo": "PL",
+        "numero": 1505,
+        "ano": 2022,
+        "sf_id": 8268881,
+        "cd_id": null,
+        "autor": "Senador Eduardo Gomes (PL/TO)",
+        "data_apresentacao": "2022-06-06",
+        "casa_inicial": "SF",
+        "ementa": "Estabelece os mecanismos de estímulo ao desenvolvimento e fortalecimento do Complexo Econômico e Industrial da Saúde brasileiro no âmbito da Política Nacional de Inovação Tecnológica em Saúde e dá outras providências.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:28.683Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.204Z",
+        "updated_at": "2025-08-14T21:33:28.683Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 19,
     "fields": {
-        "name": "Can delete content type",
-        "content_type": 5,
-        "codename": "delete_contenttype"
+        "tema": 17,
+        "tipo": "PLP",
+        "numero": 125,
+        "ano": 2022,
+        "sf_id": 8305123,
+        "cd_id": null,
+        "autor": "Senador Rodrigo Pacheco (PSD/MG)",
+        "data_apresentacao": "2022-09-16",
+        "casa_inicial": "SF",
+        "ementa": "Estabelece normas gerais relativas a direitos, garantias e deveres dos contribuintes.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:29.338Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.206Z",
+        "updated_at": "2025-08-14T21:33:29.338Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 20,
     "fields": {
-        "name": "Can view content type",
-        "content_type": 5,
-        "codename": "view_contenttype"
+        "tema": 17,
+        "tipo": "PLP",
+        "numero": 124,
+        "ano": 2022,
+        "sf_id": 8305117,
+        "cd_id": null,
+        "autor": "Senador Rodrigo Pacheco (PSD/MG)",
+        "data_apresentacao": "2022-09-16",
+        "casa_inicial": "SF",
+        "ementa": "Dispõe sobre normas gerais de prevenção de litígio, consensualidade e processo administrativo, em matéria tributária.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:29.928Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.209Z",
+        "updated_at": "2025-08-14T21:33:29.928Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 21,
     "fields": {
-        "name": "Can add session",
-        "content_type": 6,
-        "codename": "add_session"
+        "tema": 17,
+        "tipo": "PL",
+        "numero": 15,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2416861,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2024-02-02",
+        "casa_inicial": "CD",
+        "ementa": "Institui programas de conformidade tributária e aduaneira no âmbito da Secretaria Especial da Receita Federal do Brasil do Ministério da Fazenda e dispõe sobre o devedor contumaz e as condições para fruição de benefícios fiscais.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:31.325Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.211Z",
+        "updated_at": "2025-08-14T21:33:31.325Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 22,
     "fields": {
-        "name": "Can change session",
-        "content_type": 6,
-        "codename": "change_session"
+        "tema": 18,
+        "tipo": "PL",
+        "numero": 2926,
+        "ano": 2023,
+        "sf_id": 8756671,
+        "cd_id": 2367423,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2023-06-02",
+        "casa_inicial": "CD",
+        "ementa": "Dispõe sobre as instituições operadoras de infraestruturas do mercado financeiro no âmbito do Sistema de Pagamentos Brasileiro; e altera o Decreto-Lei nº 73, de 21 de novembro de 1966, a Lei nº 6.385, de 7 de dezembro de 1976, a Lei nº 11.101, de 9 de fevereiro de 2005, e a Lei nº 12.865, de 9 de outubro de 2013.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:33.039Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.213Z",
+        "updated_at": "2025-08-14T21:33:33.039Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 23,
     "fields": {
-        "name": "Can delete session",
-        "content_type": 6,
-        "codename": "delete_session"
+        "tema": 19,
+        "tipo": "PLP",
+        "numero": 281,
+        "ano": 2019,
+        "sf_id": null,
+        "cd_id": 2236186,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2019-12-23",
+        "casa_inicial": "CD",
+        "ementa": "Dispõe sobre os regimes de resolução das instituições autorizadas a funcionar pelo Banco Central do Brasil, pela Superintendência de Seguros Privados e pela Comissão de Valores Mobiliários.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:34.419Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.216Z",
+        "updated_at": "2025-08-14T21:33:34.420Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 24,
     "fields": {
-        "name": "Can view session",
-        "content_type": 6,
-        "codename": "view_session"
+        "tema": 20,
+        "tipo": "PL",
+        "numero": 6204,
+        "ano": 2019,
+        "sf_id": 7846496,
+        "cd_id": null,
+        "autor": "Senadora Soraya Thronicke (PSL/MS)",
+        "data_apresentacao": "2019-11-20",
+        "casa_inicial": "SF",
+        "ementa": "Dispõe sobre a desjudicialização da execução civil de título executivo judicial e extrajudicial; altera as Leis nºs 9.430, de 27 de dezembro de 1996; 9.492, de 10 de setembro de 1997; 10.169, de 29 de dezembro de 2000; e 13.105 de 16 de março de 2015 – Código de Processo Civil.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:35.076Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.219Z",
+        "updated_at": "2025-08-14T21:33:35.076Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 25,
     "fields": {
-        "name": "Can add Tema",
-        "content_type": 7,
-        "codename": "add_tema"
+        "tema": 21,
+        "tipo": "PL",
+        "numero": 2614,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2443764,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2024-06-27",
+        "casa_inicial": "CD",
+        "ementa": "Aprova o Plano Nacional de Educação para o decênio 2024-2034.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:36.611Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.221Z",
+        "updated_at": "2025-08-14T21:33:36.611Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 26,
     "fields": {
-        "name": "Can change Tema",
-        "content_type": 7,
-        "codename": "change_tema"
+        "tema": 22,
+        "tipo": "PLP",
+        "numero": 235,
+        "ano": 2019,
+        "sf_id": 7822913,
+        "cd_id": null,
+        "autor": "Senador Flávio Arns (REDE/PR)",
+        "data_apresentacao": "2019-10-10",
+        "casa_inicial": "SF",
+        "ementa": "Institui o Sistema Nacional de Educação, nos termos do art. 23, parágrafo único, e do art. 211 da Constituição Federal.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:37.198Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.223Z",
+        "updated_at": "2025-08-14T21:33:37.198Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 27,
     "fields": {
-        "name": "Can delete Tema",
-        "content_type": 7,
-        "codename": "delete_tema"
+        "tema": 23,
+        "tipo": "PL",
+        "numero": 3339,
+        "ano": 2024,
+        "sf_id": 8847238,
+        "cd_id": 2455564,
+        "autor": "Deputado Gervásio Maia (PSB/PB)",
+        "data_apresentacao": "2024-08-27",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Leis 9.605, de 12 de fevereiro de 1998 (Lei de Crimes Ambientais) e a Lei 12.651, de 25 de maio de 2012 (Código Florestal), para caracterizar circunstância agravante a prática de infrações que dificultem a plena prestação de serviços públicos e em concurso de pessoas; aumentar penas para crimes de incêndio em floresta e de poluição de qualquer natureza; e proibir aquele que fizer uso irregular do fogo em terras públicas ou particulares de contratar com o Poder Público ou receber recursos públicos.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:38.801Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.226Z",
+        "updated_at": "2025-08-14T21:33:38.801Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 28,
     "fields": {
-        "name": "Can view Tema",
-        "content_type": 7,
-        "codename": "view_tema"
+        "tema": 24,
+        "tipo": "PL",
+        "numero": 2334,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2440254,
+        "autor": "Deputada Camila Jara (PT/MS)",
+        "data_apresentacao": "2024-06-12",
+        "casa_inicial": "CD",
+        "ementa": "Dispõe sobre a conservação, a proteção, a restauração e o uso sustentável do bioma Pantanal e dá outras providências.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:40.310Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.228Z",
+        "updated_at": "2025-08-14T21:33:40.311Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 29,
     "fields": {
-        "name": "Can add Proposição",
-        "content_type": 8,
-        "codename": "add_proposicao"
+        "tema": 25,
+        "tipo": "PL",
+        "numero": 636,
+        "ano": 2023,
+        "sf_id": 8397263,
+        "cd_id": 2349176,
+        "autor": "Deputado André Figueiredo (PDT/CE)",
+        "data_apresentacao": "2023-02-23",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Lei n. 12.340, de 1° de Dezembro de 2010, para dar maior efetividade ao Plano de Contingência de Proteção e Defesa Civil. \r\n\r\nNOVA EMENTA: Altera a Lei nº 12.340, de 1º de dezembro de 2010, para dar mais efetividade ao Plano de Contingência de Proteção e Defesa Civil.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:41.728Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.230Z",
+        "updated_at": "2025-08-14T21:33:41.728Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 30,
     "fields": {
-        "name": "Can change Proposição",
-        "content_type": 8,
-        "codename": "change_proposicao"
+        "tema": 26,
+        "tipo": "PL",
+        "numero": 380,
+        "ano": 2023,
+        "sf_id": 8611684,
+        "cd_id": 2347317,
+        "autor": "Deputada Erika Hilton (PSOL/SP)",
+        "data_apresentacao": "2023-02-08",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Lei nº 10.257, de 10 de julho de 2001 para criar diretrizes que fomentem a construção de cidades resilientes às mudanças climáticas.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:43.445Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.233Z",
+        "updated_at": "2025-08-14T21:33:43.445Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 31,
     "fields": {
-        "name": "Can delete Proposição",
-        "content_type": 8,
-        "codename": "delete_proposicao"
+        "tema": 27,
+        "tipo": "PL",
+        "numero": 1855,
+        "ano": 2022,
+        "sf_id": 8283559,
+        "cd_id": null,
+        "autor": "Comissão de Meio Ambiente",
+        "data_apresentacao": "2022-07-01",
+        "casa_inicial": "SF",
+        "ementa": "Institui a Política Nacional para o Desenvolvimento da Economia da Biodiversidade (PNDEB).",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:44.040Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.236Z",
+        "updated_at": "2025-08-14T21:33:44.040Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 32,
     "fields": {
-        "name": "Can view Proposição",
-        "content_type": 8,
-        "codename": "view_proposicao"
+        "tema": 28,
+        "tipo": "MSC",
+        "numero": 209,
+        "ano": 2023,
+        "sf_id": null,
+        "cd_id": 2362125,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2023-05-12",
+        "casa_inicial": "CD",
+        "ementa": "Nos termos do disposto no art. 49, inciso I, combinado com o art. 84, inciso VIII, da Constituição, submeto à elevada consideração de Vossas Excelências, acompanhado de Exposição de Motivos Interministerial do Senhor Ministro das Relações Exteriores, da Senhora Ministra de Estado Meio Ambiente e Mudança do Clima, do Senhor Ministro de Estado dos Direitos Humanos e da Cidadania, e da Senhora Ministra de Estado dos Povos Indígenas, o texto do Acordo Regional sobre Acesso à Informação, Participação Pública e Acesso à Justiça em Assuntos Ambientais na América Latina e no Caribe (“Acordo de Escazú”), assinado em Nova York, em 27 de setembro de 2018.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:45.431Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.238Z",
+        "updated_at": "2025-08-14T21:33:45.431Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 33,
     "fields": {
-        "name": "Can add Eixo",
-        "content_type": 9,
-        "codename": "add_eixo"
+        "tema": 29,
+        "tipo": "PL",
+        "numero": 367,
+        "ano": 2025,
+        "sf_id": null,
+        "cd_id": 2483501,
+        "autor": "Deputado José Guimarães (PT/CE)",
+        "data_apresentacao": "2025-02-11",
+        "casa_inicial": "CD",
+        "ementa": "Autoriza a União a participar de fundo que tenha por finalidade apoiar a requalificação e a recuperação de infraestruturas nas áreas afetadas por eventos climáticos extremos e apoiar empreendimentos de infraestrutura relacionados à mitigação e à adaptação às mudanças climáticas.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:47.207Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.241Z",
+        "updated_at": "2025-08-14T21:33:47.207Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 34,
     "fields": {
-        "name": "Can change Eixo",
-        "content_type": 9,
-        "codename": "change_eixo"
+        "tema": 30,
+        "tipo": "PL",
+        "numero": 2628,
+        "ano": 2022,
+        "sf_id": 8310486,
+        "cd_id": null,
+        "autor": "Senador Alessandro Vieira (PSDB/SE)",
+        "data_apresentacao": "2022-10-18",
+        "casa_inicial": "SF",
+        "ementa": "Dispõe sobre a proteção de crianças e adolescentes em ambientes digitais.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:47.817Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.243Z",
+        "updated_at": "2025-08-14T21:33:47.817Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 35,
     "fields": {
-        "name": "Can delete Eixo",
-        "content_type": 9,
-        "codename": "delete_eixo"
+        "tema": 31,
+        "tipo": "PL",
+        "numero": 4691,
+        "ano": 2024,
+        "sf_id": null,
+        "cd_id": 2475865,
+        "autor": "Deputada Dani Cunha (UNIÃO/RJ)",
+        "data_apresentacao": "2024-12-04",
+        "casa_inicial": "CD",
+        "ementa": "Dispõe sobre o direito e a garantia fundamental à livre manifestação do pensamento na internet, os termos da vedação ao anonimato na internet, o livre exercício da atividade econômica na internet, a organização e funcionamento das plataformas, serviços e mercados digitais na internet e dá outras providências.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:49.724Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.246Z",
+        "updated_at": "2025-08-14T21:33:49.724Z"
     }
 },
 {
-    "model": "auth.permission",
+    "model": "pauta.proposicao",
     "pk": 36,
     "fields": {
-        "name": "Can view Eixo",
-        "content_type": 9,
-        "codename": "view_eixo"
+        "tema": 32,
+        "tipo": "PL",
+        "numero": 2338,
+        "ano": 2022,
+        "sf_id": null,
+        "cd_id": 2334264,
+        "autor": "Deputado Otoni de Paula (MDB/RJ)",
+        "data_apresentacao": "2022-08-24",
+        "casa_inicial": "CD",
+        "ementa": "Altera a Lei nº 11.340, de 7 de agosto de 2006 (Lei Maria da Penha), para que ela se aplique a todos os tipos de violência contra a mulher, e não apenas aos casos de violência doméstica e familiar.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:51.498Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.249Z",
+        "updated_at": "2025-08-14T21:33:51.498Z"
     }
 },
 {
-    "model": "auth.user",
-    "pk": 1,
+    "model": "pauta.proposicao",
+    "pk": 37,
     "fields": {
-        "password": "pbkdf2_sha256$600000$ann2RynKQ9ZcdS5sQeQp05$3iWEA1A/6zKffdPnpvU5vfwLZggRUXRdD7XXmzSQtjU=",
-        "last_login": "2025-08-14T13:20:06.199Z",
-        "is_superuser": true,
-        "username": "tekoryu",
-        "first_name": "",
-        "last_name": "",
-        "email": "chedou@gmail.com",
-        "is_staff": true,
-        "is_active": true,
-        "date_joined": "2025-08-13T13:56:32.707Z",
-        "groups": [],
-        "user_permissions": []
+        "tema": 33,
+        "tipo": "PEC",
+        "numero": 18,
+        "ano": 2025,
+        "sf_id": null,
+        "cd_id": 2500080,
+        "autor": "Poder Executivo",
+        "data_apresentacao": "2025-04-24",
+        "casa_inicial": "CD",
+        "ementa": "Altera os art. 21, art. 22, art. 23, art. 24 e art. 144 da Constituição, para dispor sobre competências da União, dos Estados, do Distrito Federal e dos Municípios relativas à segurança pública.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:53.004Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.252Z",
+        "updated_at": "2025-08-14T21:33:53.004Z"
     }
 },
 {
-    "model": "contenttypes.contenttype",
-    "pk": 1,
+    "model": "pauta.proposicao",
+    "pk": 38,
     "fields": {
-        "app_label": "admin",
-        "model": "logentry"
+        "tema": 34,
+        "tipo": "PL",
+        "numero": 5760,
+        "ano": 2023,
+        "sf_id": 8774941,
+        "cd_id": 2407561,
+        "autor": "Deputado Reimont (PT/RJ)",
+        "data_apresentacao": "2023-11-28",
+        "casa_inicial": "CD",
+        "ementa": "Dispõe sobre a assistência às mulheres vítimas do trabalho escravo ou análogo à escravidão, resgatadas pelas equipes compostas por órgãos do governo e parceiros oficiais.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:54.505Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.254Z",
+        "updated_at": "2025-08-14T21:33:54.505Z"
     }
 },
 {
-    "model": "contenttypes.contenttype",
-    "pk": 2,
+    "model": "pauta.proposicao",
+    "pk": 39,
     "fields": {
-        "app_label": "auth",
-        "model": "permission"
+        "tema": 35,
+        "tipo": "PL",
+        "numero": 4381,
+        "ano": 2023,
+        "sf_id": 8797561,
+        "cd_id": 2386490,
+        "autor": "Deputada Célia Xakriabá (PSOL/MG)",
+        "data_apresentacao": "2023-09-11",
+        "casa_inicial": "CD",
+        "ementa": "Regulamenta sobre procedimentos a serem adotados pelas delegacias de polícia e demais órgãos responsáveis para o atendimento de mulheres indígenas vítimas de violências, nas hipóteses de medidas protetivas de urgência previstas na Lei n.º 11.340/2006 e Decreto 11.431/2023.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:56.004Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.257Z",
+        "updated_at": "2025-08-14T21:33:56.004Z"
     }
 },
 {
-    "model": "contenttypes.contenttype",
-    "pk": 3,
+    "model": "pauta.proposicao",
+    "pk": 40,
     "fields": {
-        "app_label": "auth",
-        "model": "group"
+        "tema": 36,
+        "tipo": "PL",
+        "numero": 1246,
+        "ano": 2021,
+        "sf_id": 8522015,
+        "cd_id": 2277019,
+        "autor": "Deputada Erika Kokay (PT/DF)",
+        "data_apresentacao": "2021-04-06",
+        "casa_inicial": "CD",
+        "ementa": "Dispõe sobre a criação de reserva obrigatória de participação de mulheres em conselhos de administração das sociedades empresárias que especifica e dá outras providências.\n\r\n\r\nNOVA EMENTA: Estabelece a obrigatoriedade de reserva mínima de participação de mulheres em conselhos de administração das sociedades empresárias que especifica; e altera as Leis nºs 6.404, de 15 de dezembro de 1976, e 13.303, de 30 de junho de 2016.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:57.838Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.259Z",
+        "updated_at": "2025-08-14T21:33:57.839Z"
     }
 },
 {
-    "model": "contenttypes.contenttype",
-    "pk": 4,
+    "model": "pauta.proposicao",
+    "pk": 41,
     "fields": {
-        "app_label": "auth",
-        "model": "user"
+        "tema": 37,
+        "tipo": "PL",
+        "numero": 836,
+        "ano": 2021,
+        "sf_id": 8047041,
+        "cd_id": null,
+        "autor": "Senador Fabiano Contarato (REDE/ES)",
+        "data_apresentacao": "2021-03-11",
+        "casa_inicial": "SF",
+        "ementa": "Altera a Lei nº 7.766, de 11 de maio de 1989, e a Lei nº 9.613, de 03 de março de 1998, com o objetivo de estabelecer parâmetros sobre a comercialização do ouro, e revoga artigos da Lei nº 12.844, de 19 de julho de 2013.",
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:33:58.445Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.261Z",
+        "updated_at": "2025-08-14T21:33:58.445Z"
     }
 },
 {
-    "model": "contenttypes.contenttype",
-    "pk": 5,
+    "model": "pauta.proposicao",
+    "pk": 42,
     "fields": {
-        "app_label": "contenttypes",
-        "model": "contenttype"
+        "tema": 38,
+        "tipo": "MP",
+        "numero": 1291,
+        "ano": 2025,
+        "sf_id": null,
+        "cd_id": null,
+        "autor": null,
+        "data_apresentacao": null,
+        "casa_inicial": null,
+        "ementa": null,
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:46:42.285Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.263Z",
+        "updated_at": "2025-08-14T21:46:42.285Z"
     }
 },
 {
-    "model": "contenttypes.contenttype",
-    "pk": 6,
+    "model": "pauta.proposicao",
+    "pk": 43,
     "fields": {
-        "app_label": "sessions",
-        "model": "session"
-    }
-},
-{
-    "model": "contenttypes.contenttype",
-    "pk": 7,
-    "fields": {
-        "app_label": "pauta",
-        "model": "tema"
-    }
-},
-{
-    "model": "contenttypes.contenttype",
-    "pk": 8,
-    "fields": {
-        "app_label": "pauta",
-        "model": "proposicao"
-    }
-},
-{
-    "model": "contenttypes.contenttype",
-    "pk": 9,
-    "fields": {
-        "app_label": "pauta",
-        "model": "eixo"
-    }
-},
-{
-    "model": "sessions.session",
-    "pk": "jodnzt8cqorkidqwu7tlxcomtmarqak5",
-    "fields": {
-        "session_data": ".eJxVjEEOwiAQRe_C2pACQsGl-56BzDCDVA0kpV0Z765NutDtf-_9l4iwrSVunZc4k7gIJU6_G0J6cN0B3aHemkytrsuMclfkQbucGvHzerh_BwV6-dY6E9uExrMalTOQR8vOBwCTdcagAL0P3pqkU0iO9HAGCqQABgyeHYv3B_wBOKA:1umXsE:zOTeVR1tTWyfmHZji2LFwqnonm9hXJTDJVFLlaFsWqI",
-        "expire_date": "2025-08-28T13:20:06.206Z"
+        "tema": 39,
+        "tipo": "MP",
+        "numero": 1301,
+        "ano": 2025,
+        "sf_id": null,
+        "cd_id": null,
+        "autor": null,
+        "data_apresentacao": null,
+        "casa_inicial": null,
+        "ementa": null,
+        "current_house": null,
+        "ultima_sincronizacao": "2025-08-14T21:46:43.763Z",
+        "erro_sincronizacao": null,
+        "created_at": "2025-08-14T21:32:20.266Z",
+        "updated_at": "2025-08-14T21:46:43.763Z"
     }
 },
 {
@@ -426,8 +907,8 @@
     "pk": 1,
     "fields": {
         "nome": "Agenda econômica para um Brasil mais justo",
-        "created_at": "2025-08-13T13:56:05.267Z",
-        "updated_at": "2025-08-13T13:56:05.267Z"
+        "created_at": "2025-08-14T21:32:20.053Z",
+        "updated_at": "2025-08-14T21:32:20.053Z"
     }
 },
 {
@@ -435,8 +916,8 @@
     "pk": 2,
     "fields": {
         "nome": "Estímulo ao empreendedorismo e ao investimento",
-        "created_at": "2025-08-13T13:56:05.293Z",
-        "updated_at": "2025-08-13T13:56:05.293Z"
+        "created_at": "2025-08-14T21:32:20.079Z",
+        "updated_at": "2025-08-14T21:32:20.079Z"
     }
 },
 {
@@ -444,8 +925,8 @@
     "pk": 3,
     "fields": {
         "nome": "Desenvolvimento Sustentável e Educação",
-        "created_at": "2025-08-13T13:56:05.321Z",
-        "updated_at": "2025-08-13T13:56:05.321Z"
+        "created_at": "2025-08-14T21:32:20.109Z",
+        "updated_at": "2025-08-14T21:32:20.109Z"
     }
 },
 {
@@ -453,8 +934,8 @@
     "pk": 4,
     "fields": {
         "nome": "Proteção às famílias e aos negócios no ambiente digital",
-        "created_at": "2025-08-13T13:56:05.343Z",
-        "updated_at": "2025-08-13T13:56:05.343Z"
+        "created_at": "2025-08-14T21:32:20.134Z",
+        "updated_at": "2025-08-14T21:32:20.134Z"
     }
 },
 {
@@ -462,8 +943,8 @@
     "pk": 5,
     "fields": {
         "nome": "Justiça social",
-        "created_at": "2025-08-13T13:56:05.354Z",
-        "updated_at": "2025-08-13T13:56:05.354Z"
+        "created_at": "2025-08-14T21:32:20.142Z",
+        "updated_at": "2025-08-14T21:32:20.142Z"
     }
 },
 {
@@ -472,8 +953,8 @@
     "fields": {
         "eixo": 1,
         "nome": "PROGRAMA NACIONAL DE FORTALECIMENTO DA AGRICULTURA FAMILIAR – PRONAF E PLANO SAFRA DA AGRICULTURA FAMILIAR",
-        "created_at": "2025-08-13T13:56:05.272Z",
-        "updated_at": "2025-08-13T13:56:05.272Z"
+        "created_at": "2025-08-14T21:32:20.057Z",
+        "updated_at": "2025-08-14T21:32:20.057Z"
     }
 },
 {
@@ -482,8 +963,8 @@
     "fields": {
         "eixo": 1,
         "nome": "POLÍTICA DE ESTOQUES PÚBLICOS",
-        "created_at": "2025-08-13T13:56:05.275Z",
-        "updated_at": "2025-08-13T13:56:05.275Z"
+        "created_at": "2025-08-14T21:32:20.060Z",
+        "updated_at": "2025-08-14T21:32:20.060Z"
     }
 },
 {
@@ -492,8 +973,8 @@
     "fields": {
         "eixo": 1,
         "nome": "REFORMA DA RENDA – ISENÇÃO DE IMPOSTO DE RENDA ATÉ 5 MIL REAIS",
-        "created_at": "2025-08-13T13:56:05.277Z",
-        "updated_at": "2025-08-13T13:56:05.277Z"
+        "created_at": "2025-08-14T21:32:20.062Z",
+        "updated_at": "2025-08-14T21:32:20.062Z"
     }
 },
 {
@@ -502,8 +983,8 @@
     "fields": {
         "eixo": 1,
         "nome": "COMITÊ GESTOR DO IBS",
-        "created_at": "2025-08-13T13:56:05.279Z",
-        "updated_at": "2025-08-13T13:56:05.279Z"
+        "created_at": "2025-08-14T21:32:20.064Z",
+        "updated_at": "2025-08-14T21:32:20.064Z"
     }
 },
 {
@@ -512,8 +993,8 @@
     "fields": {
         "eixo": 1,
         "nome": "IDADE MÍNIMA DE TRANSFERÊNCIA DOS MILITARES À RESERVA REMUNERADA",
-        "created_at": "2025-08-13T13:56:05.281Z",
-        "updated_at": "2025-08-13T13:56:05.281Z"
+        "created_at": "2025-08-14T21:32:20.068Z",
+        "updated_at": "2025-08-14T21:32:20.068Z"
     }
 },
 {
@@ -522,8 +1003,8 @@
     "fields": {
         "eixo": 1,
         "nome": "REABERTURA DO PRAZO DE PARCELAMENTO DE DÍVIDAS PREVIDENCIÁRIAS DOS MUNICÍPIOS",
-        "created_at": "2025-08-13T13:56:05.283Z",
-        "updated_at": "2025-08-13T13:56:05.283Z"
+        "created_at": "2025-08-14T21:32:20.071Z",
+        "updated_at": "2025-08-14T21:32:20.071Z"
     }
 },
 {
@@ -532,8 +1013,8 @@
     "fields": {
         "eixo": 1,
         "nome": "GARANTIA DE SIGILO E NÃO INCIDÊNCIA DE PREÇO SUPERIOR, VALOR OU ENCARGO ADICIONAL SOBRE O PIX",
-        "created_at": "2025-08-13T13:56:05.286Z",
-        "updated_at": "2025-08-13T13:56:05.286Z"
+        "created_at": "2025-08-14T21:32:20.073Z",
+        "updated_at": "2025-08-14T21:32:20.073Z"
     }
 },
 {
@@ -542,8 +1023,8 @@
     "fields": {
         "eixo": 1,
         "nome": "TRANSPARÊNCIA ARBITRAGEM E SISTEMA TUTELA PRIVADA",
-        "created_at": "2025-08-13T13:56:05.288Z",
-        "updated_at": "2025-08-13T13:56:05.288Z"
+        "created_at": "2025-08-14T21:32:20.075Z",
+        "updated_at": "2025-08-14T21:32:20.075Z"
     }
 },
 {
@@ -552,8 +1033,8 @@
     "fields": {
         "eixo": 1,
         "nome": "REFORMA DO SETOR ELÉTRICO",
-        "created_at": "2025-08-13T13:56:05.290Z",
-        "updated_at": "2025-08-13T13:56:05.290Z"
+        "created_at": "2025-08-14T21:32:20.077Z",
+        "updated_at": "2025-08-14T21:32:20.077Z"
     }
 },
 {
@@ -562,8 +1043,8 @@
     "fields": {
         "eixo": 2,
         "nome": "MP DO CRÉDITO CONSIGNADO",
-        "created_at": "2025-08-13T13:56:05.295Z",
-        "updated_at": "2025-08-13T13:56:05.295Z"
+        "created_at": "2025-08-14T21:32:20.082Z",
+        "updated_at": "2025-08-14T21:32:20.082Z"
     }
 },
 {
@@ -572,8 +1053,8 @@
     "fields": {
         "eixo": 2,
         "nome": "POLÍTICA NACIONAL DE DESENVOLVIMENTO DA ECONOMIA CRIATIVA (PNDEC)",
-        "created_at": "2025-08-13T13:56:05.297Z",
-        "updated_at": "2025-08-13T13:56:05.297Z"
+        "created_at": "2025-08-14T21:32:20.086Z",
+        "updated_at": "2025-08-14T21:32:20.086Z"
     }
 },
 {
@@ -582,8 +1063,8 @@
     "fields": {
         "eixo": 2,
         "nome": "PROGRAMA ACREDITA EXPORTAÇÃO",
-        "created_at": "2025-08-13T13:56:05.299Z",
-        "updated_at": "2025-08-13T13:56:05.299Z"
+        "created_at": "2025-08-14T21:32:20.088Z",
+        "updated_at": "2025-08-14T21:32:20.088Z"
     }
 },
 {
@@ -592,8 +1073,8 @@
     "fields": {
         "eixo": 2,
         "nome": "LEI DE CONCESSÃO DE SERVIÇOS PÚBLICOS",
-        "created_at": "2025-08-13T13:56:05.301Z",
-        "updated_at": "2025-08-13T13:56:05.301Z"
+        "created_at": "2025-08-14T21:32:20.090Z",
+        "updated_at": "2025-08-14T21:32:20.090Z"
     }
 },
 {
@@ -602,8 +1083,8 @@
     "fields": {
         "eixo": 2,
         "nome": "CONSTITUIÇÃO DE SUBSIDIÁRIAS PELO BNDES - EXPORTAÇÃO DE SERVIÇOS",
-        "created_at": "2025-08-13T13:56:05.304Z",
-        "updated_at": "2025-08-13T13:56:05.304Z"
+        "created_at": "2025-08-14T21:32:20.093Z",
+        "updated_at": "2025-08-14T21:32:20.093Z"
     }
 },
 {
@@ -612,8 +1093,8 @@
     "fields": {
         "eixo": 2,
         "nome": "POLÍTICA NACIONAL DE ECONOMIA CIRCULAR (PNEC)",
-        "created_at": "2025-08-13T13:56:05.307Z",
-        "updated_at": "2025-08-13T13:56:05.307Z"
+        "created_at": "2025-08-14T21:32:20.095Z",
+        "updated_at": "2025-08-14T21:32:20.095Z"
     }
 },
 {
@@ -622,8 +1103,8 @@
     "fields": {
         "eixo": 2,
         "nome": "ESTRATÉGIA NACIONAL DE SAÚDE",
-        "created_at": "2025-08-13T13:56:05.309Z",
-        "updated_at": "2025-08-13T13:56:05.309Z"
+        "created_at": "2025-08-14T21:32:20.097Z",
+        "updated_at": "2025-08-14T21:32:20.097Z"
     }
 },
 {
@@ -632,8 +1113,8 @@
     "fields": {
         "eixo": 2,
         "nome": "DEVEDOR CONTUMAZ",
-        "created_at": "2025-08-13T13:56:05.311Z",
-        "updated_at": "2025-08-13T13:56:05.311Z"
+        "created_at": "2025-08-14T21:32:20.100Z",
+        "updated_at": "2025-08-14T21:32:20.100Z"
     }
 },
 {
@@ -642,8 +1123,8 @@
     "fields": {
         "eixo": 2,
         "nome": "INSTITUIÇÕES SISTEMA DE PAGAMENTOS BRASILEIRO",
-        "created_at": "2025-08-13T13:56:05.314Z",
-        "updated_at": "2025-08-13T13:56:05.314Z"
+        "created_at": "2025-08-14T21:32:20.103Z",
+        "updated_at": "2025-08-14T21:32:20.103Z"
     }
 },
 {
@@ -652,8 +1133,8 @@
     "fields": {
         "eixo": 2,
         "nome": "REGIME DE RESOLUÇÃO BANCÁRIA",
-        "created_at": "2025-08-13T13:56:05.316Z",
-        "updated_at": "2025-08-13T13:56:05.316Z"
+        "created_at": "2025-08-14T21:32:20.105Z",
+        "updated_at": "2025-08-14T21:32:20.105Z"
     }
 },
 {
@@ -662,8 +1143,8 @@
     "fields": {
         "eixo": 2,
         "nome": "DESJUDICIALIZAÇÃO DA EXECUÇÃO CIVIL DE TÍTULO EXECUTIVO JUDICIAL E EXTRAJUDICIAL",
-        "created_at": "2025-08-13T13:56:05.318Z",
-        "updated_at": "2025-08-13T13:56:05.318Z"
+        "created_at": "2025-08-14T21:32:20.107Z",
+        "updated_at": "2025-08-14T21:32:20.107Z"
     }
 },
 {
@@ -672,8 +1153,8 @@
     "fields": {
         "eixo": 3,
         "nome": "PLANO NACIONAL DE EDUCAÇÃO PARA O DECÊNIO 2024-2034",
-        "created_at": "2025-08-13T13:56:05.323Z",
-        "updated_at": "2025-08-13T13:56:05.323Z"
+        "created_at": "2025-08-14T21:32:20.111Z",
+        "updated_at": "2025-08-14T21:32:20.111Z"
     }
 },
 {
@@ -682,8 +1163,8 @@
     "fields": {
         "eixo": 3,
         "nome": "SISTEMA NACIONAL DE EDUCAÇÃO",
-        "created_at": "2025-08-13T13:56:05.325Z",
-        "updated_at": "2025-08-13T13:56:05.325Z"
+        "created_at": "2025-08-14T21:32:20.114Z",
+        "updated_at": "2025-08-14T21:32:20.114Z"
     }
 },
 {
@@ -692,8 +1173,8 @@
     "fields": {
         "eixo": 3,
         "nome": "SANÇÕES PENAIS E ADMINISTRATIVAS DERIVADAS DE CONDUTAS E ATIVIDADES LESIVAS AO MEIO AMBIENTE",
-        "created_at": "2025-08-13T13:56:05.327Z",
-        "updated_at": "2025-08-13T13:56:05.327Z"
+        "created_at": "2025-08-14T21:32:20.117Z",
+        "updated_at": "2025-08-14T21:32:20.117Z"
     }
 },
 {
@@ -702,8 +1183,8 @@
     "fields": {
         "eixo": 3,
         "nome": "LEI DO PANTANAL",
-        "created_at": "2025-08-13T13:56:05.329Z",
-        "updated_at": "2025-08-13T13:56:05.329Z"
+        "created_at": "2025-08-14T21:32:20.120Z",
+        "updated_at": "2025-08-14T21:32:20.120Z"
     }
 },
 {
@@ -712,8 +1193,8 @@
     "fields": {
         "eixo": 3,
         "nome": "MAIOR EFETIVIDADE PARA O PLANO DE CONTINGÊNCIA DE PROTEÇÃO E DEFESA CIVIL",
-        "created_at": "2025-08-13T13:56:05.332Z",
-        "updated_at": "2025-08-13T13:56:05.332Z"
+        "created_at": "2025-08-14T21:32:20.122Z",
+        "updated_at": "2025-08-14T21:32:20.122Z"
     }
 },
 {
@@ -722,8 +1203,8 @@
     "fields": {
         "eixo": 3,
         "nome": "DIRETRIZES DE FOMENTO À CONSTRUÇÃO DE CIDADES RESILIENTES ÀS MUDANÇAS CLIMÁTICAS",
-        "created_at": "2025-08-13T13:56:05.334Z",
-        "updated_at": "2025-08-13T13:56:05.334Z"
+        "created_at": "2025-08-14T21:32:20.124Z",
+        "updated_at": "2025-08-14T21:32:20.124Z"
     }
 },
 {
@@ -732,8 +1213,8 @@
     "fields": {
         "eixo": 3,
         "nome": "POLÍTICA NACIONAL PARA O DESENVOLVIMENTO DA ECONOMIA DA BIODIVERSIDADE",
-        "created_at": "2025-08-13T13:56:05.336Z",
-        "updated_at": "2025-08-13T13:56:05.336Z"
+        "created_at": "2025-08-14T21:32:20.126Z",
+        "updated_at": "2025-08-14T21:32:20.126Z"
     }
 },
 {
@@ -742,8 +1223,8 @@
     "fields": {
         "eixo": 3,
         "nome": "ACORDO DE ESCAZÚ",
-        "created_at": "2025-08-13T13:56:05.339Z",
-        "updated_at": "2025-08-13T13:56:05.339Z"
+        "created_at": "2025-08-14T21:32:20.129Z",
+        "updated_at": "2025-08-14T21:32:20.129Z"
     }
 },
 {
@@ -752,8 +1233,8 @@
     "fields": {
         "eixo": 3,
         "nome": "FUNDO DE REQUALIFICAÇÃO E RECUPERAÇÃO DE INFRAESRTUTURAS AFETADAS POR EVENTOS CLIMÁTICOS EXTREMOS",
-        "created_at": "2025-08-13T13:56:05.341Z",
-        "updated_at": "2025-08-13T13:56:05.341Z"
+        "created_at": "2025-08-14T21:32:20.131Z",
+        "updated_at": "2025-08-14T21:32:20.131Z"
     }
 },
 {
@@ -762,8 +1243,8 @@
     "fields": {
         "eixo": 4,
         "nome": "PROTEÇÃO DE CRIANÇAS E ADOLESCENTES EM AMBIENTES DIGITAIS",
-        "created_at": "2025-08-13T13:56:05.345Z",
-        "updated_at": "2025-08-13T13:56:05.345Z"
+        "created_at": "2025-08-14T21:32:20.136Z",
+        "updated_at": "2025-08-14T21:32:20.136Z"
     }
 },
 {
@@ -772,8 +1253,8 @@
     "fields": {
         "eixo": 4,
         "nome": "DIREITO E A GARANTIA FUNDAMENTAL À LIVRE MANIFESTAÇÃO DO PENSAMENTO NA INTERNET",
-        "created_at": "2025-08-13T13:56:05.348Z",
-        "updated_at": "2025-08-13T13:56:05.348Z"
+        "created_at": "2025-08-14T21:32:20.138Z",
+        "updated_at": "2025-08-14T21:32:20.138Z"
     }
 },
 {
@@ -782,8 +1263,8 @@
     "fields": {
         "eixo": 4,
         "nome": "MARCO LEGAL DA INTELIGÊNCIA ARTIFICIAL",
-        "created_at": "2025-08-13T13:56:05.351Z",
-        "updated_at": "2025-08-13T13:56:05.351Z"
+        "created_at": "2025-08-14T21:32:20.140Z",
+        "updated_at": "2025-08-14T21:32:20.140Z"
     }
 },
 {
@@ -792,8 +1273,8 @@
     "fields": {
         "eixo": 5,
         "nome": "PEC DA SEGURANÇA PÚBLICA",
-        "created_at": "2025-08-13T13:56:05.356Z",
-        "updated_at": "2025-08-13T13:56:05.356Z"
+        "created_at": "2025-08-14T21:32:20.144Z",
+        "updated_at": "2025-08-14T21:32:20.144Z"
     }
 },
 {
@@ -802,8 +1283,8 @@
     "fields": {
         "eixo": 5,
         "nome": "PROTEÇÃO E ACOLHIMENTO DE TRABALHADORAS E TRABALHADORES RESGATADOS DE CONDIÇÃO ANÁLOGA À DE ESCRAVO",
-        "created_at": "2025-08-13T13:56:05.358Z",
-        "updated_at": "2025-08-13T13:56:05.358Z"
+        "created_at": "2025-08-14T21:32:20.147Z",
+        "updated_at": "2025-08-14T21:32:20.147Z"
     }
 },
 {
@@ -812,8 +1293,8 @@
     "fields": {
         "eixo": 5,
         "nome": "ATENDIMENTO DE MULHERES INDÍGENAS VÍTIMAS DE VIOLÊNCIAS",
-        "created_at": "2025-08-13T13:56:05.361Z",
-        "updated_at": "2025-08-13T13:56:05.361Z"
+        "created_at": "2025-08-14T21:32:20.149Z",
+        "updated_at": "2025-08-14T21:32:20.149Z"
     }
 },
 {
@@ -822,8 +1303,8 @@
     "fields": {
         "eixo": 5,
         "nome": "RESERVA MÍNIMA DE PARTICIPAÇÃO DE MULHERES EM CONSELHOS DE ADMINISTRAÇÃO",
-        "created_at": "2025-08-13T13:56:05.363Z",
-        "updated_at": "2025-08-13T13:56:05.363Z"
+        "created_at": "2025-08-14T21:32:20.152Z",
+        "updated_at": "2025-08-14T21:32:20.152Z"
     }
 },
 {
@@ -832,8 +1313,8 @@
     "fields": {
         "eixo": 5,
         "nome": "CADEIA DO OURO: PARÂMETROS SOBRE A COMERCIALIZAÇÃO DO OURO",
-        "created_at": "2025-08-13T13:56:05.365Z",
-        "updated_at": "2025-08-13T13:56:05.365Z"
+        "created_at": "2025-08-14T21:32:20.154Z",
+        "updated_at": "2025-08-14T21:32:20.154Z"
     }
 },
 {
@@ -842,8 +1323,8 @@
     "fields": {
         "eixo": 5,
         "nome": "MP DO FUNDO SOCIAL PARA ENFRENTAR DESAFIOS SOCIOECONÔMICOS",
-        "created_at": "2025-08-13T13:56:05.368Z",
-        "updated_at": "2025-08-13T13:56:05.368Z"
+        "created_at": "2025-08-14T21:32:20.156Z",
+        "updated_at": "2025-08-14T21:32:20.156Z"
     }
 },
 {
@@ -852,8 +1333,8 @@
     "fields": {
         "eixo": 5,
         "nome": "PROGRAMA AGORA TEM ESPECIALISTAS",
-        "created_at": "2025-08-13T13:56:05.371Z",
-        "updated_at": "2025-08-13T13:56:05.371Z"
+        "created_at": "2025-08-14T21:32:20.158Z",
+        "updated_at": "2025-08-14T21:32:20.158Z"
     }
 }
 ]
