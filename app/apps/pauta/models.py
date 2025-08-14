@@ -154,6 +154,20 @@ class Proposicao(models.Model):
         help_text="Casa onde a proposição foi iniciada"
     )
     
+    ementa = models.TextField(
+        null=True,
+        blank=True,
+        help_text="Ementa da proposição"
+    )
+    
+    current_house = models.CharField(
+        max_length=10,
+        choices=CASA_CHOICES,
+        null=True,
+        blank=True,
+        help_text="Casa onde a proposição está atualmente tramitando"
+    )
+    
     # Campos para controle de sincronização
     ultima_sincronizacao = models.DateTimeField(
         null=True,

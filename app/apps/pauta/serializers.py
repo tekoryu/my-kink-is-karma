@@ -96,8 +96,8 @@ class ProposicaoSerializer(serializers.ModelSerializer):
         model = Proposicao
         fields = [
             'id', 'tema', 'tipo', 'numero', 'ano', 'sf_id', 'cd_id',
-            'autor', 'data_apresentacao', 'casa_inicial', 'ultima_sincronizacao',
-            'erro_sincronizacao', 'created_at', 'updated_at'
+            'autor', 'data_apresentacao', 'casa_inicial', 'ementa', 'current_house',
+            'ultima_sincronizacao', 'erro_sincronizacao', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at'] 
 
@@ -204,7 +204,7 @@ class ProposicaoReadOnlySerializer(serializers.ModelSerializer):
         model = Proposicao
         fields = [
             'id', 'tipo', 'numero', 'ano', 'identificador_completo',
-            'sf_id', 'cd_id', 'autor', 'data_apresentacao', 'casa_inicial',
+            'sf_id', 'cd_id', 'autor', 'data_apresentacao', 'casa_inicial', 'ementa', 'current_house',
             'ultima_sincronizacao', 'erro_sincronizacao',
             'tema_id', 'tema_nome', 'eixo_id', 'eixo_nome',
             'created_at', 'updated_at'

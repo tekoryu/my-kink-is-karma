@@ -15,4 +15,5 @@
 ```
 docker compose run --rm app python manage.py shell -c string_containing_script
 ```
+- if trying to test with python scripts make it the file is in WORKDIR folder (usually /app)
 

@@ -155,11 +155,19 @@ class APISyncService:
                         # Processar data de apresentação
                         data_apresentacao = self._processar_data(processo.get('dataApresentacao'))
                         
+                        # Extrair ementa
+                        ementa = processo.get('ementa')
+                        
+                        # Determinar casa atual baseado no status de tramitação
+                        current_house = self._determinar_casa_atual_senado(processo)
+                        
                         return {
                             'sf_id': processo.get('id'),
                             'autor': autor,
                             'data_apresentacao': data_apresentacao,
-                            'casa_inicial': casa_iniciadora
+                            'casa_inicial': casa_iniciadora,
+                            'ementa': ementa,
+                            'current_house': current_house
                         }
             
             return None
@@ -185,11 +193,19 @@ class APISyncService:
                 # Determinar casa inicial baseado no autor
                 casa_inicial = self._determinar_casa_inicial_camara(autores, proposicao)
                 
+                # Extrair ementa
+                ementa = proposicao.get('ementa')
+                
+                # Determinar casa atual baseado no status de tramitação
+                current_house = self._determinar_casa_atual_camara(proposicao)
+                
                 return {
                     'cd_id': proposicao.get('id'),
                     'autor': autores[0] if autores else None,
                     'data_apresentacao': data_apresentacao,
-                    'casa_inicial': casa_inicial
+                    'casa_inicial': casa_inicial,
+                    'ementa': ementa,
+                    'current_house': current_house
                 }
             
             return None
@@ -334,6 +350,74 @@ class APISyncService:
             logger.error(f"Erro ao buscar autores na Câmara: {e}")
             return []
     
+    def _determinar_casa_atual_senado(self, processo: Dict) -> Optional[str]:
+        """
+        Determina a casa atual baseado no status de tramitação do Senado.
+        
+        Args:
+            processo: Dados do processo do Senado
+            
+        Returns:
+            str: Casa atual ou None se não conseguir determinar
+        """
+        try:
+            # Verificar se está tramitando
+            tramitando = processo.get('tramitando', '').lower()
+            if tramitando == 'não' or tramitando == 'nao':
+                return None
+            
+            # Verificar última informação atualizada
+            ultima_info = processo.get('ultimaInformacaoAtualizada', '').lower()
+            
+            # Se a última informação é do Senado, está no Senado
+            if 'senado' in ultima_info or 'sf' in ultima_info:
+                return 'SF'
+            
+            # Se a última informação é da Câmara, está na Câmara
+            if 'câmara' in ultima_info or 'camara' in ultima_info or 'cd' in ultima_info:
+                return 'CD'
+            
+            # Se não conseguir determinar, usar a casa identificadora como fallback
+            casa_identificadora = processo.get('casaIdentificadora')
+            if casa_identificadora:
+                return casa_identificadora
+            
+            return None
+            
+        except Exception as e:
+            logger.warning(f"Erro ao determinar casa atual do Senado: {e}")
+            return None
+    
+    def _determinar_casa_atual_camara(self, proposicao: Dict) -> Optional[str]:
+        """
+        Determina a casa atual baseado no status de tramitação da Câmara.
+        
+        Args:
+            proposicao: Dados da proposição da Câmara
+            
+        Returns:
+            str: Casa atual ou None se não conseguir determinar
+        """
+        try:
+            status = proposicao.get('statusProposicao', {})
+            descricao_situacao = status.get('descricaoSituacao', '').lower()
+            
+            # Se menciona Senado, está no Senado
+            if 'senado' in descricao_situacao:
+                return 'SF'
+            
+            # Se menciona Câmara ou não menciona outra casa, está na Câmara
+            if 'câmara' in descricao_situacao or 'camara' in descricao_situacao:
+                return 'CD'
+            
+            # Se não menciona nenhuma casa específica, assumir que está na Câmara
+            # (já que os dados vieram da API da Câmara)
+            return 'CD'
+            
+        except Exception as e:
+            logger.warning(f"Erro ao determinar casa atual da Câmara: {e}")
+            return None
+    
     def sincronizar_proposicao(self, proposicao) -> bool:
         """
         Sincroniza uma proposição específica com as APIs.
@@ -382,6 +466,8 @@ class APISyncService:
                         proposicao.autor = dados_senado.get('autor')
                     if not proposicao.data_apresentacao and dados_senado.get('data_apresentacao'):
                         proposicao.data_apresentacao = dados_senado.get('data_apresentacao')
+                    if not proposicao.ementa and dados_senado.get('ementa'):
+                        proposicao.ementa = dados_senado.get('ementa')
                     logger.info(f"Dados extraídos da API do Senado para casa inicial: {casa_inicial_para_dados}")
                 
                 elif casa_inicial_para_dados == 'CD' and dados_camara:
@@ -390,11 +476,20 @@ class APISyncService:
                         proposicao.autor = dados_camara.get('autor')
                     if not proposicao.data_apresentacao and dados_camara.get('data_apresentacao'):
                         proposicao.data_apresentacao = dados_camara.get('data_apresentacao')
+                    if not proposicao.ementa and dados_camara.get('ementa'):
+                        proposicao.ementa = dados_camara.get('ementa')
                     logger.info(f"Dados extraídos da API da Câmara para casa inicial: {casa_inicial_para_dados}")
                 
                 else:
                     # RN0003: Proposição não encontrada na API da casa iniciadora
                     logger.warning(f"Proposição não encontrada na API da casa iniciadora: {casa_inicial_para_dados}")
+            
+            # Determinar casa atual baseado nos dados das APIs
+            # Priorizar dados da casa onde a proposição está atualmente
+            if dados_senado and dados_senado.get('current_house'):
+                proposicao.current_house = dados_senado.get('current_house')
+            elif dados_camara and dados_camara.get('current_house'):
+                proposicao.current_house = dados_camara.get('current_house')
             
             # Marcar como sincronizada
             proposicao.ultima_sincronizacao = timezone.now()

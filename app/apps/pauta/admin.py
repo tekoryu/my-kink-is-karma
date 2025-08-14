@@ -60,9 +60,9 @@ class ProposicaoAdmin(admin.ModelAdmin):
     Permite gerenciar proposições legislativas associadas a temas específicos.
     """
     
-    list_display = ['identificador_completo', 'tema', 'autor', 'casa_inicial', 'tem_dados_api', 'ultima_sincronizacao']
-    list_filter = ['tema', 'tipo', 'ano', 'casa_inicial', 'ultima_sincronizacao', 'created_at', 'updated_at']
-    search_fields = ['tipo', 'numero', 'tema__nome', 'autor']
+    list_display = ['identificador_completo', 'tema', 'autor', 'casa_inicial', 'current_house', 'tem_dados_api', 'ultima_sincronizacao']
+    list_filter = ['tema', 'tipo', 'ano', 'casa_inicial', 'current_house', 'ultima_sincronizacao', 'created_at', 'updated_at']
+    search_fields = ['tipo', 'numero', 'tema__nome', 'autor', 'ementa']
     ordering = ['tema__nome', 'ano', 'numero']
     readonly_fields = ['created_at', 'updated_at', 'ultima_sincronizacao', 'erro_sincronizacao']
     
@@ -74,7 +74,7 @@ class ProposicaoAdmin(admin.ModelAdmin):
             'fields': ('tema',)
         }),
         ('Dados das APIs', {
-            'fields': ('sf_id', 'cd_id', 'autor', 'data_apresentacao', 'casa_inicial')
+            'fields': ('sf_id', 'cd_id', 'autor', 'data_apresentacao', 'casa_inicial', 'ementa', 'current_house')
         }),
         ('Sincronização', {
             'fields': ('ultima_sincronizacao', 'erro_sincronizacao'),
