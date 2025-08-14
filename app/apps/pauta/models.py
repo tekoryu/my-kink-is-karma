@@ -95,6 +95,8 @@ class Proposicao(models.Model):
     CASA_CHOICES = [
         ('CD', 'Câmara dos Deputados'),
         ('SF', 'Senado Federal'),
+        ('EXECUTIVO', 'Poder Executivo'),
+        ('OUTROS', 'Outras Entidades'),
     ]
     
     tema = models.ForeignKey(
@@ -145,7 +147,7 @@ class Proposicao(models.Model):
     )
     
     casa_inicial = models.CharField(
-        max_length=2,
+        max_length=10,
         choices=CASA_CHOICES,
         null=True,
         blank=True,

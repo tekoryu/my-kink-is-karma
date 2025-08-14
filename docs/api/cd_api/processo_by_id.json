@@ -1,0 +1,46 @@
+{
+  "dados": {
+    "id": 2386490,
+    "uri": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2386490",
+    "siglaTipo": "PL",
+    "codTipo": 139,
+    "numero": 4381,
+    "ano": 2023,
+    "ementa": "Regulamenta sobre procedimentos a serem adotados pelas delegacias de polícia e demais órgãos responsáveis para o atendimento de mulheres indígenas vítimas de violências, nas hipóteses de medidas protetivas de urgência previstas na Lei n.º 11.340/2006 e Decreto 11.431/2023.",
+    "dataApresentacao": "2023-09-11T12:24",
+    "uriOrgaoNumerador": "https://dadosabertos.camara.leg.br/api/v2/orgaos/5503",
+    "statusProposicao": {
+      "dataHora": "2025-02-26T00:00",
+      "sequencia": 70,
+      "siglaOrgao": "MESA",
+      "uriOrgao": "https://dadosabertos.camara.leg.br/api/v2/orgaos/4",
+      "uriUltimoRelator": "https://dadosabertos.camara.leg.br/api/v2/deputados/220640",
+      "regime": "Urgência (Art. 155, RICD)",
+      "descricaoTramitacao": "Expedição de Documento",
+      "codTipoTramitacao": "190",
+      "descricaoSituacao": "Aguardando Apreciação pelo Senado Federal",
+      "codSituacao": 926,
+      "despacho": "Remessa ao Senado Federal por meio do Of. nº 38/2025/SGM-P.",
+      "url": "https://www.camara.leg.br/proposicoesWeb/prop_mostrarintegra?codteor=2861245",
+      "ambito": "Regimental",
+      "apreciacao": "Proposição Sujeita à Apreciação do Plenário"
+    },
+    "uriAutores": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2386490/autores",
+    "descricaoTipo": "Projeto de Lei",
+    "ementaDetalhada": "",
+    "keywords": "Regulamentação, procedimento, delegacia de polícia, atendimento à vítima, violência contra a mulher, indígenas, urgência, equivalência, Lei Maria da Penha, Programa Mulher Viver sem Violência",
+    "uriPropPrincipal": null,
+    "uriPropAnterior": null,
+    "uriPropPosterior": null,
+    "urlInteiroTeor": "https://www.camara.leg.br/proposicoesWeb/prop_mostrarintegra?codteor=2325670",
+    "urnFinal": null,
+    "texto": null,
+    "justificativa": null
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "https://dadosabertos.camara.leg.br/api/v2/proposicoes/2386490"
+    }
+  ]
+}

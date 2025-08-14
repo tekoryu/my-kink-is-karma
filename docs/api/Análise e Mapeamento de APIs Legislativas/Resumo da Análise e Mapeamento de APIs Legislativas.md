@@ -30,6 +30,7 @@ Com base no schema fornecido (`schema.json`), os campos necessários para um pro
 - **Autor do processo**: `Processo.Autoria.Autor.NomeParlamentar` (ou `Processo.Autoria.Autor.Nome`)
 - **Data de apresentação**: `Processo.DadosBasicos.DataApresentacao`
 - **Identificador único do processo**: `Processo.Identificacao.CodigoProcesso`
+- **Casa Iniciadora**: `Processo.siglaCasaIniciadora` (ex: "CD", "SF", "EXECUTIVO")
 
 ## API 2 - Câmara dos Deputados
 
@@ -74,6 +75,9 @@ Com base na documentação fornecida, os campos necessários podem ser mapeados 
   - Caminho: `dados.dataApresentacao` (do endpoint `/proposicoes/{id}`)
 - **Identificador único do processo**: O próprio `id` da proposição.
   - Caminho: `dados.id` (do endpoint `/proposicoes/{id}`)
+- **Casa Iniciadora**: Determinada através da análise dos autores da proposição.
+  - Caminho: Análise de `dados[].nome` (do endpoint `/proposicoes/{id}/autores`)
+  - Valores possíveis: "CD" (Câmara), "SF" (Senado), "EXECUTIVO" (Poder Executivo)
 
 ## Conclusão
 
