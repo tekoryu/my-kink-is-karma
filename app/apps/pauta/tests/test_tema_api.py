@@ -58,7 +58,7 @@ class TemaAPITestCase(TestCase):
         Deve retornar status 400 e não criar o tema.
         """
         # Cria o primeiro tema
-        Tema.objects.create(nome=self.tema_data['nome'])
+        Tema.objects.create(eixo=self.eixo, nome=self.tema_data['nome'])
         
         # Tenta criar um tema com o mesmo nome
         response = self.client.post(self.temas_url, self.tema_data, format='json')
@@ -144,7 +144,7 @@ class TemaAPITestCase(TestCase):
         
         Deve retornar status 200 e os dados do tema.
         """
-        tema = Tema.objects.create(nome=self.tema_data['nome'])
+        tema = Tema.objects.create(eixo=self.eixo, nome=self.tema_data['nome'])
         url = reverse('pauta:tema-detail', args=[tema.id])
         
         response = self.client.get(url)
@@ -175,10 +175,10 @@ class TemaAPITestCase(TestCase):
         
         Deve retornar status 200 e atualizar o tema.
         """
-        tema = Tema.objects.create(nome=self.tema_data['nome'])
+        tema = Tema.objects.create(eixo=self.eixo, nome=self.tema_data['nome'])
         url = reverse('pauta:tema-detail', args=[tema.id])
         
-        dados_atualizados = {'nome': 'Saúde Pública'}
+        dados_atualizados = {'nome': 'Saúde Pública', 'eixo': self.eixo.id}
         response = self.client.put(url, dados_atualizados, format='json')
         
         # Verifica o status da resposta
@@ -195,7 +195,7 @@ class TemaAPITestCase(TestCase):
         
         Deve retornar status 204 e remover o tema do banco.
         """
-        tema = Tema.objects.create(nome=self.tema_data['nome'])
+        tema = Tema.objects.create(eixo=self.eixo, nome=self.tema_data['nome'])
         url = reverse('pauta:tema-detail', args=[tema.id])
         
         response = self.client.delete(url)

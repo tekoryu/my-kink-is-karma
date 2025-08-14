@@ -11,7 +11,8 @@ class ProposicaoAPITestCase(TestCase):
     def setUp(self):
         """Configuração inicial para os testes."""
         self.client = APIClient()
-        self.tema = Tema.objects.create(nome="Tecnologia")
+        self.eixo = Eixo.objects.create(id=20, nome="Eixo Proposicao API")
+        self.tema = Tema.objects.create(eixo=self.eixo, nome="Tecnologia")
         self.proposicao_data = {
             'tema': self.tema.id,
             'tipo': 'PL',
