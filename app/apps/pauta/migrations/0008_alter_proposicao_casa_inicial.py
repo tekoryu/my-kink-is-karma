@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pauta', '0007_auto_20250813_2021'),
+        ('pauta', '0006_proposicao_autor_proposicao_casa_inicial_and_more'),
     ]
 
     operations = [

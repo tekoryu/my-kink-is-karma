@@ -70,6 +70,15 @@ class Command(BaseCommand):
                             self.stdout.write(
                                 self.style.ERROR(f"Erro ao sincronizar proposição {proposicao.identificador_completo}")
                             )
+                    
+                    # Log performance metrics for single proposição
+                    duration = time.time() - start_time
+                    log_performance('sync_proposicoes_command', duration, {
+                        'total_processed': 1,
+                        'force': options['force'],
+                        'dry_run': options['dry_run'],
+                        'single_proposicao': True
+                    })
                             
                 except Proposicao.DoesNotExist:
                     raise CommandError(f"Proposição com ID {options['proposicao_id']} não encontrada")
@@ -81,52 +90,52 @@ class Command(BaseCommand):
                 else:
                     proposicoes = Proposicao.objects.filter(ultima_sincronizacao__isnull=True)
                     self.stdout.write("Sincronizando apenas proposições não sincronizadas")
-            
-            total = proposicoes.count()
-            self.stdout.write(f"Total de proposições a processar: {total}")
-            
-            if total == 0:
-                self.stdout.write(self.style.WARNING("Nenhuma proposição para sincronizar"))
-                return
-            
-            if options['dry_run']:
-                self.stdout.write("Modo dry-run: não serão feitas alterações no banco")
-                # Mostrar apenas estatísticas
-                limit = options['limit'] or 5
-                proposicoes_amostra = proposicoes[:limit]
-                self.stdout.write(f"Mostrando amostra de {limit} proposições:")
                 
-                for proposicao in proposicoes_amostra:
-                    self.stdout.write(f"- {proposicao.identificador_completo}")
-            else:
-                # Executar sincronização real
-                with transaction.atomic():
-                    stats = service.sincronizar_todas_proposicoes(
-                        limit=options['limit'], 
-                        force=options['force']
-                    )
+                total = proposicoes.count()
+                self.stdout.write(f"Total de proposições a processar: {total}")
+                
+                if total == 0:
+                    self.stdout.write(self.style.WARNING("Nenhuma proposição para sincronizar"))
+                    return
+                
+                if options['dry_run']:
+                    self.stdout.write("Modo dry-run: não serão feitas alterações no banco")
+                    # Mostrar apenas estatísticas
+                    limit = options['limit'] or 5
+                    proposicoes_amostra = proposicoes[:limit]
+                    self.stdout.write(f"Mostrando amostra de {limit} proposições:")
                     
-                    self.stdout.write(
-                        self.style.SUCCESS(
-                            f"Sincronização concluída: {stats['sucessos']} sucessos, {stats['erros']} erros"
+                    for proposicao in proposicoes_amostra:
+                        self.stdout.write(f"- {proposicao.identificador_completo}")
+                else:
+                    # Executar sincronização real
+                    with transaction.atomic():
+                        stats = service.sincronizar_todas_proposicoes(
+                            limit=options['limit'], 
+                            force=options['force']
                         )
-                    )
-                    
-                    if stats['erros'] > 0:
+                        
                         self.stdout.write(
-                            self.style.WARNING(
-                                f"Verifique os logs para detalhes dos {stats['erros']} erros"
+                            self.style.SUCCESS(
+                                f"Sincronização concluída: {stats['sucessos']} sucessos, {stats['erros']} erros"
                             )
                         )
-            
-            # Log performance metrics
-            duration = time.time() - start_time
-            log_performance('sync_proposicoes_command', duration, {
-                'total_processed': total,
-                'force': options['force'],
-                'dry_run': options['dry_run'],
-                'limit': options['limit']
-            })
+                        
+                        if stats['erros'] > 0:
+                            self.stdout.write(
+                                self.style.WARNING(
+                                    f"Verifique os logs para detalhes dos {stats['erros']} erros"
+                                )
+                            )
+                
+                # Log performance metrics for bulk sync
+                duration = time.time() - start_time
+                log_performance('sync_proposicoes_command', duration, {
+                    'total_processed': total,
+                    'force': options['force'],
+                    'dry_run': options['dry_run'],
+                    'limit': options['limit']
+                })
             
         except Exception as e:
             log_error(e, {

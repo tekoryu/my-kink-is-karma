@@ -133,8 +133,7 @@ class Proposicao(models.Model):
     )
     
     # Campos para dados básicos
-    autor = models.CharField(
-        max_length=255,
+    autor = models.TextField(
         null=True,
         blank=True,
         help_text="Nome do autor da proposição"

@@ -232,8 +232,7 @@ class APISyncService:
         Extrai a data de apresentação do processo do Senado.
         """
         try:
-            documento = processo.get('documento', {})
-            data_str = documento.get('dataApresentacao')
+            data_str = processo.get('dataApresentacao')
             return self._processar_data(data_str)
         except Exception:
             return None
@@ -259,8 +258,7 @@ class APISyncService:
         Extrai a ementa do processo do Senado.
         """
         try:
-            conteudo = processo.get('conteudo', {})
-            return conteudo.get('ementa')
+            return processo.get('ementa')
         except Exception:
             return None
     
@@ -269,14 +267,8 @@ class APISyncService:
         Extrai o autor do processo do Senado da estrutura de autoria.
         """
         try:
-            documento = processo.get('documento', {})
-            autoria = documento.get('autoria', [])
-            
-            if isinstance(autoria, list) and len(autoria) > 0:
-                primeiro_autor = autoria[0]
-                return primeiro_autor.get('autor')
-            
-            return None
+            autoria = processo.get('autoria')
+            return autoria if isinstance(autoria, str) else None
         except Exception:
             return None
     
