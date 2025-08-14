@@ -2,7 +2,7 @@ import requests
 import json
 import time
 from datetime import datetime
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, List
 from django.utils import timezone
 from django.conf import settings
 import logging
@@ -13,6 +13,9 @@ logger = logging.getLogger(__name__)
 class APISyncService:
     """
     Serviço para sincronização de dados das APIs do Senado Federal e Câmara dos Deputados.
+    Implementa busca estruturada:
+    1. Busca no Senado Federal para encontrar sf_id e determinar se é casa iniciadora
+    2. Para proposições sem casa_inicial definida, busca na Câmara dos Deputados
     """
     
     # URLs das APIs
@@ -53,7 +56,7 @@ class APISyncService:
     
     def buscar_proposicao_senado(self, tipo: str, numero: int, ano: int) -> Optional[Dict]:
         """
-        Busca uma proposição na API do Senado Federal.
+        Busca uma proposição na API do Senado Federal usando endpoint /processo.
         
         Args:
             tipo: Tipo da proposição (PL, PEC, etc.)
@@ -61,24 +64,28 @@ class APISyncService:
             ano: Ano da proposição
             
         Returns:
-            Dict com os dados da proposição ou None se não encontrada
+            Dict com sf_id, data_apresentacao, ementa, casa_iniciadora, autor se encontrada
         """
         self._rate_limit_senado()
         
-        # Buscar na API do Senado usando o endpoint de processo
-        # A API do Senado retorna uma lista de processos, precisamos filtrar
         search_url = f"{self.SENADO_BASE_URL}/processo"
+        
+        params = {
+            'sigla': tipo,
+            'numero': numero,
+            'ano': ano
+        }
         
         try:
             response = requests.get(
                 search_url, 
+                params=params,
                 headers=self.DEFAULT_HEADERS, 
                 timeout=30
             )
             
             if response.status_code == 200:
                 data = response.json()
-                # Processar resposta para encontrar a proposição específica
                 return self._processar_resposta_senado(data, tipo, numero, ano)
             else:
                 logger.warning(f"Erro ao buscar proposição no Senado: {response.status_code}")
@@ -91,6 +98,7 @@ class APISyncService:
     def buscar_proposicao_camara(self, tipo: str, numero: int, ano: int) -> Optional[Dict]:
         """
         Busca uma proposição na API da Câmara dos Deputados.
+        Primeiro busca na listagem, depois busca detalhes completos.
         
         Args:
             tipo: Tipo da proposição (PL, PEC, etc.)
@@ -98,11 +106,11 @@ class APISyncService:
             ano: Ano da proposição
             
         Returns:
-            Dict com os dados da proposição ou None se não encontrada
+            Dict com cd_id, casa_inicial='CD', ementa, data_apresentacao, autor se encontrada
         """
         self._rate_limit_camara()
         
-        # Buscar proposição por tipo, número e ano
+        # Primeiro: buscar na listagem para obter o ID
         search_url = f"{self.CAMARA_BASE_URL}/proposicoes"
         
         params = {
@@ -121,7 +129,12 @@ class APISyncService:
             
             if response.status_code == 200:
                 data = response.json()
-                return self._processar_resposta_camara(data, tipo, numero, ano)
+                if 'dados' in data and len(data['dados']) > 0:
+                    cd_id = data['dados'][0]['id']
+                    return self._buscar_detalhes_proposicao_camara(cd_id)
+                else:
+                    logger.info(f"Proposição {tipo} {numero}/{ano} não encontrada na Câmara")
+                    return None
             else:
                 logger.warning(f"Erro ao buscar proposição na Câmara: {response.status_code}")
                 return None
@@ -130,45 +143,45 @@ class APISyncService:
             logger.error(f"Erro na requisição para API da Câmara: {e}")
             return None
     
-    def _processar_resposta_senado(self, data: Dict, tipo: str, numero: int, ano: int) -> Optional[Dict]:
+    def _processar_resposta_senado(self, data: List, tipo: str, numero: int, ano: int) -> Optional[Dict]:
         """
         Processa a resposta da API do Senado e extrai os dados necessários.
+        Busca pelo processo específico e verifica se objetivo='Iniciadora' para determinar casa_inicial.
         """
         try:
-            # A API do Senado retorna uma lista de processos
-            if isinstance(data, list):
-                # Procurar pela proposição específica baseada no tipo, número e ano
-                for processo in data:
-                    identificacao = processo.get('identificacao', '')
+            if not isinstance(data, list):
+                return None
+            
+            # Procurar pela proposição específica baseada no tipo, número e ano
+            for processo in data:
+                identificacao = processo.get('identificacao', '')
+                
+                # Verificar se a identificação contém o tipo, número e ano
+                if (tipo in identificacao and 
+                    str(numero) in identificacao and 
+                    str(ano) in identificacao):
                     
-                    # Verificar se a identificação contém o tipo, número e ano
-                    if (tipo in identificacao and 
-                        str(numero) in identificacao and 
-                        str(ano) in identificacao):
-                        
-                        # Extrair casa iniciadora
-                        casa_iniciadora = processo.get('siglaCasaIniciadora')
-                        
-                        # Extrair autor da estrutura complexa
-                        autor = self._extrair_autor_senado(processo.get('autoria', {}))
-                        
-                        # Processar data de apresentação
-                        data_apresentacao = self._processar_data(processo.get('dataApresentacao'))
-                        
-                        # Extrair ementa
-                        ementa = processo.get('ementa')
-                        
-                        # Determinar casa atual baseado no status de tramitação
-                        current_house = self._determinar_casa_atual_senado(processo)
-                        
-                        return {
-                            'sf_id': processo.get('id'),
-                            'autor': autor,
-                            'data_apresentacao': data_apresentacao,
-                            'casa_inicial': casa_iniciadora,
-                            'ementa': ementa,
-                            'current_house': current_house
-                        }
+                    # Extrair dados básicos
+                    sf_id = processo.get('id')
+                    data_apresentacao = self._processar_data_senado(processo)
+                    ementa = self._extrair_ementa_senado(processo)
+                    
+                    # Verificar se é casa iniciadora
+                    objetivo = processo.get('objetivo', '')
+                    casa_inicial = None
+                    autor = None
+                    
+                    if objetivo == 'Iniciadora':
+                        casa_inicial = 'SF'
+                        autor = self._extrair_autor_senado(processo)
+                    
+                    return {
+                        'sf_id': sf_id,
+                        'data_apresentacao': data_apresentacao,
+                        'ementa': ementa,
+                        'casa_inicial': casa_inicial,
+                        'autor': autor
+                    }
             
             return None
             
@@ -176,118 +189,161 @@ class APISyncService:
             logger.error(f"Erro ao processar resposta do Senado: {e}")
             return None
     
-    def _processar_resposta_camara(self, data: Dict, tipo: str, numero: int, ano: int) -> Optional[Dict]:
+    def _buscar_detalhes_proposicao_camara(self, cd_id: int) -> Optional[Dict]:
         """
-        Processa a resposta da API da Câmara e extrai os dados necessários.
+        Busca detalhes completos de uma proposição na Câmara usando seu ID.
         """
+        self._rate_limit_camara()
+        
+        # Buscar detalhes da proposição
+        details_url = f"{self.CAMARA_BASE_URL}/proposicoes/{cd_id}"
+        
         try:
-            if 'dados' in data and isinstance(data['dados'], list) and len(data['dados']) > 0:
-                proposicao = data['dados'][0]
-                
-                # Buscar autores separadamente
-                autores = self._buscar_autores_camara(proposicao.get('id'))
-                
-                # Processar data de apresentação
-                data_apresentacao = self._processar_data(proposicao.get('dataApresentacao'))
-                
-                # Determinar casa inicial baseado no autor
-                casa_inicial = self._determinar_casa_inicial_camara(autores, proposicao)
-                
-                # Extrair ementa
-                ementa = proposicao.get('ementa')
-                
-                # Determinar casa atual baseado no status de tramitação
-                current_house = self._determinar_casa_atual_camara(proposicao)
-                
-                return {
-                    'cd_id': proposicao.get('id'),
-                    'autor': autores[0] if autores else None,
-                    'data_apresentacao': data_apresentacao,
-                    'casa_inicial': casa_inicial,
-                    'ementa': ementa,
-                    'current_house': current_house
-                }
+            response = requests.get(details_url, headers=self.DEFAULT_HEADERS, timeout=30)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if 'dados' in data:
+                    proposicao = data['dados']
+                    
+                    # Extrair dados básicos
+                    ementa = proposicao.get('ementa')
+                    data_apresentacao = self._processar_data_camara(proposicao.get('dataApresentacao'))
+                    
+                    # Buscar autores
+                    autor = self._buscar_autor_camara(cd_id)
+                    
+                    return {
+                        'cd_id': cd_id,
+                        'casa_inicial': 'CD',  # Assumimos CD para proposições sem casa_inicial do SF
+                        'ementa': ementa,
+                        'data_apresentacao': data_apresentacao,
+                        'autor': autor
+                    }
             
             return None
             
-        except Exception as e:
-            logger.error(f"Erro ao processar resposta da Câmara: {e}")
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Erro ao buscar detalhes da proposição {cd_id}: {e}")
             return None
     
-    def _determinar_casa_inicial(self, dados_senado: Optional[Dict], dados_camara: Optional[Dict]) -> Optional[str]:
+    def _processar_data_senado(self, processo: Dict) -> Optional[str]:
         """
-        Determina a casa inicial baseado nos dados das APIs.
-        
-        Args:
-            dados_senado: Dados da API do Senado
-            dados_camara: Dados da API da Câmara
-            
-        Returns:
-            str: Casa inicial determinada ou None se não conseguir determinar
-        """
-        # Priorizar dados do Senado se disponível
-        if dados_senado and dados_senado.get('casa_inicial'):
-            return dados_senado.get('casa_inicial')
-        
-        # Usar dados da Câmara se disponível
-        if dados_camara and dados_camara.get('casa_inicial'):
-            return dados_camara.get('casa_inicial')
-        
-        # Se apenas uma API retornou dados, usar ela como referência
-        if dados_senado and not dados_camara:
-            return 'SF'
-        elif dados_camara and not dados_senado:
-            return 'CD'
-        
-        # Se ambas retornaram dados mas sem casa_inicial, não conseguir determinar
-        return None
-    
-    def _determinar_casa_inicial_camara(self, autores: list, proposicao: Dict) -> str:
-        """
-        Determina a casa inicial baseado nos autores da proposição na Câmara.
-        
-        Args:
-            autores: Lista de autores da proposição
-            proposicao: Dados da proposição
-            
-        Returns:
-            str: Casa inicial determinada
-        """
-        if not autores:
-            return 'CD'  # Default para Câmara se não conseguir determinar
-        
-        # Verificar se é Poder Executivo
-        for autor in autores:
-            if any(keyword in autor.lower() for keyword in ['executivo', 'presidente', 'ministro']):
-                return 'EXECUTIVO'
-        
-        # Verificar se é Senado
-        for autor in autores:
-            if any(keyword in autor.lower() for keyword in ['senador', 'senado']):
-                return 'SF'
-        
-        # Verificar se é Câmara
-        for autor in autores:
-            if any(keyword in autor.lower() for keyword in ['deputado', 'câmara']):
-                return 'CD'
-        
-        # Se não conseguir determinar, usar CD como padrão
-        return 'CD'
-    
-    def _extrair_autor_senado(self, autoria: Dict) -> Optional[str]:
-        """
-        Extrai o nome do autor da estrutura de autoria do Senado.
+        Extrai a data de apresentação do processo do Senado.
         """
         try:
-            if 'Autor' in autoria:
-                autor = autoria['Autor']
-                return autor.get('NomeParlamentar') or autor.get('Nome')
-            elif 'Autores' in autoria and isinstance(autoria['Autores'], list):
-                if len(autoria['Autores']) > 0:
-                    autor = autoria['Autores'][0]
-                    return autor.get('NomeParlamentar') or autor.get('Nome')
+            documento = processo.get('documento', {})
+            data_str = documento.get('dataApresentacao')
+            return self._processar_data(data_str)
+        except Exception:
+            return None
+    
+    def _processar_data_camara(self, data_str: str) -> Optional[str]:
+        """
+        Processa data de apresentação da Câmara (formato 2023-09-11T12:24).
+        """
+        if not data_str:
+            return None
+        try:
+            # Remover a parte de hora se presente
+            if 'T' in data_str:
+                data_str = data_str.split('T')[0]
+            # Verificar se já está no formato correto
+            datetime.strptime(data_str, '%Y-%m-%d')
+            return data_str
+        except (ValueError, AttributeError):
+            return None
+    
+    def _extrair_ementa_senado(self, processo: Dict) -> Optional[str]:
+        """
+        Extrai a ementa do processo do Senado.
+        """
+        try:
+            conteudo = processo.get('conteudo', {})
+            return conteudo.get('ementa')
+        except Exception:
+            return None
+    
+    def _extrair_autor_senado(self, processo: Dict) -> Optional[str]:
+        """
+        Extrai o autor do processo do Senado da estrutura de autoria.
+        """
+        try:
+            documento = processo.get('documento', {})
+            autoria = documento.get('autoria', [])
+            
+            if isinstance(autoria, list) and len(autoria) > 0:
+                primeiro_autor = autoria[0]
+                return primeiro_autor.get('autor')
+            
             return None
         except Exception:
+            return None
+    
+    def _buscar_autor_camara(self, cd_id: int) -> Optional[str]:
+        """
+        Busca o autor de uma proposição na Câmara e formata adequadamente.
+        """
+        self._rate_limit_camara()
+        
+        autores_url = f"{self.CAMARA_BASE_URL}/proposicoes/{cd_id}/autores"
+        
+        try:
+            response = requests.get(autores_url, headers=self.DEFAULT_HEADERS, timeout=30)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if 'dados' in data and len(data['dados']) > 0:
+                    primeiro_autor = data['dados'][0]
+                    nome = primeiro_autor.get('nome', '')
+                    
+                    # Se é Poder Executivo, retornar diretamente
+                    if nome == 'Poder Executivo':
+                        return 'Poder Executivo'
+                    
+                    # Se não é Poder Executivo, buscar dados do deputado
+                    uri = primeiro_autor.get('uri', '')
+                    if uri:
+                        return self._buscar_dados_deputado(uri)
+                    
+                    return nome
+            
+            return None
+            
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Erro ao buscar autores da proposição {cd_id}: {e}")
+            return None
+    
+    def _buscar_dados_deputado(self, uri: str) -> Optional[str]:
+        """
+        Busca dados completos do deputado e formata nome conforme especificação.
+        """
+        self._rate_limit_camara()
+        
+        try:
+            response = requests.get(uri, headers=self.DEFAULT_HEADERS, timeout=30)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if 'dados' in data:
+                    deputado = data['dados']
+                    ultimo_status = deputado.get('ultimoStatus', {})
+                    
+                    nome_eleitoral = ultimo_status.get('nomeEleitoral', '')
+                    sigla_partido = ultimo_status.get('siglaPartido', '')
+                    sigla_uf = ultimo_status.get('siglaUf', '')
+                    sexo = deputado.get('sexo', 'M')
+                    
+                    if nome_eleitoral and sigla_partido and sigla_uf:
+                        titulo = "Deputada" if sexo == 'F' else "Deputado"
+                        return f"{titulo} {nome_eleitoral} ({sigla_partido}/{sigla_uf})"
+                    
+                    return nome_eleitoral or deputado.get('nomeCivil', '')
+            
+            return None
+            
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Erro ao buscar dados do deputado {uri}: {e}")
             return None
     
     def _processar_data(self, data_str: str) -> Optional[str]:
@@ -304,9 +360,6 @@ class APISyncService:
             return None
             
         try:
-            # Tentar diferentes formatos de data
-            from datetime import datetime
-            
             # Formato comum: "2023-01-15T00:00:00"
             if 'T' in data_str:
                 data_str = data_str.split('T')[0]
@@ -324,103 +377,11 @@ class APISyncService:
         except (ValueError, AttributeError) as e:
             logger.warning(f"Erro ao processar data '{data_str}': {e}")
             return None
-    
-    def _buscar_autores_camara(self, proposicao_id: int) -> list:
-        """
-        Busca os autores de uma proposição na Câmara.
-        """
-        if not proposicao_id:
-            return []
-        
-        self._rate_limit_camara()
-        
-        url = f"{self.CAMARA_BASE_URL}/proposicoes/{proposicao_id}/autores"
-        
-        try:
-            response = requests.get(url, headers=self.DEFAULT_HEADERS, timeout=30)
-            
-            if response.status_code == 200:
-                data = response.json()
-                if 'dados' in data and isinstance(data['dados'], list):
-                    return [autor.get('nome') for autor in data['dados'] if autor.get('nome')]
-            
-            return []
-            
-        except requests.exceptions.RequestException as e:
-            logger.error(f"Erro ao buscar autores na Câmara: {e}")
-            return []
-    
-    def _determinar_casa_atual_senado(self, processo: Dict) -> Optional[str]:
-        """
-        Determina a casa atual baseado no status de tramitação do Senado.
-        
-        Args:
-            processo: Dados do processo do Senado
-            
-        Returns:
-            str: Casa atual ou None se não conseguir determinar
-        """
-        try:
-            # Verificar se está tramitando
-            tramitando = processo.get('tramitando', '').lower()
-            if tramitando == 'não' or tramitando == 'nao':
-                return None
-            
-            # Verificar última informação atualizada
-            ultima_info = processo.get('ultimaInformacaoAtualizada', '').lower()
-            
-            # Se a última informação é do Senado, está no Senado
-            if 'senado' in ultima_info or 'sf' in ultima_info:
-                return 'SF'
-            
-            # Se a última informação é da Câmara, está na Câmara
-            if 'câmara' in ultima_info or 'camara' in ultima_info or 'cd' in ultima_info:
-                return 'CD'
-            
-            # Se não conseguir determinar, usar a casa identificadora como fallback
-            casa_identificadora = processo.get('casaIdentificadora')
-            if casa_identificadora:
-                return casa_identificadora
-            
-            return None
-            
-        except Exception as e:
-            logger.warning(f"Erro ao determinar casa atual do Senado: {e}")
-            return None
-    
-    def _determinar_casa_atual_camara(self, proposicao: Dict) -> Optional[str]:
-        """
-        Determina a casa atual baseado no status de tramitação da Câmara.
-        
-        Args:
-            proposicao: Dados da proposição da Câmara
-            
-        Returns:
-            str: Casa atual ou None se não conseguir determinar
-        """
-        try:
-            status = proposicao.get('statusProposicao', {})
-            descricao_situacao = status.get('descricaoSituacao', '').lower()
-            
-            # Se menciona Senado, está no Senado
-            if 'senado' in descricao_situacao:
-                return 'SF'
-            
-            # Se menciona Câmara ou não menciona outra casa, está na Câmara
-            if 'câmara' in descricao_situacao or 'camara' in descricao_situacao:
-                return 'CD'
-            
-            # Se não menciona nenhuma casa específica, assumir que está na Câmara
-            # (já que os dados vieram da API da Câmara)
-            return 'CD'
-            
-        except Exception as e:
-            logger.warning(f"Erro ao determinar casa atual da Câmara: {e}")
-            return None
-    
     def sincronizar_proposicao(self, proposicao) -> bool:
         """
-        Sincroniza uma proposição específica com as APIs.
+        Sincroniza uma proposição específica com as APIs seguindo a nova estratégia:
+        1. Busca no Senado para sf_id e verifica se é casa iniciadora
+        2. Se não tem casa_inicial definida, busca na Câmara
         
         Args:
             proposicao: Instância do modelo Proposicao
@@ -431,65 +392,51 @@ class APISyncService:
         try:
             logger.info(f"Sincronizando proposição: {proposicao.identificador_completo}")
             
-            # Buscar em ambas as APIs
+            # Etapa 1: Buscar no Senado Federal
             dados_senado = self.buscar_proposicao_senado(
                 proposicao.tipo, proposicao.numero, proposicao.ano
             )
             
-            dados_camara = self.buscar_proposicao_camara(
-                proposicao.tipo, proposicao.numero, proposicao.ano
-            )
+            # Sempre salvar sf_id se encontrado
+            if dados_senado and dados_senado.get('sf_id'):
+                proposicao.sf_id = dados_senado['sf_id']
+                logger.info(f"SF ID encontrado: {dados_senado['sf_id']}")
             
-            # Determinar casa inicial se não estiver definida
-            casa_inicial_determinada = None
+            # Se o Senado indicou que é casa iniciadora, usar seus dados
+            if dados_senado and dados_senado.get('casa_inicial') == 'SF':
+                proposicao.casa_inicial = 'SF'
+                if dados_senado.get('autor'):
+                    proposicao.autor = dados_senado['autor']
+                if dados_senado.get('data_apresentacao'):
+                    proposicao.data_apresentacao = dados_senado['data_apresentacao']
+                if dados_senado.get('ementa'):
+                    proposicao.ementa = dados_senado['ementa']
+                logger.info("Dados extraídos do Senado (casa iniciadora)")
+            
+            # Etapa 2: Se não tem casa_inicial definida, buscar na Câmara
             if not proposicao.casa_inicial:
-                casa_inicial_determinada = self._determinar_casa_inicial(
-                    dados_senado, dados_camara
+                dados_camara = self.buscar_proposicao_camara(
+                    proposicao.tipo, proposicao.numero, proposicao.ano
                 )
-                if casa_inicial_determinada:
-                    proposicao.casa_inicial = casa_inicial_determinada
-                    logger.info(f"Casa inicial determinada: {casa_inicial_determinada}")
-            
-            # Sempre atualizar IDs das APIs (para referência)
-            if dados_senado:
-                proposicao.sf_id = dados_senado.get('sf_id')
-            if dados_camara:
-                proposicao.cd_id = dados_camara.get('cd_id')
-            
-            # Implementar RN0001: Extrair autor e data_apresentacao apenas da casa iniciadora
-            casa_inicial_para_dados = proposicao.casa_inicial or casa_inicial_determinada
-            
-            if casa_inicial_para_dados:
-                if casa_inicial_para_dados in ['SF', 'EXECUTIVO'] and dados_senado:
-                    # Usar dados do Senado se a casa inicial for SF ou EXECUTIVO
-                    if not proposicao.autor and dados_senado.get('autor'):
-                        proposicao.autor = dados_senado.get('autor')
-                    if not proposicao.data_apresentacao and dados_senado.get('data_apresentacao'):
-                        proposicao.data_apresentacao = dados_senado.get('data_apresentacao')
-                    if not proposicao.ementa and dados_senado.get('ementa'):
-                        proposicao.ementa = dados_senado.get('ementa')
-                    logger.info(f"Dados extraídos da API do Senado para casa inicial: {casa_inicial_para_dados}")
                 
-                elif casa_inicial_para_dados == 'CD' and dados_camara:
-                    # Usar dados da Câmara se a casa inicial for CD
-                    if not proposicao.autor and dados_camara.get('autor'):
-                        proposicao.autor = dados_camara.get('autor')
-                    if not proposicao.data_apresentacao and dados_camara.get('data_apresentacao'):
-                        proposicao.data_apresentacao = dados_camara.get('data_apresentacao')
-                    if not proposicao.ementa and dados_camara.get('ementa'):
-                        proposicao.ementa = dados_camara.get('ementa')
-                    logger.info(f"Dados extraídos da API da Câmara para casa inicial: {casa_inicial_para_dados}")
-                
-                else:
-                    # RN0003: Proposição não encontrada na API da casa iniciadora
-                    logger.warning(f"Proposição não encontrada na API da casa iniciadora: {casa_inicial_para_dados}")
-            
-            # Determinar casa atual baseado nos dados das APIs
-            # Priorizar dados da casa onde a proposição está atualmente
-            if dados_senado and dados_senado.get('current_house'):
-                proposicao.current_house = dados_senado.get('current_house')
-            elif dados_camara and dados_camara.get('current_house'):
-                proposicao.current_house = dados_camara.get('current_house')
+                if dados_camara:
+                    # Salvar cd_id
+                    if dados_camara.get('cd_id'):
+                        proposicao.cd_id = dados_camara['cd_id']
+                        logger.info(f"CD ID encontrado: {dados_camara['cd_id']}")
+                    
+                    # Assumir que é casa inicial = CD
+                    proposicao.casa_inicial = 'CD'
+                    
+                    # Extrair dados da Câmara
+                    if dados_camara.get('autor'):
+                        proposicao.autor = dados_camara['autor']
+                    if dados_camara.get('data_apresentacao'):
+                        proposicao.data_apresentacao = dados_camara['data_apresentacao']
+                    if dados_camara.get('ementa'):
+                        proposicao.ementa = dados_camara['ementa']
+                    
+                    logger.info("Dados extraídos da Câmara (casa inicial determinada como CD)")
             
             # Marcar como sincronizada
             proposicao.ultima_sincronizacao = timezone.now()
@@ -504,6 +451,7 @@ class APISyncService:
             proposicao.erro_sincronizacao = str(e)
             proposicao.save()
             return False
+
     
     def sincronizar_todas_proposicoes(self, limit: Optional[int] = None, force: bool = False) -> Dict[str, int]:
         """
