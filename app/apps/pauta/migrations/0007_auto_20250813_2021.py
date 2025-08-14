@@ -21,10 +21,11 @@ def unload_fixture(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        # Coloque aqui a dependência da migração anterior, que normalmente
-        # é a última migração de esquema. Ex: ('seu_app', '0001_initial'),
-        # Certifique-se de que o esquema do banco já exista antes de carregar os dados.
-        ('pauta', '0006_proposicao_autor_proposicao_casa_inicial_and_more')
+        ('pauta', '0006_proposicao_autor_proposicao_casa_inicial_and_more'),
+        ('auth', '0012_alter_user_first_name_max_length'),  # Django auth tables
+        ('sessions', '0001_initial'),  # Django session table
+        ('contenttypes', '0002_remove_content_type_name'),  # Content types
+        ('admin', '0003_logentry_add_action_flag_choices'),  # Admin log
     ]
 
     operations = [
