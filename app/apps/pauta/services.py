@@ -421,6 +421,8 @@ class APISyncService:
                     if dados_camara.get('cd_id'):
                         proposicao.cd_id = dados_camara['cd_id']
                         logger.info(f"CD ID encontrado: {dados_camara['cd_id']}")
+                        encontrou_dados = True
+
                     
                     # Assumir que é casa inicial = CD
                     proposicao.casa_inicial = 'CD'
