@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_serializer, OpenApiExample
-from .models import Eixo, Tema, Proposicao
+from .models import Eixo, Tema, Proposicao, SenadoActivityHistory, CamaraActivityHistory
 
 
 @extend_schema_serializer(
@@ -209,4 +209,96 @@ class ProposicaoReadOnlySerializer(serializers.ModelSerializer):
             'tema_id', 'tema_nome', 'eixo_id', 'eixo_nome',
             'created_at', 'updated_at'
         ]
-        read_only_fields = fields 
+        read_only_fields = fields
+
+
+@extend_schema_serializer(
+    examples=[
+        OpenApiExample(
+            'Atividade do Senado',
+            value={
+                'id': 1,
+                'proposicao': 1,
+                'id_informe': 2245882,
+                'data': '2025-07-16',
+                'descricao': 'Autuado o Projeto de Lei nº 2583/2020, proveniente da Câmara dos Deputados. O projeto vai à publicação.',
+                'colegiado_codigo': 1998,
+                'colegiado_casa': 'SF',
+                'colegiado_sigla': 'PLEN',
+                'colegiado_nome': 'Plenário do Senado Federal',
+                'ente_administrativo_id': 55312,
+                'ente_administrativo_casa': 'SF',
+                'ente_administrativo_sigla': 'SLSF',
+                'ente_administrativo_nome': 'Secretaria Legislativa do Senado Federal',
+                'id_situacao_iniciada': 175,
+                'sigla_situacao_iniciada': 'AGDESP',
+                'created_at': '2024-01-01T00:00:00Z',
+                'updated_at': '2024-01-01T00:00:00Z'
+            },
+            description='Exemplo de uma atividade do Senado Federal'
+        ),
+    ]
+)
+class SenadoActivityHistorySerializer(serializers.ModelSerializer):
+    """
+    Serializer para o modelo SenadoActivityHistory.
+    
+    Expõe todos os campos para operações de leitura.
+    """
+    
+    class Meta:
+        model = SenadoActivityHistory
+        fields = [
+            'id', 'proposicao', 'id_informe', 'data', 'descricao',
+            'colegiado_codigo', 'colegiado_casa', 'colegiado_sigla', 'colegiado_nome',
+            'ente_administrativo_id', 'ente_administrativo_casa', 'ente_administrativo_sigla', 'ente_administrativo_nome',
+            'id_situacao_iniciada', 'sigla_situacao_iniciada',
+            'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at']
+
+
+@extend_schema_serializer(
+    examples=[
+        OpenApiExample(
+            'Atividade da Câmara',
+            value={
+                'id': 1,
+                'proposicao': 1,
+                'data_hora': '2020-05-12T16:40:00Z',
+                'sequencia': 1,
+                'sigla_orgao': 'PLEN',
+                'uri_orgao': 'https://dadosabertos.camara.leg.br/api/v2/orgaos/180',
+                'uri_ultimo_relator': None,
+                'regime': 'Urgência (Art. 155, RICD)',
+                'descricao_tramitacao': 'Apresentação de Proposição',
+                'cod_tipo_tramitacao': '100',
+                'descricao_situacao': None,
+                'cod_situacao': None,
+                'despacho': 'Apresentação do Projeto de Lei n. 2583/2020, pelo Deputado Dr. Luiz Antonio Teixeira Jr. (PP/RJ)',
+                'url': 'https://www.camara.leg.br/proposicoesWeb/prop_mostrarintegra?codteor=1892820',
+                'ambito': 'Regimental',
+                'apreciacao': 'Proposição Sujeita à Apreciação do Plenário',
+                'created_at': '2024-01-01T00:00:00Z',
+                'updated_at': '2024-01-01T00:00:00Z'
+            },
+            description='Exemplo de uma atividade da Câmara dos Deputados'
+        ),
+    ]
+)
+class CamaraActivityHistorySerializer(serializers.ModelSerializer):
+    """
+    Serializer para o modelo CamaraActivityHistory.
+    
+    Expõe todos os campos para operações de leitura.
+    """
+    
+    class Meta:
+        model = CamaraActivityHistory
+        fields = [
+            'id', 'proposicao', 'data_hora', 'sequencia', 'sigla_orgao', 'uri_orgao', 'uri_ultimo_relator',
+            'regime', 'descricao_tramitacao', 'cod_tipo_tramitacao', 'descricao_situacao', 'cod_situacao',
+            'despacho', 'url', 'ambito', 'apreciacao',
+            'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at'] 
