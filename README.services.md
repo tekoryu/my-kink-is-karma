@@ -17,6 +17,7 @@ The service provides automated synchronization of legislative proposal data from
 - ✅ **Data Extraction**: Captures author, presentation date, and house of origin
 - ✅ **Incremental Sync**: Only processes unsynchronized proposições
 - ✅ **Admin Integration**: Full Django admin interface support
+- ✅ **Activity History**: Tracks legislative activities from both houses
 
 ## Data Fields Captured
 
@@ -241,3 +242,243 @@ Potential improvements for the service:
 - **Data Validation**: Enhanced error checking
 - **Performance Metrics**: Sync statistics and monitoring
 - **API Caching**: Reduce redundant requests
+
+---
+
+# Activity History Synchronization
+
+The Activity History feature tracks legislative activities and procedural steps for each proposição in both houses of the Brazilian Congress.
+
+## Overview
+
+The Activity History system captures detailed procedural information from both legislative houses:
+- **Senado Federal**: Legislative reports (`informesLegislativos`) from `/processo/{id}` endpoint
+- **Câmara dos Deputados**: Procedural steps (`tramitacoes`) from `/proposicoes/{id}/tramitacoes` endpoint
+
+## Features
+
+- ✅ **Dual House Tracking**: Separate models for Senado and Câmara activities
+- ✅ **Comprehensive Data Capture**: All available fields from both APIs
+- ✅ **Read-only API Endpoints**: RESTful access to activity data
+- ✅ **Admin Interface**: Full Django admin integration
+- ✅ **Incremental Sync**: Only syncs proposições with API IDs
+- ✅ **Rate Limiting**: Respects API limits during synchronization
+
+## Data Models
+
+### SenadoActivityHistory
+Captures legislative reports from Senado Federal:
+
+| Field | Description | Source |
+|-------|-------------|---------|
+| `id_informe` | Unique report ID | Senado API |
+| `data` | Report date | Senado API |
+| `descricao` | Detailed description | Senado API |
+| `colegiado_*` | Committee information | Senado API |
+| `ente_administrativo_*` | Administrative entity | Senado API |
+| `sigla_situacao_iniciada` | Status code | Senado API |
+
+### CamaraActivityHistory
+Captures procedural steps from Câmara dos Deputados:
+
+| Field | Description | Source |
+|-------|-------------|---------|
+| `sequencia` | Sequential number | Câmara API |
+| `data_hora` | Date and time | Câmara API |
+| `sigla_orgao` | Organ acronym | Câmara API |
+| `descricao_tramitacao` | Procedure description | Câmara API |
+| `despacho` | Dispatch text | Câmara API |
+| `cod_tipo_tramitacao` | Procedure type code | Câmara API |
+
+## Management Commands
+
+### Primary Command: `sync_activity_history`
+
+Synchronizes activity history for proposições with API IDs.
+
+```bash
+# Basic usage - sync all proposições with API IDs
+docker compose run --rm app python manage.py sync_activity_history
+
+# Sync with limit
+docker compose run --rm app python manage.py sync_activity_history --limit 10
+
+# Sync specific proposição
+docker compose run --rm app python manage.py sync_activity_history --proposicao-id 123
+
+# Sync only Senado activities
+docker compose run --rm app python manage.py sync_activity_history --senado-only
+
+# Sync only Câmara activities
+docker compose run --rm app python manage.py sync_activity_history --camara-only
+
+# Force re-sync (update existing records)
+docker compose run --rm app python manage.py sync_activity_history --force
+```
+
+### Command Options
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `--limit` | int | Maximum number of proposições to process |
+| `--proposicao-id` | int | Sync specific proposição by database ID |
+| `--senado-only` | flag | Sync only Senado activities |
+| `--camara-only` | flag | Sync only Câmara activities |
+| `--force` | flag | Update existing activity records |
+
+### Examples
+
+#### Sync All Activity History
+```bash
+docker compose run --rm app python manage.py sync_activity_history
+```
+**Output:**
+```
+Iniciando sincronização de histórico de atividades...
+Processando 25 proposições
+[1/25] Processando PL 4381/2023...
+  ✓ Senado: OK
+  ✓ Câmara: OK
+[2/25] Processando PLP 108/2024...
+  ✓ Senado: OK
+  ✓ Câmara: OK
+...
+==================================================
+SINCRONIZAÇÃO CONCLUÍDA
+==================================================
+Total de proposições: 25
+Senado (sucessos): 23
+Câmara (sucessos): 25
+Erros: 2
+Tempo total: 45.32 segundos
+```
+
+#### Sync Specific Proposição
+```bash
+docker compose run --rm app python manage.py sync_activity_history --proposicao-id 1
+```
+**Output:**
+```
+Processando proposição específica: PL 4381/2023
+[1/1] Processando PL 4381/2023...
+  ✓ Senado: OK
+  ✓ Câmara: OK
+==================================================
+SINCRONIZAÇÃO CONCLUÍDA
+==================================================
+Total de proposições: 1
+Senado (sucessos): 1
+Câmara (sucessos): 1
+Erros: 0
+Tempo total: 3.45 segundos
+```
+
+## API Endpoints
+
+### Senado Activities
+- **List**: `GET /api/atividades/senado/`
+- **Detail**: `GET /api/atividades/senado/{id}/`
+- **Filters**: `proposicao`, `data`, `colegiado_sigla`, `ente_administrativo_sigla`
+- **Search**: `descricao`, `colegiado_nome`, `ente_administrativo_nome`
+
+### Câmara Activities
+- **List**: `GET /api/atividades/camara/`
+- **Detail**: `GET /api/atividades/camara/{id}/`
+- **Filters**: `proposicao`, `sigla_orgao`, `cod_tipo_tramitacao`, `ambito`
+- **Search**: `despacho`, `descricao_tramitacao`, `descricao_situacao`
+
+### Example API Response
+
+```json
+{
+  "id": 1,
+  "proposicao": 1,
+  "id_informe": 2245882,
+  "data": "2025-07-16",
+  "descricao": "Autuado o Projeto de Lei nº 2583/2020, proveniente da Câmara dos Deputados.",
+  "colegiado_sigla": "PLEN",
+  "colegiado_nome": "Plenário do Senado Federal",
+  "ente_administrativo_sigla": "SLSF",
+  "ente_administrativo_nome": "Secretaria Legislativa do Senado Federal",
+  "sigla_situacao_iniciada": "AGDESP",
+  "created_at": "2024-01-01T00:00:00Z",
+  "updated_at": "2024-01-01T00:00:00Z"
+}
+```
+
+## Admin Interface
+
+### SenadoActivityHistory Admin
+- **List View**: Proposição, ID, Date, Committee, Administrative Entity, Status
+- **Filters**: Date, Committee, Administrative Entity, Status
+- **Search**: Proposição identifier, description, committee names
+- **Date Hierarchy**: By activity date
+
+### CamaraActivityHistory Admin
+- **List View**: Proposição, Sequence, Date/Time, Organ, Procedure Type
+- **Filters**: Date/Time, Organ, Procedure Type, Scope
+- **Search**: Proposição identifier, dispatch, procedure descriptions
+- **Date Hierarchy**: By activity date/time
+
+## Data Sources
+
+### Senado Federal API
+- **Endpoint**: `/processo/{sf_id}`
+- **Data Path**: `autuacoes[].informesLegislativos[]`
+- **Exclusions**: `documentosAssociados` field is skipped
+- **Rate Limit**: 10 requests per second
+
+### Câmara dos Deputados API
+- **Endpoint**: `/proposicoes/{cd_id}/tramitacoes`
+- **Data Path**: `dados[]`
+- **Rate Limit**: 15 requests per second
+
+## Synchronization Logic
+
+1. **Filter Proposições**: Only process proposições with `sf_id` or `cd_id`
+2. **Senado Sync**: For proposições with `sf_id`, fetch process data and extract `informesLegislativos`
+3. **Câmara Sync**: For proposições with `cd_id`, fetch tramitações data
+4. **Upsert Logic**: Create new records or update existing ones based on unique identifiers
+5. **Error Handling**: Log errors but continue processing other proposições
+
+## Performance Considerations
+
+- **Rate Limiting**: 1-second delay between proposições
+- **Batch Processing**: Can limit number of proposições per run
+- **Incremental Updates**: Existing records are updated rather than recreated
+- **Error Recovery**: Failed syncs don't prevent others from processing
+
+## Troubleshooting
+
+### Common Issues
+
+1. **No activities found**: Proposição may not have activity history in the API
+2. **Partial sync**: Proposição may have activities in only one house
+3. **API errors**: Check logs for specific error messages
+4. **Rate limiting**: Service automatically handles delays
+
+### Debug Commands
+
+```bash
+# Check activity counts
+docker compose run --rm app python manage.py shell -c "from apps.pauta.models import SenadoActivityHistory, CamaraActivityHistory; print(f'Senado activities: {SenadoActivityHistory.objects.count()}'); print(f'Câmara activities: {CamaraActivityHistory.objects.count()}')"
+
+# Test specific proposição
+docker compose run --rm app python manage.py sync_activity_history --proposicao-id 1 --limit 1
+```
+
+## Integration with Main Sync
+
+The Activity History sync is independent of the main proposição sync:
+- Main sync populates `sf_id` and `cd_id` fields
+- Activity History sync uses these IDs to fetch detailed activity data
+- Both can be run independently or together
+
+## Future Enhancements
+
+Potential improvements for Activity History:
+- **Real-time Updates**: Webhook integration for live updates
+- **Activity Analytics**: Statistical analysis of procedural patterns
+- **Timeline Visualization**: Graphical representation of legislative progress
+- **Notification System**: Alerts for important procedural milestones
+- **Data Export**: CSV/Excel export functionality

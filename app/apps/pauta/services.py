@@ -677,6 +677,7 @@ class APISyncService:
             bool: True se criada/atualizada com sucesso
         """
         from .models import CamaraActivityHistory
+        from django.utils import timezone
         
         try:
             sequencia = tramitacao.get('sequencia')
@@ -690,9 +691,12 @@ class APISyncService:
                 try:
                     # Formato: "2020-05-12T16:40"
                     if 'T' in data_hora_str:
-                        data_hora = datetime.strptime(data_hora_str, '%Y-%m-%dT%H:%M')
+                        naive_datetime = datetime.strptime(data_hora_str, '%Y-%m-%dT%H:%M')
                     else:
-                        data_hora = datetime.strptime(data_hora_str, '%Y-%m-%d')
+                        naive_datetime = datetime.strptime(data_hora_str, '%Y-%m-%d')
+                    
+                    # Tornar timezone-aware (assumindo horário de Brasília)
+                    data_hora = timezone.make_aware(naive_datetime, timezone=timezone.get_current_timezone())
                 except ValueError:
                     logger.warning(f"Formato de data inválido: {data_hora_str}")
             
