@@ -384,6 +384,9 @@ class APISyncService:
         try:
             logger.info(f"Sincronizando proposição: {proposicao.identificador_completo}")
             
+            dados_camara = None
+            encontrou_dados = False
+            
             # Etapa 1: Buscar no Senado Federal
             dados_senado = self.buscar_proposicao_senado(
                 proposicao.tipo, proposicao.numero, proposicao.ano
@@ -393,6 +396,7 @@ class APISyncService:
             if dados_senado and dados_senado.get('sf_id'):
                 proposicao.sf_id = dados_senado['sf_id']
                 logger.info(f"SF ID encontrado: {dados_senado['sf_id']}")
+                encontrou_dados = True
             
             # Se o Senado indicou que é casa iniciadora, usar seus dados
             if dados_senado and dados_senado.get('casa_inicial') == 'SF':
@@ -404,6 +408,7 @@ class APISyncService:
                 if dados_senado.get('ementa'):
                     proposicao.ementa = dados_senado['ementa']
                 logger.info("Dados extraídos do Senado (casa iniciadora)")
+                encontrou_dados = True
             
             # Etapa 2: Se não tem casa_inicial definida, buscar na Câmara
             if not proposicao.casa_inicial:
@@ -429,18 +434,28 @@ class APISyncService:
                         proposicao.ementa = dados_camara['ementa']
                     
                     logger.info("Dados extraídos da Câmara (casa inicial determinada como CD)")
+                    encontrou_dados = True
             
-            # Marcar como sincronizada
-            proposicao.ultima_sincronizacao = timezone.now()
-            proposicao.erro_sincronizacao = None
-            proposicao.save()
-            
-            logger.info(f"Proposição {proposicao.identificador_completo} sincronizada com sucesso")
-            return True
+            # Verificar se a proposição foi encontrada em alguma API
+            if not encontrou_dados:
+                # Proposição não encontrada em nenhuma API
+                proposicao.ultima_sincronizacao = None
+                proposicao.erro_sincronizacao = 'NOT FOUND'
+                proposicao.save()
+                logger.warning(f"Proposição {proposicao.identificador_completo} não encontrada em nenhuma API")
+                return False
+            else:
+                # Marcar como sincronizada com sucesso
+                proposicao.ultima_sincronizacao = timezone.now()
+                proposicao.erro_sincronizacao = None
+                proposicao.save()
+                logger.info(f"Proposição {proposicao.identificador_completo} sincronizada com sucesso")
+                return True
             
         except Exception as e:
             logger.error(f"Erro ao sincronizar proposição {proposicao.identificador_completo}: {e}")
             proposicao.erro_sincronizacao = str(e)
+            proposicao.ultima_sincronizacao = None
             proposicao.save()
             return False
 
