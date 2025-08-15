@@ -1,0 +1,310 @@
+{
+  "id": 8863804,
+  "codigoMateria": 169609,
+  "identificacao": "PL 2583/2020",
+  "sigla": "PL",
+  "descricaoSigla": "Projeto de Lei",
+  "numero": "2583",
+  "ano": 2020,
+  "objetivo": "Revisora",
+  "casaIdentificadora": "SF",
+  "siglaEnteIdentificador": "SF",
+  "identificacaoExterna": {},
+  "conteudo": {
+    "id": 7616069,
+    "idTipo": 11,
+    "siglaTipo": "NORMA_GERAL",
+    "tipo": "Norma Geral",
+    "ementa": "Institui a Estratégia Nacional de Saúde do Complexo Econômico-Industrial da Saúde (ENSCEIS); e altera as Leis nºs 6.360, de 23 de setembro de 1976, 14.133, de 1º de abril de 2021 (Lei de Licitações e Contratos Administrativos), e 8.080, de 19 de setembro de 1990 (Lei Orgânica da Saúde).",
+    "tipoNormaIndicada": "LEI"
+  },
+  "documento": {
+    "id": 9995847,
+    "siglaTipo": "PROJETO_LEI_ORDINARIA",
+    "tipo": "Projeto de Lei Ordinária",
+    "dataApresentacao": "2025-07-15",
+    "indexacao": " CRIAÇÃO ,  LEI FEDERAL ,  ESTRATEGIA ,  SAUDE ,  AMBITO NACIONAL ,  GARANTIA ,  PRESTAÇÃO DE SERVIÇO ,  FOMENTO ,  EMPREGO ,  INOVAÇÃO ,  REDUÇÃO ,  DEPENDENCIA ,  EXTERIOR ,  MELHORIA ,  INDUSTRIA ,  FIXAÇÃO ,  DIRETRIZ ,  OBJETIVO ,  CRITERIOS ,  PARCERIA ,  CREDENCIAMENTO ,  PESSOA JURIDICA ,  EMPRESA ,  INICIATIVA PRIVADA ,  CONTRATO ,  PODER PUBLICO ,  AQUISIÇÃO ,  TRANSFERENCIA ,  TECNOLOGIA ,  COOPERAÇÃO ,  PROJETO ,  LICITAÇÃO ,  HIPOTESE ,  DISPENSA ,  PREFERENCIA ,  CONTRATAÇÃO ,  AUTORIZAÇÃO ,  INCENTIVO ,  LINHA DE CREDITO ,  BANCO NACIONAL DE DESENVOLVIMENTO ECONOMICO E SOCIAL (BNDES) . ALTERAÇÃO ,  LEI FEDERAL ,  LEI ORGANICA ,  SISTEMA UNICO DE SAUDE (SUS) ,  ABRANGENCIA ,  PROMOÇÃO ,  INFRAESTRUTURA ,  DESENVOLVIMENTO ,  PRODUÇÃO ,  TECNOLOGIA ,  INOVAÇÃO ,  ELABORAÇÃO ,  EXECUÇÃO ,  POLITICAS PUBLICAS . ALTERAÇÃO ,  LEI FEDERAL ,  ACRESCIMO ,  HIPOTESE ,  DISPENSA ,  LICITAÇÃO ,  CONTRATAÇÃO ,  PESSOA JURIDICA ,  FUNDAÇÃO ,  FORNECIMENTO ,  PRODUTO ,  SAUDE ,  PARCERIA ,  TRANSFERENCIA ,  TECNOLOGIA ,  SISTEMA UNICO DE SAUDE (SUS) . ALTERAÇÃO ,  LEI FEDERAL ,  DEFINIÇÃO JURIDICA ,  CORRELAÇÃO ,  MEDICAMENTOS ,  CRITERIOS ,  IMPORTAÇÃO ,  PRODUTO ,  TRATAMENTO MEDICO ,  SAUDE ,  REGISTRO ,  AUTORIDADE SANITARIA ,  FIXAÇÃO ,  HIPOTESE ,  EXCEÇÃO .",
+    "url": "https://legis.senado.gov.br/sdleg-getter/documento?dm=9995847",
+    "autoria": [
+      {
+        "autor": "Câmara dos Deputados",
+        "siglaTipo": "CAMARA",
+        "descricaoTipo": "CAMARA",
+        "ordem": 1,
+        "outrosAutoresNaoInformados": "Não",
+        "idEnte": 2,
+        "siglaEnte": "CD",
+        "casaEnte": "CD",
+        "ente": "Câmara dos Deputados"
+      }
+    ],
+    "resumoAutoria": "Câmara dos Deputados"
+  },
+  "tramitando": "Sim",
+  "classificacoes": [
+    {
+      "codigo": 33686030,
+      "descricao": "Licitação e Contratos",
+      "descricaoHierarquia": "Administração Pública / Licitação e Contratos"
+    },
+    {
+      "codigo": 33804880,
+      "descricao": "Indústria",
+      "descricaoHierarquia": "Economia e Desenvolvimento / Indústria, Comércio e Serviços / Indústria"
+    },
+    {
+      "codigo": 33808942,
+      "descricao": "Saúde",
+      "descricaoHierarquia": "Política Social / Saúde"
+    },
+    {
+      "codigo": 33809198,
+      "descricao": "Defesa e Vigilância Sanitária",
+      "descricaoHierarquia": "Política Social / Saúde / Defesa e Vigilância Sanitária"
+    }
+  ],
+  "autoriaIniciativa": [
+    {
+      "autor": "Doutor Luizinho",
+      "sexo": "M",
+      "siglaTipo": "DEPUTADO",
+      "descricaoTipo": "DEPUTADO",
+      "ordem": 1,
+      "outrosAutoresNaoInformados": "Não",
+      "codigoParlamentar": 6153,
+      "siglaPartido": "PP",
+      "partido": "Progressistas",
+      "siglaCargo": "DEPUTADO",
+      "cargo": "Deputado Federal",
+      "idEnte": 2,
+      "siglaEnte": "CD",
+      "casaEnte": "CD",
+      "ente": "Câmara dos Deputados"
+    }
+  ],
+  "idProcessoCasaInicial": 8863803,
+  "identificacaoProcessoInicial": "PL 2583/2020",
+  "siglaCasaIniciadora": "CD",
+  "comissaoMpv": "{}",
+  "outrosNumeros": [
+    {
+      "idOutroProcesso": 8863803,
+      "sigla": "PL",
+      "numero": "02583",
+      "ano": 2020,
+      "tramitando": "Sim",
+      "externaAoCongresso": "Não",
+      "casaIdentificadora": "CD",
+      "siglaEnteIdentificador": "CD",
+      "enteIdentificador": "Câmara dos Deputados"
+    }
+  ],
+  "despachos": [
+    {
+      "id": 10011646,
+      "data": "2025-08-08",
+      "siglaTipoMotivacao": "DECISAO_PRESID",
+      "tipoMotivacao": "Decisão da Presidência",
+      "cancelado": "Não",
+      "encontroLegislativo": {
+        "colegiado": {}
+      },
+      "providencias": [
+        {
+          "id": 8876040,
+          "tipo": "ANALISE",
+          "descricao": "Análise",
+          "ordem": 1,
+          "analiseTempo": "SUCESSIVA",
+          "analiseConteudo": "MATERIA",
+          "reexame": "Não",
+          "unidadesDestinatarias": [
+            {
+              "ordem": 1,
+              "tipoAnaliseDeliberacao": "NAO_TERMINATIVA",
+              "colegiado": {
+                "codigo": 34,
+                "sigla": "CCJ",
+                "casa": "SF",
+                "nome": "Comissão de Constituição, Justiça e Cidadania"
+              }
+            },
+            {
+              "ordem": 2,
+              "tipoAnaliseDeliberacao": "NAO_TERMINATIVA",
+              "colegiado": {
+                "codigo": 38,
+                "sigla": "CAE",
+                "casa": "SF",
+                "nome": "Comissão de Assuntos Econômicos"
+              }
+            },
+            {
+              "ordem": 3,
+              "tipoAnaliseDeliberacao": "NAO_TERMINATIVA",
+              "colegiado": {
+                "codigo": 40,
+                "sigla": "CAS",
+                "casa": "SF",
+                "nome": "Comissão de Assuntos Sociais"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "autuacoes": [
+    {
+      "numero": 1,
+      "descricao": "Autuação Principal",
+      "codigoColegiadoControleAtual": 34,
+      "casaColegiadoControleAtual": "SF",
+      "siglaColegiadoControleAtual": "CCJ",
+      "nomeColegiadoControleAtual": "Comissão de Constituição, Justiça e Cidadania",
+      "idEnteControleAtual": 13565,
+      "siglaEnteControleAtual": "SACCJ",
+      "nomeEnteControleAtual": "Secretaria de Apoio à Comissão de Constituição, Justiça e Cidadania",
+      "situacoes": [
+        {
+          "idTipo": 175,
+          "sigla": "AGDESP",
+          "descricao": "AGUARDANDO DESPACHO",
+          "inicio": "2025-07-16",
+          "fim": "2025-08-08"
+        },
+        {
+          "idTipo": 177,
+          "sigla": "MATDESP",
+          "descricao": "MATÉRIA DESPACHADA",
+          "inicio": "2025-08-08",
+          "fim": "2025-08-08"
+        },
+        {
+          "idTipo": 87,
+          "sigla": "AGDREL",
+          "descricao": "AGUARDANDO DESIGNAÇÃO DO RELATOR",
+          "inicio": "2025-08-08"
+        }
+      ],
+      "informesLegislativos": [
+        {
+          "id": 2245882,
+          "data": "2025-07-16",
+          "colegiado": {
+          "codigo": 1998,
+          "casa": "SF",
+          "sigla": "PLEN",
+          "nome": "Plenário do Senado Federal"
+          },
+          "enteAdministrativo": {
+            "id": 55312,
+            "casa": "SF",
+            "sigla": "SLSF",
+            "nome": "Secretaria Legislativa do Senado Federal"
+          },
+          "descricao": "Autuado o Projeto de Lei nº 2583/2020, proveniente da Câmara dos Deputados. O projeto vai à publicação.",
+          "idSituacaoIniciada": 175,
+          "siglaSituacaoIniciada": "AGDESP",
+          "documentosAssociados": [
+            {
+              "id": 9995847,
+              "tipo": "Projeto de Lei Ordinária",
+              "siglaTipo": "PROJETO_LEI_ORDINARIA",
+              "identificacao": "PL 2583/2020",
+              "descricao": "Institui a Estratégia Nacional de Saúde do Complexo Econômico-Industrial da Saúde (ENSCEIS); e altera as Leis nºs 6.360, de 23 de setembro de 1976, 14.133, de 1º de abril de 2021 (Lei de Licitações e Contratos Administrativos), e 8.080, de 19 de setembro de 1990 (Lei Orgânica da Saúde).",
+              "data": "2025-07-15T08:42:26",
+              "autoria": "Câmara dos Deputados",
+              "url": "http://legis.senado.leg.br/sdleg-getter/documento?dm=9995847"
+            }
+          ]
+        },
+        {
+          "id": 2248446,
+          "data": "2025-08-08",
+          "colegiado": {
+            "codigo": 1998,
+            "casa": "SF",
+            "sigla": "PLEN",
+            "nome": "Plenário do Senado Federal"
+          },
+          "enteAdministrativo": {
+            "id": 13594,
+            "casa": "SF",
+            "sigla": "SEADI",
+            "nome": "Secretaria de Atas e Diários"
+          },
+          "descricao": "A matéria vai à CCJ, seguindo posteriormente à CAE e, por fim, à CAS.",
+          "idSituacaoIniciada": 177,
+          "siglaSituacaoIniciada": "MATDESP"
+        },
+        {
+          "id": 2248521,
+          "data": "2025-08-08",
+          "colegiado": {
+            "codigo": 34,
+            "casa": "SF",
+            "sigla": "CCJ",
+            "nome": "Comissão de Constituição, Justiça e Cidadania"
+          },
+          "enteAdministrativo": {
+            "id": 13565,
+            "casa": "SF",
+            "sigla": "SACCJ",
+            "nome": "Secretaria de Apoio à Comissão de Constituição, Justiça e Cidadania"
+          },
+          "descricao": "Matéria aguardando distribuição.",
+          "idSituacaoIniciada": 87,
+          "siglaSituacaoIniciada": "AGDREL"
+        }
+      ],
+      "movimentacoes": [
+        {
+          "id": 10011639,
+          "dataEnvio": "2025-08-08 16:31:51",
+          "enteOrigem": {
+            "id": 55312,
+            "casa": "SF",
+            "sigla": "SLSF",
+            "nome": "Secretaria Legislativa do Senado Federal"
+          },
+          "dataRecebimento": "2025-08-08 16:50:01",
+          "enteDestino": {
+            "id": 13594,
+            "casa": "SF",
+            "sigla": "SEADI",
+            "nome": "Secretaria de Atas e Diários"
+          },
+          "colegiadoDestino": {}
+        },
+        {
+          "id": 10011705,
+          "dataEnvio": "2025-08-08 17:15:50",
+          "enteOrigem": {
+            "id": 13594,
+            "casa": "SF",
+            "sigla": "SEADI",
+            "nome": "Secretaria de Atas e Diários"
+          },
+          "dataRecebimento": "2025-08-08 17:46:24",
+          "enteDestino": {
+            "id": 13565,
+            "casa": "SF",
+            "sigla": "SACCJ",
+            "nome": "Secretaria de Apoio à Comissão de Constituição, Justiça e Cidadania"
+          },
+          "colegiadoDestino": {
+            "codigo": 34,
+            "casa": "SF",
+            "sigla": "CCJ",
+            "nome": "Comissão de Constituição, Justiça e Cidadania"
+          }
+        }
+      ]
+    }
+  ],
+  "deliberacao": {},
+  "normaGerada": {},
+  "ultimaInformacaoAtualizada": "EVENTO_LEGISLATIVO",
+  "dthUltimaAtualizacao": "2025-08-08T19:02:32.173000"
+}

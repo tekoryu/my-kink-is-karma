@@ -228,3 +228,239 @@ class Proposicao(models.Model):
             bool: True se precisa sincronizar, False caso contrário
         """
         return not self.tem_dados_api or not self.ultima_sincronizacao
+
+
+class SenadoActivityHistory(models.Model):
+    """
+    Modelo para armazenar o histórico de atividades de proposições no Senado Federal.
+    
+    Baseado na estrutura de informesLegislativos da API do Senado.
+    """
+    
+    proposicao = models.ForeignKey(
+        Proposicao,
+        on_delete=models.CASCADE,
+        related_name='senado_activities',
+        help_text="Proposição à qual esta atividade pertence"
+    )
+    
+    # Campos principais do informe legislativo
+    id_informe = models.IntegerField(
+        help_text="ID único do informe legislativo"
+    )
+    
+    data = models.DateField(
+        help_text="Data do informe legislativo"
+    )
+    
+    descricao = models.TextField(
+        help_text="Descrição detalhada da atividade"
+    )
+    
+    # Campos do colegiado
+    colegiado_codigo = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text="Código do colegiado"
+    )
+    
+    colegiado_casa = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+        help_text="Casa do colegiado"
+    )
+    
+    colegiado_sigla = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        help_text="Sigla do colegiado"
+    )
+    
+    colegiado_nome = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Nome do colegiado"
+    )
+    
+    # Campos do ente administrativo
+    ente_administrativo_id = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text="ID do ente administrativo"
+    )
+    
+    ente_administrativo_casa = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+        help_text="Casa do ente administrativo"
+    )
+    
+    ente_administrativo_sigla = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        help_text="Sigla do ente administrativo"
+    )
+    
+    ente_administrativo_nome = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Nome do ente administrativo"
+    )
+    
+    # Campos de situação
+    id_situacao_iniciada = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text="ID da situação iniciada"
+    )
+    
+    sigla_situacao_iniciada = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        help_text="Sigla da situação iniciada"
+    )
+    
+    # Campos de controle
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Data e hora de criação do registro"
+    )
+    
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Data e hora da última atualização"
+    )
+    
+    class Meta:
+        verbose_name = "Histórico de Atividade - Senado"
+        verbose_name_plural = "Históricos de Atividade - Senado"
+        ordering = ['proposicao', '-data', '-id_informe']
+        unique_together = ['proposicao', 'id_informe']
+    
+    def __str__(self):
+        return f"SF Activity {self.id_informe} - {self.proposicao} - {self.data}"
+
+
+class CamaraActivityHistory(models.Model):
+    """
+    Modelo para armazenar o histórico de atividades de proposições na Câmara dos Deputados.
+    
+    Baseado na estrutura de tramitacoes da API da Câmara.
+    """
+    
+    proposicao = models.ForeignKey(
+        Proposicao,
+        on_delete=models.CASCADE,
+        related_name='camara_activities',
+        help_text="Proposição à qual esta atividade pertence"
+    )
+    
+    # Campos principais da tramitação
+    data_hora = models.DateTimeField(
+        help_text="Data e hora da tramitação"
+    )
+    
+    sequencia = models.IntegerField(
+        help_text="Número sequencial da tramitação"
+    )
+    
+    sigla_orgao = models.CharField(
+        max_length=20,
+        help_text="Sigla do órgão responsável"
+    )
+    
+    uri_orgao = models.URLField(
+        max_length=500,
+        null=True,
+        blank=True,
+        help_text="URI do órgão na API"
+    )
+    
+    uri_ultimo_relator = models.URLField(
+        max_length=500,
+        null=True,
+        blank=True,
+        help_text="URI do último relator"
+    )
+    
+    regime = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="Regime de tramitação"
+    )
+    
+    descricao_tramitacao = models.CharField(
+        max_length=255,
+        help_text="Descrição do tipo de tramitação"
+    )
+    
+    cod_tipo_tramitacao = models.CharField(
+        max_length=10,
+        help_text="Código do tipo de tramitação"
+    )
+    
+    descricao_situacao = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Descrição da situação"
+    )
+    
+    cod_situacao = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text="Código da situação"
+    )
+    
+    despacho = models.TextField(
+        help_text="Despacho da tramitação"
+    )
+    
+    url = models.URLField(
+        max_length=500,
+        null=True,
+        blank=True,
+        help_text="URL para mais detalhes"
+    )
+    
+    ambito = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        help_text="Âmbito da tramitação"
+    )
+    
+    apreciacao = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Tipo de apreciação"
+    )
+    
+    # Campos de controle
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Data e hora de criação do registro"
+    )
+    
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Data e hora da última atualização"
+    )
+    
+    class Meta:
+        verbose_name = "Histórico de Atividade - Câmara"
+        verbose_name_plural = "Históricos de Atividade - Câmara"
+        ordering = ['proposicao', '-data_hora', '-sequencia']
+        unique_together = ['proposicao', 'sequencia']
+    
+    def __str__(self):
+        return f"CD Activity {self.sequencia} - {self.proposicao} - {self.data_hora}"

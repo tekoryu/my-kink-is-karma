@@ -507,3 +507,317 @@ class APISyncService:
             'sucessos': sucessos,
             'erros': erros
         }
+
+    def sincronizar_atividades_senado(self, proposicao) -> bool:
+        """
+        Sincroniza o histórico de atividades de uma proposição no Senado Federal.
+        
+        Args:
+            proposicao: Instância do modelo Proposicao
+            
+        Returns:
+            bool: True se a sincronização foi bem-sucedida, False caso contrário
+        """
+        if not proposicao.sf_id:
+            logger.warning(f"Proposição {proposicao.identificador_completo} não possui sf_id")
+            return False
+        
+        try:
+            self._rate_limit_senado()
+            
+            # Buscar dados do processo no Senado
+            search_url = f"{self.SENADO_BASE_URL}/processo/{proposicao.sf_id}"
+            
+            response = requests.get(
+                search_url,
+                headers=self.DEFAULT_HEADERS,
+                timeout=30
+            )
+            
+            if response.status_code != 200:
+                logger.warning(f"Erro ao buscar processo {proposicao.sf_id} no Senado: {response.status_code}")
+                return False
+            
+            data = response.json()
+            
+            # Extrair informes legislativos das autuações
+            atividades_criadas = 0
+            
+            for autuacao in data.get('autuacoes', []):
+                for informe in autuacao.get('informesLegislativos', []):
+                    # Pular documentos associados conforme especificação
+                    if 'documentosAssociados' in informe:
+                        continue
+                    
+                    # Criar ou atualizar atividade
+                    if self._criar_atividade_senado(proposicao, informe):
+                        atividades_criadas += 1
+            
+            logger.info(f"Sincronizadas {atividades_criadas} atividades do Senado para {proposicao.identificador_completo}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Erro ao sincronizar atividades do Senado para {proposicao.identificador_completo}: {e}")
+            return False
+    
+    def sincronizar_atividades_camara(self, proposicao) -> bool:
+        """
+        Sincroniza o histórico de atividades de uma proposição na Câmara dos Deputados.
+        
+        Args:
+            proposicao: Instância do modelo Proposicao
+            
+        Returns:
+            bool: True se a sincronização foi bem-sucedida, False caso contrário
+        """
+        if not proposicao.cd_id:
+            logger.warning(f"Proposição {proposicao.identificador_completo} não possui cd_id")
+            return False
+        
+        try:
+            self._rate_limit_camara()
+            
+            # Buscar tramitações na Câmara
+            tramitacoes_url = f"{self.CAMARA_BASE_URL}/proposicoes/{proposicao.cd_id}/tramitacoes"
+            
+            response = requests.get(
+                tramitacoes_url,
+                headers=self.DEFAULT_HEADERS,
+                timeout=30
+            )
+            
+            if response.status_code != 200:
+                logger.warning(f"Erro ao buscar tramitações {proposicao.cd_id} na Câmara: {response.status_code}")
+                return False
+            
+            data = response.json()
+            atividades_criadas = 0
+            
+            for tramitacao in data.get('dados', []):
+                # Criar ou atualizar atividade
+                if self._criar_atividade_camara(proposicao, tramitacao):
+                    atividades_criadas += 1
+            
+            logger.info(f"Sincronizadas {atividades_criadas} atividades da Câmara para {proposicao.identificador_completo}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Erro ao sincronizar atividades da Câmara para {proposicao.identificador_completo}: {e}")
+            return False
+    
+    def _criar_atividade_senado(self, proposicao, informe: Dict) -> bool:
+        """
+        Cria ou atualiza uma atividade do Senado no banco de dados.
+        
+        Args:
+            proposicao: Instância do modelo Proposicao
+            informe: Dados do informe legislativo da API
+            
+        Returns:
+            bool: True se criada/atualizada com sucesso
+        """
+        from .models import SenadoActivityHistory
+        
+        try:
+            id_informe = informe.get('id')
+            if not id_informe:
+                return False
+            
+            # Verificar se já existe
+            atividade, created = SenadoActivityHistory.objects.get_or_create(
+                proposicao=proposicao,
+                id_informe=id_informe,
+                defaults={
+                    'data': self._processar_data(informe.get('data')),
+                    'descricao': informe.get('descricao', ''),
+                    'colegiado_codigo': self._extrair_valor_nested(informe, 'colegiado', 'codigo'),
+                    'colegiado_casa': self._extrair_valor_nested(informe, 'colegiado', 'casa'),
+                    'colegiado_sigla': self._extrair_valor_nested(informe, 'colegiado', 'sigla'),
+                    'colegiado_nome': self._extrair_valor_nested(informe, 'colegiado', 'nome'),
+                    'ente_administrativo_id': self._extrair_valor_nested(informe, 'enteAdministrativo', 'id'),
+                    'ente_administrativo_casa': self._extrair_valor_nested(informe, 'enteAdministrativo', 'casa'),
+                    'ente_administrativo_sigla': self._extrair_valor_nested(informe, 'enteAdministrativo', 'sigla'),
+                    'ente_administrativo_nome': self._extrair_valor_nested(informe, 'enteAdministrativo', 'nome'),
+                    'id_situacao_iniciada': informe.get('idSituacaoIniciada'),
+                    'sigla_situacao_iniciada': informe.get('siglaSituacaoIniciada'),
+                }
+            )
+            
+            if not created:
+                # Atualizar campos existentes
+                atividade.data = self._processar_data(informe.get('data'))
+                atividade.descricao = informe.get('descricao', '')
+                atividade.colegiado_codigo = self._extrair_valor_nested(informe, 'colegiado', 'codigo')
+                atividade.colegiado_casa = self._extrair_valor_nested(informe, 'colegiado', 'casa')
+                atividade.colegiado_sigla = self._extrair_valor_nested(informe, 'colegiado', 'sigla')
+                atividade.colegiado_nome = self._extrair_valor_nested(informe, 'colegiado', 'nome')
+                atividade.ente_administrativo_id = self._extrair_valor_nested(informe, 'enteAdministrativo', 'id')
+                atividade.ente_administrativo_casa = self._extrair_valor_nested(informe, 'enteAdministrativo', 'casa')
+                atividade.ente_administrativo_sigla = self._extrair_valor_nested(informe, 'enteAdministrativo', 'sigla')
+                atividade.ente_administrativo_nome = self._extrair_valor_nested(informe, 'enteAdministrativo', 'nome')
+                atividade.id_situacao_iniciada = informe.get('idSituacaoIniciada')
+                atividade.sigla_situacao_iniciada = informe.get('siglaSituacaoIniciada')
+                atividade.save()
+            
+            return True
+            
+        except Exception as e:
+            logger.error(f"Erro ao criar atividade do Senado: {e}")
+            return False
+    
+    def _criar_atividade_camara(self, proposicao, tramitacao: Dict) -> bool:
+        """
+        Cria ou atualiza uma atividade da Câmara no banco de dados.
+        
+        Args:
+            proposicao: Instância do modelo Proposicao
+            tramitacao: Dados da tramitação da API
+            
+        Returns:
+            bool: True se criada/atualizada com sucesso
+        """
+        from .models import CamaraActivityHistory
+        from django.utils import timezone
+        
+        try:
+            sequencia = tramitacao.get('sequencia')
+            if not sequencia:
+                return False
+            
+            # Processar data e hora
+            data_hora_str = tramitacao.get('dataHora')
+            data_hora = None
+            if data_hora_str:
+                try:
+                    # Formato: "2020-05-12T16:40"
+                    if 'T' in data_hora_str:
+                        naive_datetime = datetime.strptime(data_hora_str, '%Y-%m-%dT%H:%M')
+                    else:
+                        naive_datetime = datetime.strptime(data_hora_str, '%Y-%m-%d')
+                    
+                    # Tornar timezone-aware (assumindo horário de Brasília)
+                    data_hora = timezone.make_aware(naive_datetime, timezone=timezone.get_current_timezone())
+                except ValueError:
+                    logger.warning(f"Formato de data inválido: {data_hora_str}")
+            
+            # Verificar se já existe
+            atividade, created = CamaraActivityHistory.objects.get_or_create(
+                proposicao=proposicao,
+                sequencia=sequencia,
+                defaults={
+                    'data_hora': data_hora,
+                    'sigla_orgao': tramitacao.get('siglaOrgao', ''),
+                    'uri_orgao': tramitacao.get('uriOrgao'),
+                    'uri_ultimo_relator': tramitacao.get('uriUltimoRelator'),
+                    'regime': tramitacao.get('regime'),
+                    'descricao_tramitacao': tramitacao.get('descricaoTramitacao', ''),
+                    'cod_tipo_tramitacao': tramitacao.get('codTipoTramitacao', ''),
+                    'descricao_situacao': tramitacao.get('descricaoSituacao'),
+                    'cod_situacao': tramitacao.get('codSituacao'),
+                    'despacho': tramitacao.get('despacho', ''),
+                    'url': tramitacao.get('url'),
+                    'ambito': tramitacao.get('ambito'),
+                    'apreciacao': tramitacao.get('apreciacao'),
+                }
+            )
+            
+            if not created:
+                # Atualizar campos existentes
+                atividade.data_hora = data_hora
+                atividade.sigla_orgao = tramitacao.get('siglaOrgao', '')
+                atividade.uri_orgao = tramitacao.get('uriOrgao')
+                atividade.uri_ultimo_relator = tramitacao.get('uriUltimoRelator')
+                atividade.regime = tramitacao.get('regime')
+                atividade.descricao_tramitacao = tramitacao.get('descricaoTramitacao', '')
+                atividade.cod_tipo_tramitacao = tramitacao.get('codTipoTramitacao', '')
+                atividade.descricao_situacao = tramitacao.get('descricaoSituacao')
+                atividade.cod_situacao = tramitacao.get('codSituacao')
+                atividade.despacho = tramitacao.get('despacho', '')
+                atividade.url = tramitacao.get('url')
+                atividade.ambito = tramitacao.get('ambito')
+                atividade.apreciacao = tramitacao.get('apreciacao')
+                atividade.save()
+            
+            return True
+            
+        except Exception as e:
+            logger.error(f"Erro ao criar atividade da Câmara: {e}")
+            return False
+    
+    def _extrair_valor_nested(self, data: Dict, key1: str, key2: str):
+        """
+        Extrai valor de estrutura aninhada de forma segura.
+        
+        Args:
+            data: Dicionário principal
+            key1: Primeira chave
+            key2: Segunda chave
+            
+        Returns:
+            Valor extraído ou None
+        """
+        try:
+            nested = data.get(key1, {})
+            if isinstance(nested, dict):
+                return nested.get(key2)
+            return None
+        except Exception:
+            return None
+    
+    def sincronizar_atividades_todas_proposicoes(self, limit: Optional[int] = None) -> Dict[str, int]:
+        """
+        Sincroniza atividades de todas as proposições que possuem IDs das APIs.
+        
+        Args:
+            limit: Limite de proposições a processar (None para todas)
+            
+        Returns:
+            Dict com estatísticas da sincronização
+        """
+        from .models import Proposicao
+        
+        proposicoes = Proposicao.objects.filter(
+            sf_id__isnull=False
+        ).order_by('created_at')
+        
+        if limit:
+            proposicoes = proposicoes[:limit]
+        
+        total = proposicoes.count()
+        sucessos_senado = 0
+        sucessos_camara = 0
+        erros = 0
+        
+        logger.info(f"Iniciando sincronização de atividades para {total} proposições")
+        
+        for proposicao in proposicoes:
+            try:
+                # Sincronizar atividades do Senado se tem sf_id
+                if proposicao.sf_id:
+                    if self.sincronizar_atividades_senado(proposicao):
+                        sucessos_senado += 1
+                    else:
+                        erros += 1
+                
+                # Sincronizar atividades da Câmara se tem cd_id
+                if proposicao.cd_id:
+                    if self.sincronizar_atividades_camara(proposicao):
+                        sucessos_camara += 1
+                    else:
+                        erros += 1
+                
+                # Pausa entre proposições
+                time.sleep(1)
+                
+            except Exception as e:
+                logger.error(f"Erro ao sincronizar atividades para {proposicao.identificador_completo}: {e}")
+                erros += 1
+        
+        logger.info(f"Sincronização de atividades concluída: {sucessos_senado} Senado, {sucessos_camara} Câmara, {erros} erros")
+        
+        return {
+            'total': total,
+            'sucessos_senado': sucessos_senado,
+            'sucessos_camara': sucessos_camara,
+            'erros': erros
+        }

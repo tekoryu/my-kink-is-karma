@@ -7,10 +7,11 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiExample
 from drf_spectacular.types import OpenApiTypes
-from .models import Eixo, Tema, Proposicao
+from .models import Eixo, Tema, Proposicao, SenadoActivityHistory, CamaraActivityHistory
 from .serializers import (
     TemaSerializer, ProposicaoSerializer,
-    EixoReadOnlySerializer, TemaReadOnlySerializer, ProposicaoReadOnlySerializer
+    EixoReadOnlySerializer, TemaReadOnlySerializer, ProposicaoReadOnlySerializer,
+    SenadoActivityHistorySerializer, CamaraActivityHistorySerializer
 )
 from apps.core.logging_utils import log_database_operation, log_error, log_performance
 
@@ -287,3 +288,117 @@ class ProposicaoReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
     search_fields = ['tipo', 'tema__nome', 'tema__eixo__nome']
     ordering_fields = ['id', 'tipo', 'numero', 'ano', 'tema__nome', 'created_at']
     ordering = ['tema__nome', 'ano', 'numero']
+
+
+@extend_schema_view(
+    list=extend_schema(
+        summary="Listar atividades do Senado",
+        description="Retorna uma lista de todas as atividades de proposições no Senado Federal",
+        tags=["atividades"],
+        parameters=[
+            OpenApiParameter(
+                name='proposicao',
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+                description='Filtrar por ID da proposição'
+            ),
+            OpenApiParameter(
+                name='data',
+                type=OpenApiTypes.DATE,
+                location=OpenApiParameter.QUERY,
+                description='Filtrar por data específica (YYYY-MM-DD)'
+            ),
+            OpenApiParameter(
+                name='colegiado_sigla',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                description='Filtrar por sigla do colegiado'
+            ),
+        ],
+        responses={200: SenadoActivityHistorySerializer(many=True)},
+    ),
+    retrieve=extend_schema(
+        summary="Obter atividade do Senado",
+        description="Retorna detalhes de uma atividade específica do Senado Federal",
+        tags=["atividades"],
+        responses={200: SenadoActivityHistorySerializer},
+    ),
+)
+class SenadoActivityHistoryViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSet read-only para o modelo SenadoActivityHistory.
+    
+    Fornece apenas operações de leitura:
+    - list: GET /api/atividades/senado/
+    - retrieve: GET /api/atividades/senado/{id}/
+    """
+    
+    queryset = SenadoActivityHistory.objects.select_related('proposicao').all()
+    serializer_class = SenadoActivityHistorySerializer
+    permission_classes = [AllowAny]
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['proposicao', 'data', 'colegiado_sigla', 'ente_administrativo_sigla', 'sigla_situacao_iniciada']
+    search_fields = ['descricao', 'colegiado_nome', 'ente_administrativo_nome']
+    ordering_fields = ['id', 'data', 'id_informe', 'created_at']
+    ordering = ['-data', '-id_informe']
+
+
+@extend_schema_view(
+    list=extend_schema(
+        summary="Listar atividades da Câmara",
+        description="Retorna uma lista de todas as atividades de proposições na Câmara dos Deputados",
+        tags=["atividades"],
+        parameters=[
+            OpenApiParameter(
+                name='proposicao',
+                type=OpenApiTypes.INT,
+                location=OpenApiParameter.QUERY,
+                description='Filtrar por ID da proposição'
+            ),
+            OpenApiParameter(
+                name='data_hora',
+                type=OpenApiTypes.DATETIME,
+                location=OpenApiParameter.QUERY,
+                description='Filtrar por data e hora específica'
+            ),
+            OpenApiParameter(
+                name='sigla_orgao',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                description='Filtrar por sigla do órgão'
+            ),
+            OpenApiParameter(
+                name='cod_tipo_tramitacao',
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                description='Filtrar por código do tipo de tramitação'
+            ),
+        ],
+        responses={200: CamaraActivityHistorySerializer(many=True)},
+    ),
+    retrieve=extend_schema(
+        summary="Obter atividade da Câmara",
+        description="Retorna detalhes de uma atividade específica da Câmara dos Deputados",
+        tags=["atividades"],
+        responses={200: CamaraActivityHistorySerializer},
+    ),
+)
+class CamaraActivityHistoryViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSet read-only para o modelo CamaraActivityHistory.
+    
+    Fornece apenas operações de leitura:
+    - list: GET /api/atividades/camara/
+    - retrieve: GET /api/atividades/camara/{id}/
+    """
+    
+    queryset = CamaraActivityHistory.objects.select_related('proposicao').all()
+    serializer_class = CamaraActivityHistorySerializer
+    permission_classes = [AllowAny]
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['proposicao', 'sigla_orgao', 'cod_tipo_tramitacao', 'ambito', 'apreciacao']
+    search_fields = ['despacho', 'descricao_tramitacao', 'descricao_situacao']
+    ordering_fields = ['id', 'data_hora', 'sequencia', 'created_at']
+    ordering = ['-data_hora', '-sequencia']
