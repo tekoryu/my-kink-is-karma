@@ -6,7 +6,7 @@ from .views import (
     SenadoActivityHistoryViewSet, CamaraActivityHistoryViewSet
 )
 
-# Configuração do router para o ViewSet
+# Configuração do roteador para o ViewSet
 router = DefaultRouter()
 router.register(r'temas', TemaViewSet, basename='tema')
 router.register(r'proposicoes', ProposicaoViewSet, basename='proposicao')
@@ -28,4 +28,4 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/bi/', include(bi_router.urls)),
     path('api/atividades/', include(activity_router.urls)),
-] 
+]
