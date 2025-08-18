@@ -3,7 +3,6 @@ Project Development Guidelines (advanced)
 Scope
 - This document captures project-specific practices for building, configuring, testing, and extending this Django/DRF service in Docker. It is intentionally concise and oriented to experienced developers.
 
-Authoritative rules from .cursorrules (verbatim)
 - Do not try to run the projects locally. Only through `docker compose run --rm app sh -c COMMAND_EXAMPLE`.
 - Keep answers concise and direct.
 - Suggest alternative solutions.
@@ -34,11 +33,6 @@ Build, configuration, and runtime
   - app mounts the host ./app into /app, so Python code edits are reflected live inside the container.
   - Default DB settings use Postgres (DB_HOST=db), but settings automatically switch to SQLite for test runs (see below).
   - Useful environment variables (compose): DEBUG, SECRET_KEY, DB_*, ALLOWED_HOSTS, STATIC_ROOT, MEDIA_ROOT, DJANGO_SUPERUSER_*. Settings read via python-decouple.
-- Health endpoints and docs:
-  - Health: GET /health/
-  - OpenAPI schema: /api/schema/
-  - Swagger UI: /api/docs/
-  - Redoc: /api/redoc/
 
 Database behavior in tests (important)
 - app/config/settings.py switches to SQLite automatically for tests: if any of ["test", "pytest"] appears in sys.argv and USE_SQLITE_FOR_TESTS is true (default). This makes test runs independent of Postgres.

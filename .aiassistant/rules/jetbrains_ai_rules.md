@@ -1,4 +1,4 @@
 ---
-apply: always
+apply: by model decision
 ---
 
