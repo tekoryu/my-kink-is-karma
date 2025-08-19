@@ -293,7 +293,7 @@
     },
     {
       "tema": "REFORMA DO SETOR ELÉTRICO",
-      "tipo": "MP",
+      "tipo": "MPV",
       "numero": 1300,
       "ano": 2025,
       "created_at": "2024-01-01T00:00:00Z",
@@ -301,7 +301,7 @@
     },
     {
       "tema": "MP DO CRÉDITO CONSIGNADO",
-      "tipo": "MP",
+      "tipo": "MPV",
       "numero": 1292,
       "ano": 2025,
       "created_at": "2024-01-01T00:00:00Z",
@@ -557,7 +557,7 @@
     },
     {
       "tema": "MP DO FUNDO SOCIAL PARA ENFRENTAR DESAFIOS SOCIOECONÔMICOS",
-      "tipo": "MP",
+      "tipo": "MPV",
       "numero": 1291,
       "ano": 2025,
       "created_at": "2024-01-01T00:00:00Z",
@@ -565,7 +565,7 @@
     },
     {
       "tema": "PROGRAMA AGORA TEM ESPECIALISTAS",
-      "tipo": "MP",
+      "tipo": "MPV",
       "numero": 1301,
       "ano": 2025,
       "created_at": "2024-01-01T00:00:00Z",
