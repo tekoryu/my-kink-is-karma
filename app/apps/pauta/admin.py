@@ -111,30 +111,22 @@ class SenadoActivityHistoryAdmin(admin.ModelAdmin):
     Permite gerenciar o histórico de atividades de proposições no Senado Federal.
     """
     
-    list_display = ['proposicao', 'id_informe', 'data', 'colegiado_sigla', 'ente_administrativo_sigla', 'sigla_situacao_iniciada']
-    list_filter = ['data', 'colegiado_sigla', 'ente_administrativo_sigla', 'sigla_situacao_iniciada', 'created_at']
-    search_fields = ['proposicao__identificador_completo', 'descricao', 'colegiado_nome', 'ente_administrativo_nome']
-    ordering = ['proposicao', '-data', '-id_informe']
+    list_display = ['proposicao', 'id_situacao', 'sigla_situacao', 'data_inicio', 'colegiado_codigo']
+    list_filter = ['data_inicio', 'sigla_situacao', 'created_at']
+    search_fields = ['proposicao__identificador_completo', 'descricao']
+    ordering = ['proposicao', '-data_inicio', '-id_situacao']
     readonly_fields = ['created_at', 'updated_at']
-    date_hierarchy = 'data'
+    date_hierarchy = 'data_inicio'
     
     fieldsets = (
         ('Proposição', {
             'fields': ('proposicao',)
         }),
-        ('Informações do Informe', {
-            'fields': ('id_informe', 'data', 'descricao')
+        ('Informações da Situação', {
+            'fields': ('id_situacao', 'sigla_situacao', 'descricao', 'data_inicio', 'data_fim')
         }),
         ('Colegiado', {
-            'fields': ('colegiado_codigo', 'colegiado_casa', 'colegiado_sigla', 'colegiado_nome'),
-            'classes': ('collapse',)
-        }),
-        ('Ente Administrativo', {
-            'fields': ('ente_administrativo_id', 'ente_administrativo_casa', 'ente_administrativo_sigla', 'ente_administrativo_nome'),
-            'classes': ('collapse',)
-        }),
-        ('Situação', {
-            'fields': ('id_situacao_iniciada', 'sigla_situacao_iniciada'),
+            'fields': ('colegiado_codigo',),
             'classes': ('collapse',)
         }),
         ('Metadados', {

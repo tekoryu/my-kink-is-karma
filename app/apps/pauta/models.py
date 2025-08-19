@@ -234,7 +234,7 @@ class SenadoActivityHistory(models.Model):
     """
     Modelo para armazenar o histórico de atividades de proposições no Senado Federal.
     
-    Baseado na estrutura de informesLegislativos da API do Senado.
+    Baseado na estrutura de situacoes da API do Senado.
     """
     
     proposicao = models.ForeignKey(
@@ -244,88 +244,43 @@ class SenadoActivityHistory(models.Model):
         help_text="Proposição à qual esta atividade pertence"
     )
     
-    # Campos principais do informe legislativo
-    id_informe = models.IntegerField(
-        help_text="ID único do informe legislativo"
+    # Campos principais da situação
+    id_situacao = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text="ID único da situação (idTipo da API)"
     )
     
-    data = models.DateField(
-        help_text="Data do informe legislativo"
+    sigla_situacao = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        help_text="Sigla da situação"
     )
     
     descricao = models.TextField(
-        help_text="Descrição detalhada da atividade"
+        help_text="Descrição detalhada da situação"
     )
     
-    # Campos do colegiado
+    data_inicio = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Data de início da situação"
+    )
+    
+    data_fim = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Data de fim da situação (null se ainda ativa)"
+    )
+    
+    # Campos do colegiado (da autuação)
     colegiado_codigo = models.IntegerField(
         null=True,
         blank=True,
         help_text="Código do colegiado"
     )
     
-    colegiado_casa = models.CharField(
-        max_length=10,
-        null=True,
-        blank=True,
-        help_text="Casa do colegiado"
-    )
-    
-    colegiado_sigla = models.CharField(
-        max_length=20,
-        null=True,
-        blank=True,
-        help_text="Sigla do colegiado"
-    )
-    
-    colegiado_nome = models.CharField(
-        max_length=255,
-        null=True,
-        blank=True,
-        help_text="Nome do colegiado"
-    )
-    
-    # Campos do ente administrativo
-    ente_administrativo_id = models.IntegerField(
-        null=True,
-        blank=True,
-        help_text="ID do ente administrativo"
-    )
-    
-    ente_administrativo_casa = models.CharField(
-        max_length=10,
-        null=True,
-        blank=True,
-        help_text="Casa do ente administrativo"
-    )
-    
-    ente_administrativo_sigla = models.CharField(
-        max_length=20,
-        null=True,
-        blank=True,
-        help_text="Sigla do ente administrativo"
-    )
-    
-    ente_administrativo_nome = models.CharField(
-        max_length=255,
-        null=True,
-        blank=True,
-        help_text="Nome do ente administrativo"
-    )
-    
-    # Campos de situação
-    id_situacao_iniciada = models.IntegerField(
-        null=True,
-        blank=True,
-        help_text="ID da situação iniciada"
-    )
-    
-    sigla_situacao_iniciada = models.CharField(
-        max_length=20,
-        null=True,
-        blank=True,
-        help_text="Sigla da situação iniciada"
-    )
     
     # Campos de controle
     created_at = models.DateTimeField(
@@ -341,11 +296,11 @@ class SenadoActivityHistory(models.Model):
     class Meta:
         verbose_name = "Histórico de Atividade - Senado"
         verbose_name_plural = "Históricos de Atividade - Senado"
-        ordering = ['proposicao', '-data', '-id_informe']
-        unique_together = ['proposicao', 'id_informe']
+        ordering = ['proposicao', '-data_inicio', '-id_situacao']
+        unique_together = ['proposicao', 'id_situacao']
     
     def __str__(self):
-        return f"SF Activity {self.id_informe} - {self.proposicao} - {self.data}"
+        return f"SF Activity {self.id_situacao} - {self.proposicao} - {self.data_inicio}"
 
 
 class CamaraActivityHistory(models.Model):

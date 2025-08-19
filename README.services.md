@@ -252,7 +252,7 @@ The Activity History feature tracks legislative activities and procedural steps 
 ## Overview
 
 The Activity History system captures detailed procedural information from both legislative houses:
-- **Senado Federal**: Legislative reports (`informesLegislativos`) from `/processo/{id}` endpoint
+- **Senado Federal**: Legislative situations (`situacoes`) from `/processo/{id}` endpoint
 - **Câmara dos Deputados**: Procedural steps (`tramitacoes`) from `/proposicoes/{id}/tramitacoes` endpoint
 
 ## Features
@@ -267,16 +267,16 @@ The Activity History system captures detailed procedural information from both l
 ## Data Models
 
 ### SenadoActivityHistory
-Captures legislative reports from Senado Federal:
+Captures legislative situations from Senado Federal:
 
 | Field | Description | Source |
 |-------|-------------|---------|
-| `id_informe` | Unique report ID | Senado API |
-| `data` | Report date | Senado API |
+| `id_situacao` | Unique situation ID (idTipo) | Senado API |
+| `sigla_situacao` | Situation acronym | Senado API |
 | `descricao` | Detailed description | Senado API |
-| `colegiado_*` | Committee information | Senado API |
-| `ente_administrativo_*` | Administrative entity | Senado API |
-| `sigla_situacao_iniciada` | Status code | Senado API |
+| `data_inicio` | Start date | Senado API |
+| `data_fim` | End date (null if still active) | Senado API |
+| `colegiado_codigo` | Committee code | Senado API |
 
 ### CamaraActivityHistory
 Captures procedural steps from Câmara dos Deputados:
@@ -378,8 +378,8 @@ Tempo total: 3.45 segundos
 ### Senado Activities
 - **List**: `GET /api/atividades/senado/`
 - **Detail**: `GET /api/atividades/senado/{id}/`
-- **Filters**: `proposicao`, `data`, `colegiado_sigla`, `ente_administrativo_sigla`
-- **Search**: `descricao`, `colegiado_nome`, `ente_administrativo_nome`
+- **Filters**: `proposicao`, `data_inicio`, `sigla_situacao`
+- **Search**: `descricao`
 
 ### Câmara Activities
 - **List**: `GET /api/atividades/camara/`
@@ -393,14 +393,12 @@ Tempo total: 3.45 segundos
 {
   "id": 1,
   "proposicao": 1,
-  "id_informe": 2245882,
-  "data": "2025-07-16",
-  "descricao": "Autuado o Projeto de Lei nº 2583/2020, proveniente da Câmara dos Deputados.",
-  "colegiado_sigla": "PLEN",
-  "colegiado_nome": "Plenário do Senado Federal",
-  "ente_administrativo_sigla": "SLSF",
-  "ente_administrativo_nome": "Secretaria Legislativa do Senado Federal",
-  "sigla_situacao_iniciada": "AGDESP",
+  "id_situacao": 175,
+  "sigla_situacao": "AGDESP",
+  "descricao": "AGUARDANDO DESPACHO",
+  "data_inicio": "2025-02-27",
+  "data_fim": "2025-03-17",
+  "colegiado_codigo": 834,
   "created_at": "2024-01-01T00:00:00Z",
   "updated_at": "2024-01-01T00:00:00Z"
 }
@@ -409,10 +407,10 @@ Tempo total: 3.45 segundos
 ## Admin Interface
 
 ### SenadoActivityHistory Admin
-- **List View**: Proposição, ID, Date, Committee, Administrative Entity, Status
-- **Filters**: Date, Committee, Administrative Entity, Status
-- **Search**: Proposição identifier, description, committee names
-- **Date Hierarchy**: By activity date
+- **List View**: Proposição, ID Situação, Sigla Situação, Data Início, Colegiado Código
+- **Filters**: Data Início, Sigla Situação
+- **Search**: Proposição identifier, description
+- **Date Hierarchy**: By activity start date
 
 ### CamaraActivityHistory Admin
 - **List View**: Proposição, Sequence, Date/Time, Organ, Procedure Type
@@ -424,8 +422,8 @@ Tempo total: 3.45 segundos
 
 ### Senado Federal API
 - **Endpoint**: `/processo/{sf_id}`
-- **Data Path**: `autuacoes[].informesLegislativos[]`
-- **Exclusions**: `documentosAssociados` field is skipped
+- **Data Path**: `autuacoes[].situacoes[]`
+- **Additional Data**: Committee code from `autuacao` level
 - **Rate Limit**: 10 requests per second
 
 ### Câmara dos Deputados API

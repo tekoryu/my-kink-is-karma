@@ -37,6 +37,10 @@ $stopwatch.Stop()
 if ($serviceReady) {
     Write-Host "Running post-startup commands..."
     docker compose run --rm app sh -c "python manage.py createsuperuser --noinput"
+    docker compose run --rm app sh -c "python manage.py makemigrations"
+    docker compose run --rm app sh -c "python manage.py migrate"
+    docker compose run --rm app sh -c "python manage.py collectstatic --noinput"
+    docker compose run --rm app sh -c "python manage.py loaddata initial_data.json"
     
     Write-Host "Opening application in browser."
     Start-Process "http://localhost:8000"

@@ -540,17 +540,12 @@ class APISyncService:
             
             data = response.json()
             
-            # Extrair informes legislativos das autuações
+            # Extrair situações legislativas das autuações
             atividades_criadas = 0
             
             for autuacao in data.get('autuacoes', []):
-                for informe in autuacao.get('informesLegislativos', []):
-                    # Pular documentos associados conforme especificação
-                    if 'documentosAssociados' in informe:
-                        continue
-                    
-                    # Criar ou atualizar atividade
-                    if self._criar_atividade_senado(proposicao, informe):
+                for situacao in autuacao.get('situacoes', []):
+                    if self._criar_atividade_senado(proposicao, situacao, autuacao):
                         atividades_criadas += 1
             
             logger.info(f"Sincronizadas {atividades_criadas} atividades do Senado para {proposicao.identificador_completo}")
@@ -605,13 +600,14 @@ class APISyncService:
             logger.error(f"Erro ao sincronizar atividades da Câmara para {proposicao.identificador_completo}: {e}")
             return False
     
-    def _criar_atividade_senado(self, proposicao, informe: Dict) -> bool:
+    def _criar_atividade_senado(self, proposicao, situacao: Dict, autuacao: Dict = None) -> bool:
         """
         Cria ou atualiza uma atividade do Senado no banco de dados.
         
         Args:
             proposicao: Instância do modelo Proposicao
-            informe: Dados do informe legislativo da API
+            situacao: Dados da situação da API
+            autuacao: Dados da autuação (opcional, para extrair colegiado)
             
         Returns:
             bool: True se criada/atualizada com sucesso
@@ -619,46 +615,36 @@ class APISyncService:
         from .models import SenadoActivityHistory
         
         try:
-            id_informe = informe.get('id')
-            if not id_informe:
+            id_situacao = situacao.get('idTipo')
+            if not id_situacao:
                 return False
+            
+            # Extrair dados do colegiado da autuação
+            colegiado_codigo = autuacao.get('codigoColegiadoControleAtual') if autuacao else None
             
             # Verificar se já existe
             atividade, created = SenadoActivityHistory.objects.get_or_create(
                 proposicao=proposicao,
-                id_informe=id_informe,
+                id_situacao=id_situacao,
                 defaults={
-                    'data': self._processar_data(informe.get('data')),
-                    'descricao': informe.get('descricao', ''),
-                    'colegiado_codigo': self._extrair_valor_nested(informe, 'colegiado', 'codigo'),
-                    'colegiado_casa': self._extrair_valor_nested(informe, 'colegiado', 'casa'),
-                    'colegiado_sigla': self._extrair_valor_nested(informe, 'colegiado', 'sigla'),
-                    'colegiado_nome': self._extrair_valor_nested(informe, 'colegiado', 'nome'),
-                    'ente_administrativo_id': self._extrair_valor_nested(informe, 'enteAdministrativo', 'id'),
-                    'ente_administrativo_casa': self._extrair_valor_nested(informe, 'enteAdministrativo', 'casa'),
-                    'ente_administrativo_sigla': self._extrair_valor_nested(informe, 'enteAdministrativo', 'sigla'),
-                    'ente_administrativo_nome': self._extrair_valor_nested(informe, 'enteAdministrativo', 'nome'),
-                    'id_situacao_iniciada': informe.get('idSituacaoIniciada'),
-                    'sigla_situacao_iniciada': informe.get('siglaSituacaoIniciada'),
+                    'sigla_situacao': situacao.get('sigla', ''),
+                    'descricao': situacao.get('descricao', ''),
+                    'data_inicio': self._processar_data(situacao.get('inicio')),
+                    'data_fim': self._processar_data(situacao.get('fim')),
+                    'colegiado_codigo': colegiado_codigo,
                 }
             )
             
             if not created:
                 # Atualizar campos existentes
-                atividade.data = self._processar_data(informe.get('data'))
-                atividade.descricao = informe.get('descricao', '')
-                atividade.colegiado_codigo = self._extrair_valor_nested(informe, 'colegiado', 'codigo')
-                atividade.colegiado_casa = self._extrair_valor_nested(informe, 'colegiado', 'casa')
-                atividade.colegiado_sigla = self._extrair_valor_nested(informe, 'colegiado', 'sigla')
-                atividade.colegiado_nome = self._extrair_valor_nested(informe, 'colegiado', 'nome')
-                atividade.ente_administrativo_id = self._extrair_valor_nested(informe, 'enteAdministrativo', 'id')
-                atividade.ente_administrativo_casa = self._extrair_valor_nested(informe, 'enteAdministrativo', 'casa')
-                atividade.ente_administrativo_sigla = self._extrair_valor_nested(informe, 'enteAdministrativo', 'sigla')
-                atividade.ente_administrativo_nome = self._extrair_valor_nested(informe, 'enteAdministrativo', 'nome')
-                atividade.id_situacao_iniciada = informe.get('idSituacaoIniciada')
-                atividade.sigla_situacao_iniciada = informe.get('siglaSituacaoIniciada')
+                atividade.sigla_situacao = situacao.get('sigla', '')
+                atividade.descricao = situacao.get('descricao', '')
+                atividade.data_inicio = self._processar_data(situacao.get('inicio'))
+                atividade.data_fim = self._processar_data(situacao.get('fim'))
+                atividade.colegiado_codigo = colegiado_codigo
                 atividade.save()
             
+            logger.info(f"Atividade {atividade.id_situacao} criada/atualizada com sucesso")
             return True
             
         except Exception as e:
