@@ -303,16 +303,16 @@ class ProposicaoReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
                 description='Filtrar por ID da proposição'
             ),
             OpenApiParameter(
-                name='data_inicio',
+                name='data',
                 type=OpenApiTypes.DATE,
                 location=OpenApiParameter.QUERY,
-                description='Filtrar por data de início específica (YYYY-MM-DD)'
+                description='Filtrar por data específica (YYYY-MM-DD)'
             ),
             OpenApiParameter(
-                name='sigla_situacao',
+                name='colegiado_sigla',
                 type=OpenApiTypes.STR,
                 location=OpenApiParameter.QUERY,
-                description='Filtrar por sigla da situação'
+                description='Filtrar por sigla do colegiado'
             ),
         ],
         responses={200: SenadoActivityHistorySerializer(many=True)},
@@ -338,10 +338,10 @@ class SenadoActivityHistoryViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
     pagination_class = None
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['proposicao', 'data_inicio', 'sigla_situacao']
-    search_fields = ['descricao']
-    ordering_fields = ['id', 'data_inicio', 'id_situacao', 'created_at']
-    ordering = ['-data_inicio', '-id_situacao']
+    filterset_fields = ['proposicao', 'data', 'colegiado_sigla', 'ente_administrativo_sigla', 'sigla_situacao_iniciada']
+    search_fields = ['descricao', 'colegiado_nome', 'ente_administrativo_nome']
+    ordering_fields = ['id', 'data', 'id_informe', 'created_at']
+    ordering = ['-data', '-id_informe']
 
 
 @extend_schema_view(

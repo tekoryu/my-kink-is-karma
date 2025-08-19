@@ -219,12 +219,19 @@ class ProposicaoReadOnlySerializer(serializers.ModelSerializer):
             value={
                 'id': 1,
                 'proposicao': 1,
-                'id_situacao': 175,
-                'sigla_situacao': 'AGDESP',
-                'descricao': 'AGUARDANDO DESPACHO',
-                'data_inicio': '2025-02-27',
-                'data_fim': '2025-03-17',
-                'colegiado_codigo': 834,
+                'id_informe': 2245882,
+                'data': '2025-07-16',
+                'descricao': 'Autuado o Projeto de Lei nº 2583/2020, proveniente da Câmara dos Deputados. O projeto vai à publicação.',
+                'colegiado_codigo': 1998,
+                'colegiado_casa': 'SF',
+                'colegiado_sigla': 'PLEN',
+                'colegiado_nome': 'Plenário do Senado Federal',
+                'ente_administrativo_id': 55312,
+                'ente_administrativo_casa': 'SF',
+                'ente_administrativo_sigla': 'SLSF',
+                'ente_administrativo_nome': 'Secretaria Legislativa do Senado Federal',
+                'id_situacao_iniciada': 175,
+                'sigla_situacao_iniciada': 'AGDESP',
                 'created_at': '2024-01-01T00:00:00Z',
                 'updated_at': '2024-01-01T00:00:00Z'
             },
@@ -242,8 +249,11 @@ class SenadoActivityHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = SenadoActivityHistory
         fields = [
-            'id', 'proposicao', 'id_situacao', 'sigla_situacao', 'descricao', 'data_inicio', 'data_fim',
-            'colegiado_codigo', 'created_at', 'updated_at'
+            'id', 'proposicao', 'id_informe', 'data', 'descricao',
+            'colegiado_codigo', 'colegiado_casa', 'colegiado_sigla', 'colegiado_nome',
+            'ente_administrativo_id', 'ente_administrativo_casa', 'ente_administrativo_sigla', 'ente_administrativo_nome',
+            'id_situacao_iniciada', 'sigla_situacao_iniciada',
+            'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']
 
