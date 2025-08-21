@@ -52,7 +52,17 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  frontend:
+    build:
+      context: ./front/vue
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    depends_on:
+      - app
+
 volumes:
   postgres_data:
   static_volume:
-  media_volume: 
+  media_volume:
