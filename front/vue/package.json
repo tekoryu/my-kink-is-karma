@@ -18,7 +18,9 @@
     "vue-router": "^4.3.0",
     "pinia": "^2.2.0",
     "axios": "^1.7.0",
-    "@vueuse/core": "^11.0.0"
+    "@vueuse/core": "^11.0.0",
+    "vuetify": "^3.5.0",
+    "@mdi/font": "^7.4.47"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
