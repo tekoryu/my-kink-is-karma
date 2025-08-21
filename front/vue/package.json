@@ -9,14 +9,25 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "vue": "^3.5.18"
+    "vue": "^3.5.18",
+    "vue-router": "^4.3.0",
+    "pinia": "^2.2.0",
+    "axios": "^1.7.0",
+    "@vueuse/core": "^11.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
     "vite": "^7.0.6",
-    "vite-plugin-vue-devtools": "^8.0.0"
+    "vite-plugin-vue-devtools": "^8.0.0",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.21.0",
+    "prettier": "^3.2.0",
+    "vue-tsc": "^2.0.0"
   }
 }
