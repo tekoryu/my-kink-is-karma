@@ -60,3 +60,4 @@ The application is configured to run with the Django backend. Make sure the back
 
 For development with Docker, use the provided Docker configuration in the root directory.
 
+

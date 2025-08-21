@@ -2,19 +2,21 @@
   <v-app>
     <v-main>
       <v-container fluid class="pa-0">
-        <!-- Header -->
-        <v-app-bar color="primary" dark elevation="2">
-          <v-app-bar-title class="text-h4 font-weight-bold">
-            Agenda União e Reconstrução
-          </v-app-bar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon @click="refreshData">
-            <v-icon>mdi-refresh</v-icon>
-          </v-btn>
-        </v-app-bar>
+
 
         <!-- Main Content -->
         <v-container class="py-8">
+          <!-- Refresh Button -->
+          <v-row justify="end" class="mb-4">
+            <v-btn
+              color="primary"
+              variant="outlined"
+              prepend-icon="mdi-refresh"
+              @click="refreshData"
+            >
+              Atualizar Dados
+            </v-btn>
+          </v-row>
           <!-- Loading State -->
           <v-row v-if="loading" justify="center">
             <v-col cols="12" class="text-center">
@@ -79,83 +81,89 @@
                 Resumo da Agenda Legislativa
               </v-card-title>
               <v-card-text>
-                <v-expansion-panels variant="accordion">
-                  <!-- Eixos Section -->
-                  <v-expansion-panel>
-                    <v-expansion-panel-title>
-                      <v-icon start>mdi-axis-arrow</v-icon>
-                      Eixos Estratégicos ({{ summaryData.eixos?.length || 0 }})
-                    </v-expansion-panel-title>
-                    <v-expansion-panel-text>
-                      <v-list>
-                        <v-list-item
-                          v-for="eixo in summaryData.eixos"
-                          :key="eixo.id"
-                          :title="eixo.nome"
-                          :subtitle="`${eixo.temas_count || 0} temas`"
-                        >
-                          <template v-slot:prepend>
-                            <v-icon color="primary">mdi-circle</v-icon>
-                          </template>
-                        </v-list-item>
-                      </v-list>
-                    </v-expansion-panel-text>
-                  </v-expansion-panel>
+                                 <v-expansion-panels variant="accordion">
+                   <!-- Eixos Section -->
+                   <v-expansion-panel>
+                     <v-expansion-panel-title>
+                       <v-icon start>mdi-axis-arrow</v-icon>
+                       Eixos Estratégicos ({{ summaryData.eixos?.length || 0 }})
+                     </v-expansion-panel-title>
+                     <v-expansion-panel-text>
+                       <div class="list-container">
+                         <v-list>
+                           <v-list-item
+                             v-for="eixo in summaryData.eixos"
+                             :key="eixo.id"
+                             :title="eixo.nome"
+                             :subtitle="`${eixo.temas_count || 0} temas`"
+                           >
+                             <template v-slot:prepend>
+                               <v-icon color="primary">mdi-circle</v-icon>
+                             </template>
+                           </v-list-item>
+                         </v-list>
+                       </div>
+                     </v-expansion-panel-text>
+                   </v-expansion-panel>
 
-                  <!-- Temas Section -->
-                  <v-expansion-panel>
-                    <v-expansion-panel-title>
-                      <v-icon start>mdi-tag</v-icon>
-                      Temas ({{ summaryData.temas?.length || 0 }})
-                    </v-expansion-panel-title>
-                    <v-expansion-panel-text>
-                      <v-list>
-                        <v-list-item
-                          v-for="tema in summaryData.temas"
-                          :key="tema.id"
-                          :title="tema.nome"
-                          :subtitle="`Eixo: ${tema.eixo_nome} | ${tema.proposicoes_count || 0} proposições`"
-                        >
-                          <template v-slot:prepend>
-                            <v-icon color="secondary">mdi-tag</v-icon>
-                          </template>
-                        </v-list-item>
-                      </v-list>
-                    </v-expansion-panel-text>
-                  </v-expansion-panel>
+                   <!-- Temas Section -->
+                   <v-expansion-panel>
+                     <v-expansion-panel-title>
+                       <v-icon start>mdi-tag</v-icon>
+                       Temas ({{ summaryData.temas?.length || 0 }})
+                     </v-expansion-panel-title>
+                     <v-expansion-panel-text>
+                       <div class="list-container">
+                         <v-list>
+                           <v-list-item
+                             v-for="tema in summaryData.temas"
+                             :key="tema.id"
+                             :title="tema.nome"
+                             :subtitle="`Eixo: ${tema.eixo_nome} | ${tema.proposicoes_count || 0} proposições`"
+                           >
+                             <template v-slot:prepend>
+                               <v-icon color="secondary">mdi-tag</v-icon>
+                             </template>
+                           </v-list-item>
+                         </v-list>
+                       </div>
+                     </v-expansion-panel-text>
+                   </v-expansion-panel>
 
-                  <!-- Proposições Section -->
-                  <v-expansion-panel>
-                    <v-expansion-panel-title>
-                      <v-icon start>mdi-file-document</v-icon>
-                      Proposições ({{ summaryData.proposicoes?.length || 0 }})
-                    </v-expansion-panel-title>
-                    <v-expansion-panel-text>
-                      <v-list>
-                        <v-list-item
-                          v-for="proposicao in summaryData.proposicoes"
-                          :key="proposicao.id"
-                          :title="`${proposicao.tipo} ${proposicao.numero}/${proposicao.ano}`"
-                          :subtitle="`${proposicao.tema_nome} | ${proposicao.tema_eixo_nome}`"
-                        >
-                          <template v-slot:prepend>
-                            <v-icon color="accent">mdi-file-document</v-icon>
-                          </template>
-                          <template v-slot:append>
-                            <v-chip
-                              v-if="proposicao.autor"
-                              size="small"
-                              color="info"
-                              variant="outlined"
-                            >
-                              {{ proposicao.autor }}
-                            </v-chip>
-                          </template>
-                        </v-list-item>
-                      </v-list>
-                    </v-expansion-panel-text>
-                  </v-expansion-panel>
-                </v-expansion-panels>
+                   <!-- Proposições Section -->
+                   <v-expansion-panel>
+                     <v-expansion-panel-title>
+                       <v-icon start>mdi-file-document</v-icon>
+                       Proposições ({{ summaryData.proposicoes?.length || 0 }})
+                     </v-expansion-panel-title>
+                     <v-expansion-panel-text>
+                       <div class="list-container">
+                         <v-list>
+                           <v-list-item
+                             v-for="proposicao in summaryData.proposicoes"
+                             :key="proposicao.id"
+                             :title="`${proposicao.tipo} ${proposicao.numero}/${proposicao.ano}`"
+                             :subtitle="`${proposicao.tema_nome} | ${proposicao.tema_eixo_nome}`"
+                           >
+                             <template v-slot:prepend>
+                               <v-icon color="accent">mdi-file-document</v-icon>
+                             </template>
+                             <template v-slot:append>
+                               <v-chip
+                                 v-if="proposicao.autor"
+                                 size="small"
+                                 color="info"
+                                 variant="outlined"
+                               >
+                                 {{ proposicao.autor }}
+                               </v-chip>
+                             </template>
+                           </v-list-item>
+                         </v-list>
+                       </div>
+                     </v-expansion-panel-text>
+                   </v-expansion-panel>
+                 </v-expansion-panels>
               </v-card-text>
             </v-card>
           </div>
@@ -203,5 +211,39 @@ onMounted(() => {
 <style scoped>
 .v-expansion-panels {
   max-width: 100%;
+}
+
+.list-container {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.list-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.list-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Ensure the expansion panel content doesn't overflow */
+.v-expansion-panel-text {
+  max-height: none !important;
+}
+
+/* Make sure the main container allows scrolling */
+.v-main {
+  overflow-y: auto;
 }
 </style>

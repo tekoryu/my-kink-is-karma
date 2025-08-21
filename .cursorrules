@@ -17,3 +17,5 @@ docker compose run --rm app python manage.py shell -c string_containing_script
 ```
 - if trying to test with python scripts check if the file is in WORKDIR folder (usually /app)
 - Everything related to frontend tech shall be explained. Presume that I am a backend software engineer.
+- Do not test changes in frontend. Let me run the tests and return to you the results
+
