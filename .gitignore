@@ -161,3 +161,8 @@ Thumbs.db
 # Docker
 .dockerignore
 docker-compose.override.yml 
+
+# AI specific ignores
+.aiassistant/
+GEMINI.md
+AGENT.md
