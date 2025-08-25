@@ -18,3 +18,4 @@ docker compose run --rm app python manage.py shell -c string_containing_script
 - If trying to test using python scripts check if the file is in WORKDIR folder (usually /app).
 - Everything related to frontend tech shall be explained. Presume that I am a backend software engineer.
 - Frontend tests shall use hot reload
+- Alert me if I am doing something that violates the good principles of software engineering.

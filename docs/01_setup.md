@@ -41,20 +41,7 @@
 
 ## Frontend Setup
 
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm start
-   ```
+The frontend has been separated into its own repository. Please refer to the `fe_mykinkiskarma` project located at the same level as this backend project.
 
 ## Docker Setup
 
@@ -65,6 +52,7 @@ docker-compose up --build
 ```
 
 This will start:
-- Backend on http://localhost:8000
-- Frontend on http://localhost:3000
+- Backend on http://localhost:8000  
 - PostgreSQL database on port 5432
+
+Note: The frontend is now separated and should be run independently from the `fe_mykinkiskarma` project.

@@ -3,34 +3,31 @@
 ## Project Structure
 
 ```
-meu_projeto/
-├── backend/                 # Django backend application
-│   ├── meu_app_django/     # Django project settings
-│   ├── manage.py           # Django management script
-│   └── requirements.txt    # Python dependencies
+my-kink-is-karma/           # Backend Django application
+├── app/                   # Django project root
+│   ├── apps/             # Django applications
+│   │   ├── authentication/  # Authentication app
+│   │   ├── core/         # Core functionality
+│   │   └── pauta/        # Pauta (agenda) app
+│   ├── config/           # Django project settings
+│   └── manage.py         # Django management script
 │
-├── frontend/               # React frontend application
-│   ├── public/            # Static files
-│   ├── src/               # Source code
-│   │   ├── assets/        # Images, fonts, etc.
-│   │   ├── components/    # Reusable React components
-│   │   └── pages/         # Page components
-│   ├── package.json       # Node.js dependencies
-│   └── README.md          # Frontend documentation
-│
-├── database/              # Database related files
-│   ├── migrations/        # Database migrations
-│   └── seeds/            # Database seed data
-│
-├── docs/                  # Project documentation
-│   ├── 01_setup.md       # Setup instructions
+├── docs/                 # Project documentation
+│   ├── 01_setup.md      # Setup instructions
 │   ├── 02_architecture.md # This file
 │   └── 03_api_endpoints.md # API documentation
 │
-├── .gitignore            # Git ignore rules
-├── docker-compose.yml    # Docker configuration
-├── LICENSE               # Project license
-└── README.md             # Main project documentation
+├── scripts/             # Helper scripts
+├── requirements.txt     # Python dependencies
+├── compose.yaml         # Docker configuration
+└── README.md           # Main project documentation
+
+../fe_mykinkiskarma/     # Frontend Vue.js application (separate project)
+├── vue/                # Vue application
+│   ├── src/           # Source code
+│   ├── public/        # Static files
+│   └── package.json   # Node.js dependencies
+└── Agenda Estratégica.pbix  # Power BI file
 ```
 
 ## Technology Stack
@@ -41,23 +38,26 @@ meu_projeto/
 - **Database**: PostgreSQL (production), SQLite (development)
 - **Authentication**: Django's built-in authentication system
 
-### Frontend
-- **Framework**: React 18.2.0
-- **Build Tool**: Create React App
-- **HTTP Client**: Axios
-- **Styling**: CSS (can be extended with styled-components or other CSS-in-JS solutions)
+### Frontend (Separate Project)
+- **Framework**: Vue 3
+- **Build Tool**: Vite
+- **HTTP Client**: Axios  
+- **Styling**: CSS + Vuetify
+- **Location**: `../fe_mykinkiskarma/` (separate repository)
 
 ### Infrastructure
-- **Containerization**: Docker & Docker Compose
-- **Database**: PostgreSQL 13
-- **Development**: Hot reloading for both frontend and backend
+- **Containerization**: Docker & Docker Compose (backend only)
+- **Database**: PostgreSQL 15
+- **Development**: Hot reloading for backend; frontend runs independently
 
 ## Data Flow
 
-1. **Frontend** makes HTTP requests to the **Backend API**
+1. **Frontend** (separate project) makes HTTP requests to the **Backend API**
 2. **Backend** processes requests and interacts with the **Database**
 3. **Backend** returns JSON responses to the **Frontend**
 4. **Frontend** updates the UI based on the received data
+
+Note: Frontend and backend are now separate projects with independent deployment cycles.
 
 ## Security Considerations
 

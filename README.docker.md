@@ -70,6 +70,8 @@ This project is configured to run with Docker and Docker Compose, providing a co
 - app: Django application (port 8000)
 - db: PostgreSQL database (port 5432)
 
+Note: The frontend service has been moved to a separate project (`fe_mykinkiskarma`) for better separation of concerns.
+
 The app service waits for the database to become healthy before starting.
 
 ## Environment Variables
