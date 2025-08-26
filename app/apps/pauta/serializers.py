@@ -40,6 +40,38 @@ class TemaSerializer(serializers.ModelSerializer):
 @extend_schema_serializer(
     examples=[
         OpenApiExample(
+            'Eixo válido',
+            value={
+                'id': 1,
+                'nome': 'Desenvolvimento Econômico'
+            },
+            description='Exemplo de um eixo válido'
+        ),
+        OpenApiExample(
+            'Criação de eixo',
+            value={
+                'nome': 'Novo Eixo Estratégico'
+            },
+            description='Exemplo para criação de um novo eixo'
+        ),
+    ]
+)
+class EixoSerializer(serializers.ModelSerializer):
+    """
+    Serializer para o modelo Eixo.
+    
+    Permite operações CRUD completas para eixos estratégicos.
+    """
+    
+    class Meta:
+        model = Eixo
+        fields = ['id', 'nome']
+        read_only_fields = ['id']
+
+
+@extend_schema_serializer(
+    examples=[
+        OpenApiExample(
             'Proposição válida',
             value={
                 'id': 1,

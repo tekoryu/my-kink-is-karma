@@ -1,13 +1,14 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
-    TemaViewSet, ProposicaoViewSet,
+    EixoViewSet, TemaViewSet, ProposicaoViewSet,
     EixoReadOnlyViewSet, TemaReadOnlyViewSet, ProposicaoReadOnlyViewSet,
     SenadoActivityHistoryViewSet, CamaraActivityHistoryViewSet
 )
 
 # Configuração do roteador para o ViewSet
 router = DefaultRouter()
+router.register(r'eixos', EixoViewSet, basename='eixo')
 router.register(r'temas', TemaViewSet, basename='tema')
 router.register(r'proposicoes', ProposicaoViewSet, basename='proposicao')
 

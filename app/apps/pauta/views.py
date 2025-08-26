@@ -9,11 +9,134 @@ from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiPara
 from drf_spectacular.types import OpenApiTypes
 from .models import Eixo, Tema, Proposicao, SenadoActivityHistory, CamaraActivityHistory
 from .serializers import (
-    TemaSerializer, ProposicaoSerializer,
+    EixoSerializer, TemaSerializer, ProposicaoSerializer,
     EixoReadOnlySerializer, TemaReadOnlySerializer, ProposicaoReadOnlySerializer,
     SenadoActivityHistorySerializer, CamaraActivityHistorySerializer
 )
 from apps.core.logging_utils import log_database_operation, log_error, log_performance
+
+logger = logging.getLogger(__name__)
+
+
+@extend_schema_view(
+    list=extend_schema(
+        summary="Listar eixos",
+        description="Retorna uma lista de todos os eixos estratégicos disponíveis",
+        tags=["eixos"],
+        responses={200: EixoSerializer(many=True)},
+    ),
+    create=extend_schema(
+        summary="Criar eixo",
+        description="Cria um novo eixo estratégico",
+        tags=["eixos"],
+        request=EixoSerializer,
+        responses={201: EixoSerializer},
+    ),
+    retrieve=extend_schema(
+        summary="Obter eixo",
+        description="Retorna detalhes de um eixo específico",
+        tags=["eixos"],
+        responses={200: EixoSerializer},
+    ),
+    update=extend_schema(
+        summary="Atualizar eixo",
+        description="Atualiza completamente um eixo existente",
+        tags=["eixos"],
+        request=EixoSerializer,
+        responses={200: EixoSerializer},
+    ),
+    partial_update=extend_schema(
+        summary="Atualizar eixo parcialmente",
+        description="Atualiza parcialmente um eixo existente",
+        tags=["eixos"],
+        request=EixoSerializer,
+        responses={200: EixoSerializer},
+    ),
+    destroy=extend_schema(
+        summary="Excluir eixo",
+        description="Remove um eixo existente",
+        tags=["eixos"],
+        responses={204: None},
+    ),
+)
+class EixoViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet para o modelo Eixo.
+    
+    Fornece as ações CRUD padrão:
+    - list: GET /api/eixos/
+    - create: POST /api/eixos/
+    - retrieve: GET /api/eixos/{id}/
+    - update: PUT /api/eixos/{id}/
+    - partial_update: PATCH /api/eixos/{id}/
+    - destroy: DELETE /api/eixos/{id}/
+    """
+    
+    queryset = Eixo.objects.all()
+    serializer_class = EixoSerializer
+    permission_classes = [AllowAny]  # Allow all operations for now
+    pagination_class = None  # Disable pagination for now
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['nome']
+    ordering_fields = ['id', 'nome', 'created_at']
+    ordering = ['id']
+
+    def list(self, request, *args, **kwargs):
+        """Override list method to add logging"""
+        try:
+            import time
+            start_time = time.time()
+            
+            response = super().list(request, *args, **kwargs)
+            
+            duration = time.time() - start_time
+            log_performance('eixo_list', duration, {'count': len(response.data)})
+            log_database_operation('SELECT', 'Eixo', details=f'Retrieved {len(response.data)} eixos')
+            
+            return response
+        except Exception as e:
+            log_error(e, {'view': 'EixoViewSet', 'action': 'list'})
+            raise
+
+    def create(self, request, *args, **kwargs):
+        """Override create method to add logging"""
+        try:
+            response = super().create(request, *args, **kwargs)
+            log_database_operation('INSERT', 'Eixo', response.data.get('id'), 
+                                 {'nome': response.data.get('nome')})
+            return response
+        except Exception as e:
+            log_error(e, {'view': 'EixoViewSet', 'action': 'create', 'data': request.data})
+            raise
+
+    def update(self, request, *args, **kwargs):
+        """Override update method to add logging"""
+        try:
+            response = super().update(request, *args, **kwargs)
+            log_database_operation('UPDATE', 'Eixo', response.data.get('id'), 
+                                 {'nome': response.data.get('nome')})
+            return response
+        except Exception as e:
+            log_error(e, {'view': 'EixoViewSet', 'action': 'update', 'data': request.data})
+            raise
+
+    def destroy(self, request, *args, **kwargs):
+        """Override destroy method to add logging"""
+        try:
+            instance = self.get_object()
+            instance_id = instance.id
+            instance_name = instance.nome
+            
+            # Check if there are associated temas
+            if instance.temas.exists():
+                raise ValidationError("Não é possível excluir um eixo que possui temas associados.")
+            
+            response = super().destroy(request, *args, **kwargs)
+            log_database_operation('DELETE', 'Eixo', instance_id, {'nome': instance_name})
+            return response
+        except Exception as e:
+            log_error(e, {'view': 'EixoViewSet', 'action': 'destroy'})
+            raise
 
 
 @extend_schema_view(
