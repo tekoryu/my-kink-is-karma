@@ -7,6 +7,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter, OpenApiExample
 from drf_spectacular.types import OpenApiTypes
+from django.db.models import Prefetch
 from .models import Eixo, Tema, Proposicao, SenadoActivityHistory, CamaraActivityHistory
 from .serializers import (
     EixoSerializer, TemaSerializer, ProposicaoSerializer,
@@ -368,7 +369,9 @@ class TemaReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
     - retrieve: GET /api/bi/temas/{id}/
     """
     
-    queryset = Tema.objects.select_related('eixo').prefetch_related('proposicoes').all()
+    queryset = Tema.objects.select_related('eixo').prefetch_related(
+        Prefetch('proposicoes', queryset=Proposicao.objects.filter(selected=True), to_attr='selected_list')
+    ).all()
     serializer_class = TemaReadOnlySerializer
     permission_classes = [AllowAny]
     pagination_class = None

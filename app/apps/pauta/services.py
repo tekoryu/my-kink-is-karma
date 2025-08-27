@@ -452,6 +452,14 @@ class APISyncService:
                 proposicao.erro_sincronizacao = None
                 proposicao.save()
                 logger.info(f"Proposição {proposicao.identificador_completo} sincronizada com sucesso")
+                
+                # Atualizar seleção do tema automaticamente
+                try:
+                    self.atualizar_selecao_tema(proposicao.tema)
+                    logger.debug(f"Seleção atualizada para tema '{proposicao.tema.nome}' após sincronização")
+                except Exception as e:
+                    logger.warning(f"Erro ao atualizar seleção do tema após sincronização: {e}")
+                
                 return True
             
         except Exception as e:
@@ -501,6 +509,15 @@ class APISyncService:
             time.sleep(0.5)
         
         logger.info(f"Sincronização concluída: {sucessos} sucessos, {erros} erros")
+        
+        # Atualizar seleção de todas as proposições após sincronização em lote
+        if sucessos > 0:
+            try:
+                logger.info("Atualizando seleção de proposições após sincronização em lote")
+                selecao_result = self.atualizar_selecao_proposicoes()
+                logger.info(f"Seleção atualizada: {selecao_result}")
+            except Exception as e:
+                logger.warning(f"Erro ao atualizar seleção após sincronização em lote: {e}")
         
         return {
             'total': total,
@@ -821,3 +838,129 @@ class APISyncService:
             'sucessos_camara': sucessos_camara,
             'erros': erros
         }
+    
+    def atualizar_selecao_tema(self, tema) -> bool:
+        """
+        Atualiza a seleção de proposições para um tema específico.
+        Para o tema, seleciona a proposição com a data_apresentacao mais antiga.
+        Em caso de empate, seleciona a primeira da lista.
+        Atualiza apenas as proposições do tema fornecido.
+
+        
+        Args:
+            tema: Instância do modelo Tema
+            
+        Returns:
+            bool: True se a atualização foi bem-sucedida, False caso contrário
+        """
+        try:
+            # Primeiro, desmarcar todas as proposições do tema
+            from .models import Proposicao
+            Proposicao.objects.filter(tema=tema).update(selected=False)
+            
+            # Buscar proposições do tema ordenadas por data_apresentacao (mais antiga primeiro)
+            # Proposições sem data_apresentacao vão para o final
+            proposicoes = Proposicao.objects.filter(tema=tema).filter(
+                data_apresentacao__isnull=False
+            ).order_by('data_apresentacao', 'id')
+            
+            if proposicoes.exists():
+                # Selecionar a primeira (mais antiga)
+                proposicao_selecionada = proposicoes.first()
+                proposicao_selecionada.selected = True
+                proposicao_selecionada.save()
+                
+                logger.info(f"Tema '{tema.nome}': selecionada proposição {proposicao_selecionada.identificador_completo}")
+                return True
+            else:
+                # Se não há proposições com data_apresentacao, selecionar a primeira disponível
+                proposicoes_sem_data = Proposicao.objects.filter(tema=tema).order_by('id')
+                if proposicoes_sem_data.exists():
+                    proposicao_selecionada = proposicoes_sem_data.first()
+                    proposicao_selecionada.selected = True
+                    proposicao_selecionada.save()
+                    
+                    logger.info(f"Tema '{tema.nome}': selecionada proposição {proposicao_selecionada.identificador_completo} (sem data)")
+                    return True
+                else:
+                    logger.warning(f"Tema '{tema.nome}': não possui proposições para selecionar")
+                    return False
+                    
+        except Exception as e:
+            logger.error(f"Erro ao atualizar seleção do tema '{tema.nome}': {e}")
+            return False
+
+    def atualizar_selecao_proposicoes(self) -> Dict[str, int]:
+        """
+        Atualiza a seleção de proposições baseado no algoritmo de tema.
+        Para cada tema, seleciona a proposição com a data_apresentacao mais antiga.
+        Em caso de empate, seleciona a primeira da lista.
+        Atualiza todas as proposições. Bom para system consistency checking
+        Returns:
+            Dict com estatísticas da atualização
+        """
+        from .models import Proposicao, Tema
+        from django.db.models import Q
+        
+        total_temas = 0
+        total_atualizadas = 0
+        erros = 0
+        
+        logger.info("Iniciando atualização de seleção de proposições por tema")
+        
+        try:
+            # Buscar todos os temas que possuem proposições
+            temas = Tema.objects.filter(proposicoes__isnull=False).distinct()
+            total_temas = temas.count()
+            
+            for tema in temas:
+                try:
+                    # Primeiro, desmarcar todas as proposições do tema
+                    Proposicao.objects.filter(tema=tema).update(selected=False)
+                    
+                    # Buscar proposições do tema ordenadas por data_apresentacao (mais antiga primeiro)
+                    # Proposições sem data_apresentacao vão para o final
+                    proposicoes = Proposicao.objects.filter(tema=tema).filter(
+                        data_apresentacao__isnull=False
+                    ).order_by('data_apresentacao', 'id')
+                    
+                    if proposicoes.exists():
+                        # Selecionar a primeira (mais antiga)
+                        proposicao_selecionada = proposicoes.first()
+                        proposicao_selecionada.selected = True
+                        proposicao_selecionada.save()
+                        total_atualizadas += 1
+                        
+                        logger.info(f"Tema '{tema.nome}': selecionada proposição {proposicao_selecionada.identificador_completo}")
+                    else:
+                        # Se não há proposições com data_apresentacao, selecionar a primeira disponível
+                        proposicoes_sem_data = Proposicao.objects.filter(tema=tema).order_by('id')
+                        if proposicoes_sem_data.exists():
+                            proposicao_selecionada = proposicoes_sem_data.first()
+                            proposicao_selecionada.selected = True
+                            proposicao_selecionada.save()
+                            total_atualizadas += 1
+                            
+                            logger.info(f"Tema '{tema.nome}': selecionada proposição {proposicao_selecionada.identificador_completo} (sem data)")
+                        else:
+                            logger.warning(f"Tema '{tema.nome}': não possui proposições para selecionar")
+                            
+                except Exception as e:
+                    logger.error(f"Erro ao processar tema '{tema.nome}': {e}")
+                    erros += 1
+            
+            logger.info(f"Atualização de seleção concluída: {total_atualizadas} proposições selecionadas em {total_temas} temas, {erros} erros")
+            
+            return {
+                'total_temas': total_temas,
+                'total_atualizadas': total_atualizadas,
+                'erros': erros
+            }
+            
+        except Exception as e:
+            logger.error(f"Erro na atualização de seleção de proposições: {e}")
+            return {
+                'total_temas': 0,
+                'total_atualizadas': 0,
+                'erros': 1
+            }

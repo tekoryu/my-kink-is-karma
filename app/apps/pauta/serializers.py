@@ -91,6 +91,7 @@ class EixoSerializer(serializers.ModelSerializer):
                 'autor': 'Deputado João Silva',
                 'data_apresentacao': '2023-01-15',
                 'casa_inicial': 'CD',
+                'selected': True,
                 'ultima_sincronizacao': '2024-01-01T10:00:00Z',
                 'erro_sincronizacao': None,
                 'created_at': '2024-01-01T00:00:00Z',
@@ -135,7 +136,7 @@ class ProposicaoSerializer(serializers.ModelSerializer):
         model = Proposicao
         fields = [
             'id', 'tema', 'tipo', 'numero', 'ano', 'sf_id', 'cd_id',
-            'autor', 'data_apresentacao', 'casa_inicial', 'ementa', 'current_house',
+            'autor', 'data_apresentacao', 'casa_inicial', 'ementa', 'current_house', 'selected',
             'ultima_sincronizacao', 'erro_sincronizacao', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at'] 
@@ -175,13 +176,14 @@ class EixoReadOnlySerializer(serializers.ModelSerializer):
 @extend_schema_serializer(
     examples=[
         OpenApiExample(
-            'Tema com eixo e proposições',
+            'Tema com eixo, proposições e selecionada',
             value={
                 'id': 1,
                 'nome': 'Tecnologia',
                 'eixo_id': 1,
                 'eixo_nome': 'Desenvolvimento Econômico',
                 'proposicoes_count': 10,
+                'selected_proposicao': 'PL 4381/2023',
                 'created_at': '2024-01-01T00:00:00Z',
                 'updated_at': '2024-01-01T00:00:00Z'
             },
@@ -197,14 +199,20 @@ class TemaReadOnlySerializer(serializers.ModelSerializer):
     eixo_id = serializers.IntegerField(source='eixo.id')
     eixo_nome = serializers.CharField(source='eixo.nome')
     proposicoes_count = serializers.SerializerMethodField()
+    selected_proposicao = serializers.SerializerMethodField()
     
     class Meta:
         model = Tema
-        fields = ['id', 'nome', 'eixo_id', 'eixo_nome', 'proposicoes_count', 'created_at', 'updated_at']
+        fields = ['id', 'nome', 'eixo_id', 'eixo_nome', 'proposicoes_count', 'selected_proposicao', 'created_at', 'updated_at']
         read_only_fields = fields
     
     def get_proposicoes_count(self, obj):
         return obj.proposicoes.count()
+
+    def get_selected_proposicao(self, obj):
+        selected_list = getattr(obj, 'selected_list', None)
+        proposicao = selected_list[0] if selected_list else obj.proposicoes.filter(selected=True).first()
+        return proposicao.identificador_completo if proposicao else None
 
 
 @extend_schema_serializer(

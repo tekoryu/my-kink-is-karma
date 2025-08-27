@@ -167,6 +167,11 @@ class Proposicao(models.Model):
         help_text="Casa onde a proposição está atualmente tramitando"
     )
     
+    selected = models.BooleanField(
+        default=False,
+        help_text="Indica se esta proposição foi selecionada pelo algoritmo como representativa do tema"
+    )
+    
     # Campos para controle de sincronização
     ultima_sincronizacao = models.DateTimeField(
         null=True,
