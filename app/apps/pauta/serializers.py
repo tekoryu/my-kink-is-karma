@@ -35,6 +35,13 @@ class TemaSerializer(serializers.ModelSerializer):
         model = Tema
         fields = ['id', 'nome', 'eixo']
         read_only_fields = ['id']
+    
+    def to_representation(self, instance):
+        """Convert nome to lowercase in response"""
+        data = super().to_representation(instance)
+        if 'nome' in data and data['nome']:
+            data['nome'] = data['nome'].lower()
+        return data
 
 
 @extend_schema_serializer(
