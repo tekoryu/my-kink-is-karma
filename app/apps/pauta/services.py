@@ -9,6 +9,9 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+from .services_impl.activity_sync_service import ActivitySyncService
+from .services_impl.selection_service import SelectionService
+from .services_impl import DataProcessingService
 
 class APISyncService:
     """
@@ -35,6 +38,10 @@ class APISyncService:
     def __init__(self):
         self.last_senado_request = 0
         self.last_camara_request = 0
+        # Delegated services
+        self.activity_sync = ActivitySyncService()
+        self.selection = SelectionService()
+        self.data_processing = DataProcessingService()
     
     def _rate_limit_senado(self):
         """Aplica rate limiting para a API do Senado"""
@@ -369,6 +376,7 @@ class APISyncService:
         except (ValueError, AttributeError) as e:
             logger.warning(f"Erro ao processar data '{data_str}': {e}")
             return None
+
     def sincronizar_proposicao(self, proposicao) -> bool:
         """
         Sincroniza uma proposição específica com as APIs seguindo a nova estratégia:
@@ -460,6 +468,12 @@ class APISyncService:
                 except Exception as e:
                     logger.warning(f"Erro ao atualizar seleção do tema após sincronização: {e}")
                 
+                # Atualizar campos derivados (ex.: current_house, data backfill)
+                try:
+                    self.data_processing.update_derived_fields(proposicao)
+                except Exception as e:
+                    logger.warning(f"Erro ao atualizar campos derivados após sincronização: {e}")
+
                 return True
             
         except Exception as e:
@@ -469,7 +483,6 @@ class APISyncService:
             proposicao.save()
             return False
 
-    
     def sincronizar_todas_proposicoes(self, limit: Optional[int] = None, force: bool = False) -> Dict[str, int]:
         """
         Sincroniza proposições com as APIs.
@@ -526,240 +539,20 @@ class APISyncService:
         }
 
     def sincronizar_atividades_senado(self, proposicao) -> bool:
-        """
-        Sincroniza o histórico de atividades de uma proposição no Senado Federal.
-        
-        Args:
-            proposicao: Instância do modelo Proposicao
-            
-        Returns:
-            bool: True se a sincronização foi bem-sucedida, False caso contrário
-        """
-        if not proposicao.sf_id:
-            logger.warning(f"Proposição {proposicao.identificador_completo} não possui sf_id")
-            return False
-        
-        try:
-            self._rate_limit_senado()
-            
-            # Buscar dados do processo no Senado
-            search_url = f"{self.SENADO_BASE_URL}/processo/{proposicao.sf_id}"
-            
-            response = requests.get(
-                search_url,
-                headers=self.DEFAULT_HEADERS,
-                timeout=30
-            )
-            
-            if response.status_code != 200:
-                logger.warning(f"Erro ao buscar processo {proposicao.sf_id} no Senado: {response.status_code}")
-                return False
-            
-            data = response.json()
-            
-            # Extrair informes legislativos das autuações
-            atividades_criadas = 0
-            
-            for autuacao in data.get('autuacoes', []):
-                for informe in autuacao.get('informesLegislativos', []):
-                    # Pular documentos associados conforme especificação
-                    if 'documentosAssociados' in informe:
-                        continue
-                    
-                    # Criar ou atualizar atividade
-                    if self._criar_atividade_senado(proposicao, informe):
-                        atividades_criadas += 1
-            
-            logger.info(f"Sincronizadas {atividades_criadas} atividades do Senado para {proposicao.identificador_completo}")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Erro ao sincronizar atividades do Senado para {proposicao.identificador_completo}: {e}")
-            return False
+        """Delegates to ActivitySyncService."""
+        return self.activity_sync.sincronizar_atividades_senado(proposicao)
     
     def sincronizar_atividades_camara(self, proposicao) -> bool:
-        """
-        Sincroniza o histórico de atividades de uma proposição na Câmara dos Deputados.
-        
-        Args:
-            proposicao: Instância do modelo Proposicao
-            
-        Returns:
-            bool: True se a sincronização foi bem-sucedida, False caso contrário
-        """
-        if not proposicao.cd_id:
-            logger.warning(f"Proposição {proposicao.identificador_completo} não possui cd_id")
-            return False
-        
-        try:
-            self._rate_limit_camara()
-            
-            # Buscar tramitações na Câmara
-            tramitacoes_url = f"{self.CAMARA_BASE_URL}/proposicoes/{proposicao.cd_id}/tramitacoes"
-            
-            response = requests.get(
-                tramitacoes_url,
-                headers=self.DEFAULT_HEADERS,
-                timeout=30
-            )
-            
-            if response.status_code != 200:
-                logger.warning(f"Erro ao buscar tramitações {proposicao.cd_id} na Câmara: {response.status_code}")
-                return False
-            
-            data = response.json()
-            atividades_criadas = 0
-            
-            for tramitacao in data.get('dados', []):
-                # Criar ou atualizar atividade
-                if self._criar_atividade_camara(proposicao, tramitacao):
-                    atividades_criadas += 1
-            
-            logger.info(f"Sincronizadas {atividades_criadas} atividades da Câmara para {proposicao.identificador_completo}")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Erro ao sincronizar atividades da Câmara para {proposicao.identificador_completo}: {e}")
-            return False
+        """Delegates to ActivitySyncService."""
+        return self.activity_sync.sincronizar_atividades_camara(proposicao)
     
     def _criar_atividade_senado(self, proposicao, informe: Dict) -> bool:
-        """
-        Cria ou atualiza uma atividade do Senado no banco de dados.
-        
-        Args:
-            proposicao: Instância do modelo Proposicao
-            informe: Dados do informe legislativo da API
-            
-        Returns:
-            bool: True se criada/atualizada com sucesso
-        """
-        from .models import SenadoActivityHistory
-        
-        try:
-            id_informe = informe.get('id')
-            if not id_informe:
-                return False
-            
-            # Verificar se já existe
-            atividade, created = SenadoActivityHistory.objects.get_or_create(
-                proposicao=proposicao,
-                id_informe=id_informe,
-                defaults={
-                    'data': self._processar_data(informe.get('data')),
-                    'descricao': informe.get('descricao', ''),
-                    'colegiado_codigo': self._extrair_valor_nested(informe, 'colegiado', 'codigo'),
-                    'colegiado_casa': self._extrair_valor_nested(informe, 'colegiado', 'casa'),
-                    'colegiado_sigla': self._extrair_valor_nested(informe, 'colegiado', 'sigla'),
-                    'colegiado_nome': self._extrair_valor_nested(informe, 'colegiado', 'nome'),
-                    'ente_administrativo_id': self._extrair_valor_nested(informe, 'enteAdministrativo', 'id'),
-                    'ente_administrativo_casa': self._extrair_valor_nested(informe, 'enteAdministrativo', 'casa'),
-                    'ente_administrativo_sigla': self._extrair_valor_nested(informe, 'enteAdministrativo', 'sigla'),
-                    'ente_administrativo_nome': self._extrair_valor_nested(informe, 'enteAdministrativo', 'nome'),
-                    'id_situacao_iniciada': informe.get('idSituacaoIniciada'),
-                    'sigla_situacao_iniciada': informe.get('siglaSituacaoIniciada'),
-                }
-            )
-            
-            if not created:
-                # Atualizar campos existentes
-                atividade.data = self._processar_data(informe.get('data'))
-                atividade.descricao = informe.get('descricao', '')
-                atividade.colegiado_codigo = self._extrair_valor_nested(informe, 'colegiado', 'codigo')
-                atividade.colegiado_casa = self._extrair_valor_nested(informe, 'colegiado', 'casa')
-                atividade.colegiado_sigla = self._extrair_valor_nested(informe, 'colegiado', 'sigla')
-                atividade.colegiado_nome = self._extrair_valor_nested(informe, 'colegiado', 'nome')
-                atividade.ente_administrativo_id = self._extrair_valor_nested(informe, 'enteAdministrativo', 'id')
-                atividade.ente_administrativo_casa = self._extrair_valor_nested(informe, 'enteAdministrativo', 'casa')
-                atividade.ente_administrativo_sigla = self._extrair_valor_nested(informe, 'enteAdministrativo', 'sigla')
-                atividade.ente_administrativo_nome = self._extrair_valor_nested(informe, 'enteAdministrativo', 'nome')
-                atividade.id_situacao_iniciada = informe.get('idSituacaoIniciada')
-                atividade.sigla_situacao_iniciada = informe.get('siglaSituacaoIniciada')
-                atividade.save()
-            
-            return True
-            
-        except Exception as e:
-            logger.error(f"Erro ao criar atividade do Senado: {e}")
-            return False
+        """Backward-compat shim: delegate to ActivitySyncService."""
+        return self.activity_sync._criar_atividade_senado(proposicao, informe)
     
     def _criar_atividade_camara(self, proposicao, tramitacao: Dict) -> bool:
-        """
-        Cria ou atualiza uma atividade da Câmara no banco de dados.
-        
-        Args:
-            proposicao: Instância do modelo Proposicao
-            tramitacao: Dados da tramitação da API
-            
-        Returns:
-            bool: True se criada/atualizada com sucesso
-        """
-        from .models import CamaraActivityHistory
-        from django.utils import timezone
-        
-        try:
-            sequencia = tramitacao.get('sequencia')
-            if not sequencia:
-                return False
-            
-            # Processar data e hora
-            data_hora_str = tramitacao.get('dataHora')
-            data_hora = None
-            if data_hora_str:
-                try:
-                    # Formato: "2020-05-12T16:40"
-                    if 'T' in data_hora_str:
-                        naive_datetime = datetime.strptime(data_hora_str, '%Y-%m-%dT%H:%M')
-                    else:
-                        naive_datetime = datetime.strptime(data_hora_str, '%Y-%m-%d')
-                    
-                    # Tornar timezone-aware (assumindo horário de Brasília)
-                    data_hora = timezone.make_aware(naive_datetime, timezone=timezone.get_current_timezone())
-                except ValueError:
-                    logger.warning(f"Formato de data inválido: {data_hora_str}")
-            
-            # Verificar se já existe
-            atividade, created = CamaraActivityHistory.objects.get_or_create(
-                proposicao=proposicao,
-                sequencia=sequencia,
-                defaults={
-                    'data_hora': data_hora,
-                    'sigla_orgao': tramitacao.get('siglaOrgao', ''),
-                    'uri_orgao': tramitacao.get('uriOrgao'),
-                    'uri_ultimo_relator': tramitacao.get('uriUltimoRelator'),
-                    'regime': tramitacao.get('regime'),
-                    'descricao_tramitacao': tramitacao.get('descricaoTramitacao', ''),
-                    'cod_tipo_tramitacao': tramitacao.get('codTipoTramitacao', ''),
-                    'descricao_situacao': tramitacao.get('descricaoSituacao'),
-                    'cod_situacao': tramitacao.get('codSituacao'),
-                    'despacho': tramitacao.get('despacho', ''),
-                    'url': tramitacao.get('url'),
-                    'ambito': tramitacao.get('ambito'),
-                    'apreciacao': tramitacao.get('apreciacao'),
-                }
-            )
-            
-            if not created:
-                # Atualizar campos existentes
-                atividade.data_hora = data_hora
-                atividade.sigla_orgao = tramitacao.get('siglaOrgao', '')
-                atividade.uri_orgao = tramitacao.get('uriOrgao')
-                atividade.uri_ultimo_relator = tramitacao.get('uriUltimoRelator')
-                atividade.regime = tramitacao.get('regime')
-                atividade.descricao_tramitacao = tramitacao.get('descricaoTramitacao', '')
-                atividade.cod_tipo_tramitacao = tramitacao.get('codTipoTramitacao', '')
-                atividade.descricao_situacao = tramitacao.get('descricaoSituacao')
-                atividade.cod_situacao = tramitacao.get('codSituacao')
-                atividade.despacho = tramitacao.get('despacho', '')
-                atividade.url = tramitacao.get('url')
-                atividade.ambito = tramitacao.get('ambito')
-                atividade.apreciacao = tramitacao.get('apreciacao')
-                atividade.save()
-            
-            return True
-            
-        except Exception as e:
-            logger.error(f"Erro ao criar atividade da Câmara: {e}")
-            return False
+        """Backward-compat shim: delegate to ActivitySyncService."""
+        return self.activity_sync._criar_atividade_camara(proposicao, tramitacao)
     
     def _extrair_valor_nested(self, data: Dict, key1: str, key2: str):
         """
@@ -811,14 +604,14 @@ class APISyncService:
             try:
                 # Sincronizar atividades do Senado se tem sf_id
                 if proposicao.sf_id:
-                    if self.sincronizar_atividades_senado(proposicao):
+                    if self.activity_sync.sincronizar_atividades_senado(proposicao):
                         sucessos_senado += 1
                     else:
                         erros += 1
                 
                 # Sincronizar atividades da Câmara se tem cd_id
                 if proposicao.cd_id:
-                    if self.sincronizar_atividades_camara(proposicao):
+                    if self.activity_sync.sincronizar_atividades_camara(proposicao):
                         sucessos_camara += 1
                     else:
                         erros += 1
@@ -840,127 +633,9 @@ class APISyncService:
         }
     
     def atualizar_selecao_tema(self, tema) -> bool:
-        """
-        Atualiza a seleção de proposições para um tema específico.
-        Para o tema, seleciona a proposição com a data_apresentacao mais antiga.
-        Em caso de empate, seleciona a primeira da lista.
-        Atualiza apenas as proposições do tema fornecido.
-
-        
-        Args:
-            tema: Instância do modelo Tema
-            
-        Returns:
-            bool: True se a atualização foi bem-sucedida, False caso contrário
-        """
-        try:
-            # Primeiro, desmarcar todas as proposições do tema
-            from .models import Proposicao
-            Proposicao.objects.filter(tema=tema).update(selected=False)
-            
-            # Buscar proposições do tema ordenadas por data_apresentacao (mais antiga primeiro)
-            # Proposições sem data_apresentacao vão para o final
-            proposicoes = Proposicao.objects.filter(tema=tema).filter(
-                data_apresentacao__isnull=False
-            ).order_by('data_apresentacao', 'id')
-            
-            if proposicoes.exists():
-                # Selecionar a primeira (mais antiga)
-                proposicao_selecionada = proposicoes.first()
-                proposicao_selecionada.selected = True
-                proposicao_selecionada.save()
-                
-                logger.info(f"Tema '{tema.nome}': selecionada proposição {proposicao_selecionada.identificador_completo}")
-                return True
-            else:
-                # Se não há proposições com data_apresentacao, selecionar a primeira disponível
-                proposicoes_sem_data = Proposicao.objects.filter(tema=tema).order_by('id')
-                if proposicoes_sem_data.exists():
-                    proposicao_selecionada = proposicoes_sem_data.first()
-                    proposicao_selecionada.selected = True
-                    proposicao_selecionada.save()
-                    
-                    logger.info(f"Tema '{tema.nome}': selecionada proposição {proposicao_selecionada.identificador_completo} (sem data)")
-                    return True
-                else:
-                    logger.warning(f"Tema '{tema.nome}': não possui proposições para selecionar")
-                    return False
-                    
-        except Exception as e:
-            logger.error(f"Erro ao atualizar seleção do tema '{tema.nome}': {e}")
-            return False
+        """Delegates to SelectionService."""
+        return self.selection.atualizar_selecao_tema(tema)
 
     def atualizar_selecao_proposicoes(self) -> Dict[str, int]:
-        """
-        Atualiza a seleção de proposições baseado no algoritmo de tema.
-        Para cada tema, seleciona a proposição com a data_apresentacao mais antiga.
-        Em caso de empate, seleciona a primeira da lista.
-        Atualiza todas as proposições. Bom para system consistency checking
-        Returns:
-            Dict com estatísticas da atualização
-        """
-        from .models import Proposicao, Tema
-        from django.db.models import Q
-        
-        total_temas = 0
-        total_atualizadas = 0
-        erros = 0
-        
-        logger.info("Iniciando atualização de seleção de proposições por tema")
-        
-        try:
-            # Buscar todos os temas que possuem proposições
-            temas = Tema.objects.filter(proposicoes__isnull=False).distinct()
-            total_temas = temas.count()
-            
-            for tema in temas:
-                try:
-                    # Primeiro, desmarcar todas as proposições do tema
-                    Proposicao.objects.filter(tema=tema).update(selected=False)
-                    
-                    # Buscar proposições do tema ordenadas por data_apresentacao (mais antiga primeiro)
-                    # Proposições sem data_apresentacao vão para o final
-                    proposicoes = Proposicao.objects.filter(tema=tema).filter(
-                        data_apresentacao__isnull=False
-                    ).order_by('data_apresentacao', 'id')
-                    
-                    if proposicoes.exists():
-                        # Selecionar a primeira (mais antiga)
-                        proposicao_selecionada = proposicoes.first()
-                        proposicao_selecionada.selected = True
-                        proposicao_selecionada.save()
-                        total_atualizadas += 1
-                        
-                        logger.info(f"Tema '{tema.nome}': selecionada proposição {proposicao_selecionada.identificador_completo}")
-                    else:
-                        # Se não há proposições com data_apresentacao, selecionar a primeira disponível
-                        proposicoes_sem_data = Proposicao.objects.filter(tema=tema).order_by('id')
-                        if proposicoes_sem_data.exists():
-                            proposicao_selecionada = proposicoes_sem_data.first()
-                            proposicao_selecionada.selected = True
-                            proposicao_selecionada.save()
-                            total_atualizadas += 1
-                            
-                            logger.info(f"Tema '{tema.nome}': selecionada proposição {proposicao_selecionada.identificador_completo} (sem data)")
-                        else:
-                            logger.warning(f"Tema '{tema.nome}': não possui proposições para selecionar")
-                            
-                except Exception as e:
-                    logger.error(f"Erro ao processar tema '{tema.nome}': {e}")
-                    erros += 1
-            
-            logger.info(f"Atualização de seleção concluída: {total_atualizadas} proposições selecionadas em {total_temas} temas, {erros} erros")
-            
-            return {
-                'total_temas': total_temas,
-                'total_atualizadas': total_atualizadas,
-                'erros': erros
-            }
-            
-        except Exception as e:
-            logger.error(f"Erro na atualização de seleção de proposições: {e}")
-            return {
-                'total_temas': 0,
-                'total_atualizadas': 0,
-                'erros': 1
-            }
+        """Delegates to SelectionService."""
+        return self.selection.atualizar_selecao_proposicoes()

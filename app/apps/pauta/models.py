@@ -145,7 +145,7 @@ class Proposicao(models.Model):
         help_text="Data de apresentação da proposição"
     )
     
-    casa_inicial = models.CharField(
+    casa_inicial = models.CharField( # TODO: Trocar esse nome por iniciativa, casa dá ideia de apenas congresso
         max_length=10,
         choices=CASA_CHOICES,
         null=True,
