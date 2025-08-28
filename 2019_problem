@@ -1,0 +1,5 @@
+We do have a major change in the project. We recently found that a proposition before 2019 would have a name (like PL 1234/2017) in Senado and another name in  Camara (like MPV 5678/2018). It is a big problem.
+Lets solve it:
+- First create fields called tipo_deprecated, numero_deprecated e ano_deprecated in Proposicao model.
+- We cannot assume that it affects only proposicoes with ano < 2019, because just propositions created after 2019 have the same name.
+- We are going to change somethings: 

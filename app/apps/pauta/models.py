@@ -284,7 +284,7 @@ class SenadoActivityHistory(models.Model):
     )
     
     colegiado_nome = models.CharField(
-        max_length=255,
+        max_length=500,
         null=True,
         blank=True,
         help_text="Nome do colegiado"
@@ -312,7 +312,7 @@ class SenadoActivityHistory(models.Model):
     )
     
     ente_administrativo_nome = models.CharField(
-        max_length=255,
+        max_length=500,
         null=True,
         blank=True,
         help_text="Nome do ente administrativo"
@@ -403,7 +403,7 @@ class CamaraActivityHistory(models.Model):
     )
     
     descricao_tramitacao = models.CharField(
-        max_length=255,
+        max_length=500,
         help_text="Descrição do tipo de tramitação"
     )
     
@@ -413,7 +413,7 @@ class CamaraActivityHistory(models.Model):
     )
     
     descricao_situacao = models.CharField(
-        max_length=255,
+        max_length=500,
         null=True,
         blank=True,
         help_text="Descrição da situação"
@@ -444,7 +444,7 @@ class CamaraActivityHistory(models.Model):
     )
     
     apreciacao = models.CharField(
-        max_length=255,
+        max_length=500,
         null=True,
         blank=True,
         help_text="Tipo de apreciação"

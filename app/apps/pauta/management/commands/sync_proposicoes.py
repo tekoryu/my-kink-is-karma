@@ -39,6 +39,7 @@ class Command(BaseCommand):
         from apps.pauta.models import Proposicao
         
         service = APISyncService()
+        total = 0  # Initialize to prevent UnboundLocalError
         
         try:
         
@@ -72,9 +73,10 @@ class Command(BaseCommand):
                             )
                     
                     # Log performance metrics for single proposição
+                    total = 1  # Set total for single proposição
                     duration = time.time() - start_time
                     log_performance('sync_proposicoes_command', duration, {
-                        'total_processed': 1,
+                        'total_processed': total,
                         'force': options['force'],
                         'dry_run': options['dry_run'],
                         'single_proposicao': True
@@ -109,24 +111,26 @@ class Command(BaseCommand):
                         self.stdout.write(f"- {proposicao.identificador_completo}")
                 else:
                     # Executar sincronização real
-                    with transaction.atomic():
-                        stats = service.sincronizar_todas_proposicoes(
-                            limit=options['limit'], 
-                            force=options['force']
+                    # Remove atomic block to avoid transaction management errors
+                    stats = service.sincronizar_todas_proposicoes(
+                        limit=options['limit'], 
+                        force=options['force']
+                    )
+                    
+                    total = stats.get('total', 0)  # Update total from stats
+                    
+                    self.stdout.write(
+                        self.style.SUCCESS(
+                            f"Sincronização concluída: {stats['sucessos']} sucessos, {stats['erros']} erros"
                         )
-                        
+                    )
+                    
+                    if stats['erros'] > 0:
                         self.stdout.write(
-                            self.style.SUCCESS(
-                                f"Sincronização concluída: {stats['sucessos']} sucessos, {stats['erros']} erros"
+                            self.style.WARNING(
+                                f"Verifique os logs para detalhes dos {stats['erros']} erros"
                             )
                         )
-                        
-                        if stats['erros'] > 0:
-                            self.stdout.write(
-                                self.style.WARNING(
-                                    f"Verifique os logs para detalhes dos {stats['erros']} erros"
-                                )
-                            )
                 
                 # Log performance metrics for bulk sync
                 duration = time.time() - start_time

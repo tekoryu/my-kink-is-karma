@@ -262,18 +262,8 @@ class APISyncService:
             if response.status_code == 200:
                 data = response.json()
                 if 'dados' in data and len(data['dados']) > 0:
-                    primeiro_autor = data['dados'][0]
-                    nome = primeiro_autor.get('nome', '')
-                    
-                    # Se é Poder Executivo, retornar diretamente
-                    if nome == 'Poder Executivo':
-                        return 'Poder Executivo'
-                    
-                    # Se não é Poder Executivo, buscar dados do deputado
-                    uri = primeiro_autor.get('uri', '')
-                    if uri:
-                        return self._buscar_dados_deputado(uri)
-                    
+                    nome = data['dados'][0].get('nome', '')
+
                     return nome
             
             return None
@@ -522,9 +512,7 @@ class APISyncService:
     def _criar_atividade_camara(self, proposicao, tramitacao: Dict) -> bool:
         """Backward-compat shim: delegate to ActivitySyncService."""
         return self.activity_sync._criar_atividade_camara(proposicao, tramitacao)
-    
-
-    
+       
     def sincronizar_atividades_todas_proposicoes(self, limit: Optional[int] = None) -> Dict[str, int]:
         """
         Sincroniza atividades de todas as proposições que possuem IDs das APIs.
