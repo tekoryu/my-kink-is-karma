@@ -90,7 +90,8 @@ class EixoSerializer(serializers.ModelSerializer):
                 'cd_id': 2386490,
                 'autor': 'Deputado João Silva',
                 'data_apresentacao': '2023-01-15',
-                'casa_inicial': 'CD',
+                'iniciadora': 'CD',
+                'revisora': 'SF',
                 'selected': True,
                 'ultima_sincronizacao': '2024-01-01T10:00:00Z',
                 'erro_sincronizacao': None,
@@ -110,7 +111,8 @@ class EixoSerializer(serializers.ModelSerializer):
                 'cd_id': None,
                 'autor': None,
                 'data_apresentacao': None,
-                'casa_inicial': None,
+                'iniciadora': None,
+                'revisora': None,
                 'ultima_sincronizacao': None,
                 'erro_sincronizacao': None
             },
@@ -136,7 +138,7 @@ class ProposicaoSerializer(serializers.ModelSerializer):
         model = Proposicao
         fields = [
             'id', 'tema', 'tipo', 'numero', 'ano', 'sf_id', 'cd_id',
-            'autor', 'data_apresentacao', 'casa_inicial', 'ementa', 'current_house', 'selected',
+            'autor', 'data_apresentacao', 'iniciadora', 'revisora', 'ementa', 'current_house', 'selected',
             'ultima_sincronizacao', 'erro_sincronizacao', 'created_at', 'updated_at'
         ]
         read_only_fields = ['id', 'created_at', 'updated_at'] 
@@ -251,7 +253,7 @@ class ProposicaoReadOnlySerializer(serializers.ModelSerializer):
         model = Proposicao
         fields = [
             'id', 'tipo', 'numero', 'ano', 'identificador_completo',
-            'sf_id', 'cd_id', 'autor', 'data_apresentacao', 'casa_inicial', 'ementa', 'current_house',
+            'sf_id', 'cd_id', 'autor', 'data_apresentacao', 'iniciadora', 'revisora', 'ementa', 'current_house',
             'ultima_sincronizacao', 'erro_sincronizacao',
             'tema_id', 'tema_nome', 'eixo_id', 'eixo_nome',
             'created_at', 'updated_at'

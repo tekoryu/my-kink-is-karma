@@ -19,7 +19,7 @@ class APISyncService:
     Serviço para sincronização de dados das APIs do Senado Federal e Câmara dos Deputados.
     Implementa busca estruturada:
     1. Busca no Senado Federal para encontrar sf_id e determinar se é casa iniciadora
-    2. Para proposições sem casa_inicial definida, busca na Câmara dos Deputados
+    2. Para proposições sem iniciadora definida, busca na Câmara dos Deputados
     """
     
     def __init__(self):
@@ -82,7 +82,7 @@ class APISyncService:
             ano: Ano da proposição
             
         Returns:
-            Dict com cd_id, casa_inicial='CD', ementa, data_apresentacao, autor se encontrada
+            Dict com cd_id, iniciadora='CD', ementa, data_apresentacao, autor se encontrada
         """
         self.rate_limiter.rate_limit_camara()
         
@@ -122,7 +122,7 @@ class APISyncService:
     def _processar_resposta_senado(self, data: List, tipo: str, numero: int, ano: int) -> Optional[Dict]:
         """
         Processa a resposta da API do Senado e extrai os dados necessários.
-        Busca pelo processo específico e verifica se objetivo='Iniciadora' para determinar casa_inicial.
+        Busca pelo processo específico e verifica se objetivo='Iniciadora' para determinar iniciadora.
         """
         try:
             if not isinstance(data, list):
@@ -144,18 +144,18 @@ class APISyncService:
                     
                     # Verificar se é casa iniciadora
                     objetivo = processo.get('objetivo', '')
-                    casa_inicial = None
+                    iniciadora = None
                     autor = None
                     
                     if objetivo == 'Iniciadora':
-                        casa_inicial = 'SF'
+                        iniciadora = 'SF'
                         autor = self._extrair_autor_senado(processo)
                     
                     return {
                         'sf_id': sf_id,
                         'data_apresentacao': data_apresentacao,
                         'ementa': ementa,
-                        'casa_inicial': casa_inicial,
+                        'iniciadora': iniciadora,
                         'autor': autor
                     }
             
@@ -191,7 +191,7 @@ class APISyncService:
                     
                     return {
                         'cd_id': cd_id,
-                        'casa_inicial': 'CD',  # Assumimos CD para proposições sem casa_inicial do SF
+                        'iniciadora': 'CD',  # Assumimos CD para proposições sem iniciadora do SF
                         'ementa': ementa,
                         'data_apresentacao': data_apresentacao,
                         'autor': autor
@@ -340,7 +340,7 @@ class APISyncService:
         """
         Sincroniza uma proposição específica com as APIs seguindo a nova estratégia:
         1. Busca no Senado para sf_id e verifica se é casa iniciadora
-        2. Se não tem casa_inicial definida, busca na Câmara
+        2. Se não tem iniciadora definida, busca na Câmara
         
         Args:
             proposicao: Instância do modelo Proposicao
@@ -366,8 +366,8 @@ class APISyncService:
                 encontrou_dados = True
             
             # Se o Senado indicou que é casa iniciadora, usar seus dados
-            if dados_senado and dados_senado.get('casa_inicial') == 'SF':
-                proposicao.casa_inicial = 'SF'
+            if dados_senado and dados_senado.get('iniciadora') == 'SF':
+                proposicao.iniciadora = 'SF'
                 if dados_senado.get('autor'):
                     proposicao.autor = dados_senado['autor']
                 if dados_senado.get('data_apresentacao'):
@@ -377,8 +377,8 @@ class APISyncService:
                 logger.info("Dados extraídos do Senado (casa iniciadora)")
                 encontrou_dados = True
             
-            # Etapa 2: Se não tem casa_inicial definida, buscar na Câmara
-            if not proposicao.casa_inicial:
+            # Etapa 2: Se não tem iniciadora definida, buscar na Câmara
+            if not proposicao.iniciadora:
                 dados_camara = self.buscar_proposicao_camara(
                     proposicao.tipo, proposicao.numero, proposicao.ano
                 )
@@ -392,7 +392,7 @@ class APISyncService:
 
                     
                     # Assumir que é casa inicial = CD
-                    proposicao.casa_inicial = 'CD'
+                    proposicao.iniciadora = 'CD'
                     
                     # Extrair dados da Câmara
                     if dados_camara.get('autor'):

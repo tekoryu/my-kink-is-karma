@@ -145,12 +145,20 @@ class Proposicao(models.Model):
         help_text="Data de apresentação da proposição"
     )
     
-    casa_inicial = models.CharField( # TODO: Trocar esse nome por iniciativa, casa dá ideia de apenas congresso
+    iniciadora = models.CharField(
         max_length=10,
         choices=CASA_CHOICES,
         null=True,
         blank=True,
         help_text="Casa onde a proposição foi iniciada"
+    )
+    
+    revisora = models.CharField(
+        max_length=10,
+        choices=CASA_CHOICES,
+        null=True,
+        blank=True,
+        help_text="Casa que revisará a proposição"
     )
     
     ementa = models.TextField(
