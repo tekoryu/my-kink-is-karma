@@ -1,10 +1,11 @@
-import time
 import logging
 from datetime import datetime
 from typing import Dict, Optional
 
 import requests
 from django.utils import timezone
+
+from .api_config import APIConfig, RateLimiter
 
 logger = logging.getLogger(__name__)
 
@@ -15,37 +16,8 @@ class ActivitySyncService:
     (Senado e Câmara), extraído de `apps.pauta.services.APISyncService`.
     """
 
-    SENADO_BASE_URL = "https://legis.senado.leg.br/dadosabertos"
-    CAMARA_BASE_URL = "https://dadosabertos.camara.leg.br/api/v2"
-
-    DEFAULT_HEADERS = {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-    }
-
-    SENADO_RATE_LIMIT = 10
-    CAMARA_RATE_LIMIT = 15
-
     def __init__(self):
-        self.last_senado_request = 0
-        self.last_camara_request = 0
-
-    # --- rate limiting helpers ---
-    def _rate_limit_senado(self):
-        current_time = time.time()
-        time_since_last = current_time - self.last_senado_request
-        if time_since_last < (1.0 / self.SENADO_RATE_LIMIT):
-            sleep_time = (1.0 / self.SENADO_RATE_LIMIT) - time_since_last
-            time.sleep(sleep_time)
-        self.last_senado_request = time.time()
-
-    def _rate_limit_camara(self):
-        current_time = time.time()
-        time_since_last = current_time - self.last_camara_request
-        if time_since_last < (1.0 / self.CAMARA_RATE_LIMIT):
-            sleep_time = (1.0 / self.CAMARA_RATE_LIMIT) - time_since_last
-            time.sleep(sleep_time)
-        self.last_camara_request = time.time()
+        self.rate_limiter = RateLimiter()
 
     # --- Senado ---
     def sincronizar_atividades_senado(self, proposicao) -> bool:
@@ -54,10 +26,10 @@ class ActivitySyncService:
             return False
 
         try:
-            self._rate_limit_senado()
-            search_url = f"{self.SENADO_BASE_URL}/processo/{proposicao.sf_id}"
+            self.rate_limiter.rate_limit_senado()
+            search_url = f"{APIConfig.SENADO_BASE_URL}/processo/{proposicao.sf_id}"
 
-            response = requests.get(search_url, headers=self.DEFAULT_HEADERS, timeout=30)
+            response = requests.get(search_url, headers=APIConfig.DEFAULT_HEADERS, timeout=30)
             if response.status_code != 200:
                 logger.warning(f"Erro ao buscar processo {proposicao.sf_id} no Senado: {response.status_code}")
                 return False
@@ -153,10 +125,10 @@ class ActivitySyncService:
             return False
 
         try:
-            self._rate_limit_camara()
-            tramitacoes_url = f"{self.CAMARA_BASE_URL}/proposicoes/{proposicao.cd_id}/tramitacoes"
+            self.rate_limiter.rate_limit_camara()
+            tramitacoes_url = f"{APIConfig.CAMARA_BASE_URL}/proposicoes/{proposicao.cd_id}/tramitacoes"
 
-            response = requests.get(tramitacoes_url, headers=self.DEFAULT_HEADERS, timeout=30)
+            response = requests.get(tramitacoes_url, headers=APIConfig.DEFAULT_HEADERS, timeout=30)
             if response.status_code != 200:
                 logger.warning(f"Erro ao buscar tramitações {proposicao.cd_id} na Câmara: {response.status_code}")
                 return False

@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 from .services_impl.activity_sync_service import ActivitySyncService
 from .services_impl.selection_service import SelectionService
 from .services_impl import DataProcessingService
+from .services_impl.api_config import APIConfig, RateLimiter
 
 class APISyncService:
     """
@@ -21,45 +22,13 @@ class APISyncService:
     2. Para proposições sem casa_inicial definida, busca na Câmara dos Deputados
     """
     
-    # URLs das APIs
-    SENADO_BASE_URL = "https://legis.senado.leg.br/dadosabertos"
-    CAMARA_BASE_URL = "https://dadosabertos.camara.leg.br/api/v2"
-    
-    # Headers padrão
-    DEFAULT_HEADERS = {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-    }
-    
-    # Rate limiting
-    SENADO_RATE_LIMIT = 10  # requisições por segundo
-    CAMARA_RATE_LIMIT = 15  # requisições por segundo
-    
     def __init__(self):
-        self.last_senado_request = 0
-        self.last_camara_request = 0
+        # Shared rate limiter for all API calls
+        self.rate_limiter = RateLimiter()
         # Delegated services
         self.activity_sync = ActivitySyncService()
         self.selection = SelectionService()
         self.data_processing = DataProcessingService()
-    
-    def _rate_limit_senado(self):
-        """Aplica rate limiting para a API do Senado"""
-        current_time = time.time()
-        time_since_last = current_time - self.last_senado_request
-        if time_since_last < (1.0 / self.SENADO_RATE_LIMIT):
-            sleep_time = (1.0 / self.SENADO_RATE_LIMIT) - time_since_last
-            time.sleep(sleep_time)
-        self.last_senado_request = time.time()
-    
-    def _rate_limit_camara(self):
-        """Aplica rate limiting para a API da Câmara"""
-        current_time = time.time()
-        time_since_last = current_time - self.last_camara_request
-        if time_since_last < (1.0 / self.CAMARA_RATE_LIMIT):
-            sleep_time = (1.0 / self.CAMARA_RATE_LIMIT) - time_since_last
-            time.sleep(sleep_time)
-        self.last_camara_request = time.time()
     
     def buscar_proposicao_senado(self, tipo: str, numero: int, ano: int) -> Optional[Dict]:
         """
@@ -73,9 +42,9 @@ class APISyncService:
         Returns:
             Dict com sf_id, data_apresentacao, ementa, casa_iniciadora, autor se encontrada
         """
-        self._rate_limit_senado()
+        self.rate_limiter.rate_limit_senado()
         
-        search_url = f"{self.SENADO_BASE_URL}/processo"
+        search_url = f"{APIConfig.SENADO_BASE_URL}/processo"
         
         params = {
             'sigla': tipo,
@@ -87,7 +56,7 @@ class APISyncService:
             response = requests.get(
                 search_url, 
                 params=params,
-                headers=self.DEFAULT_HEADERS, 
+                headers=APIConfig.DEFAULT_HEADERS, 
                 timeout=30
             )
             
@@ -115,10 +84,10 @@ class APISyncService:
         Returns:
             Dict com cd_id, casa_inicial='CD', ementa, data_apresentacao, autor se encontrada
         """
-        self._rate_limit_camara()
+        self.rate_limiter.rate_limit_camara()
         
         # Primeiro: buscar na listagem para obter o ID
-        search_url = f"{self.CAMARA_BASE_URL}/proposicoes"
+        search_url = f"{APIConfig.CAMARA_BASE_URL}/proposicoes"
         
         params = {
             'siglaTipo': tipo,
@@ -130,7 +99,7 @@ class APISyncService:
             response = requests.get(
                 search_url, 
                 params=params, 
-                headers=self.DEFAULT_HEADERS, 
+                headers=APIConfig.DEFAULT_HEADERS, 
                 timeout=30
             )
             
@@ -200,13 +169,13 @@ class APISyncService:
         """
         Busca detalhes completos de uma proposição na Câmara usando seu ID.
         """
-        self._rate_limit_camara()
+        self.rate_limiter.rate_limit_camara()
         
         # Buscar detalhes da proposição
-        details_url = f"{self.CAMARA_BASE_URL}/proposicoes/{cd_id}"
+        details_url = f"{APIConfig.CAMARA_BASE_URL}/proposicoes/{cd_id}"
         
         try:
-            response = requests.get(details_url, headers=self.DEFAULT_HEADERS, timeout=30)
+            response = requests.get(details_url, headers=APIConfig.DEFAULT_HEADERS, timeout=30)
             
             if response.status_code == 200:
                 data = response.json()
@@ -283,12 +252,12 @@ class APISyncService:
         """
         Busca o autor de uma proposição na Câmara e formata adequadamente.
         """
-        self._rate_limit_camara()
+        self.rate_limiter.rate_limit_camara()
         
-        autores_url = f"{self.CAMARA_BASE_URL}/proposicoes/{cd_id}/autores"
+        autores_url = f"{APIConfig.CAMARA_BASE_URL}/proposicoes/{cd_id}/autores"
         
         try:
-            response = requests.get(autores_url, headers=self.DEFAULT_HEADERS, timeout=30)
+            response = requests.get(autores_url, headers=APIConfig.DEFAULT_HEADERS, timeout=30)
             
             if response.status_code == 200:
                 data = response.json()
@@ -317,10 +286,10 @@ class APISyncService:
         """
         Busca dados completos do deputado e formata nome conforme especificação.
         """
-        self._rate_limit_camara()
+        self.rate_limiter.rate_limit_camara()
         
         try:
-            response = requests.get(uri, headers=self.DEFAULT_HEADERS, timeout=30)
+            response = requests.get(uri, headers=APIConfig.DEFAULT_HEADERS, timeout=30)
             
             if response.status_code == 200:
                 data = response.json()
@@ -554,25 +523,7 @@ class APISyncService:
         """Backward-compat shim: delegate to ActivitySyncService."""
         return self.activity_sync._criar_atividade_camara(proposicao, tramitacao)
     
-    def _extrair_valor_nested(self, data: Dict, key1: str, key2: str):
-        """
-        Extrai valor de estrutura aninhada de forma segura.
-        
-        Args:
-            data: Dicionário principal
-            key1: Primeira chave
-            key2: Segunda chave
-            
-        Returns:
-            Valor extraído ou None
-        """
-        try:
-            nested = data.get(key1, {})
-            if isinstance(nested, dict):
-                return nested.get(key2)
-            return None
-        except Exception:
-            return None
+
     
     def sincronizar_atividades_todas_proposicoes(self, limit: Optional[int] = None) -> Dict[str, int]:
         """
