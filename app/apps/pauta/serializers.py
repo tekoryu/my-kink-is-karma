@@ -185,7 +185,7 @@ class EixoReadOnlySerializer(serializers.ModelSerializer):
                 'eixo_id': 1,
                 'eixo_nome': 'Desenvolvimento Econômico',
                 'proposicoes_count': 10,
-                'selected_proposicao': 'PL 4381/2023',
+                'selected_proposicao': 1,
                 'created_at': '2024-01-01T00:00:00Z',
                 'updated_at': '2024-01-01T00:00:00Z'
             },
@@ -214,7 +214,7 @@ class TemaReadOnlySerializer(serializers.ModelSerializer):
     def get_selected_proposicao(self, obj):
         selected_list = getattr(obj, 'selected_list', None)
         proposicao = selected_list[0] if selected_list else obj.proposicoes.filter(selected=True).first()
-        return proposicao.identificador_completo if proposicao else None
+        return proposicao.id if proposicao else None
 
 
 @extend_schema_serializer(
