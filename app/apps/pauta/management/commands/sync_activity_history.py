@@ -58,9 +58,10 @@ class Command(BaseCommand):
                 except Proposicao.DoesNotExist:
                     raise CommandError(f"Proposição com ID {options['proposicao_id']} não encontrada")
             else:
-                # Filtrar proposições com IDs das APIs
+                # Filtrar proposições com IDs das APIs (Senado OU Câmara)
+                from django.db.models import Q
                 proposicoes = Proposicao.objects.filter(
-                    sf_id__isnull=False
+                    Q(sf_id__isnull=False) | Q(cd_id__isnull=False)
                 ).order_by('created_at')
                 
                 if options['limit']:
