@@ -211,6 +211,44 @@ class Proposicao(models.Model):
         ordering = ['tema__nome', 'ano', 'numero']
         unique_together = ['tipo', 'numero', 'ano']
     
+    def clean(self):
+        """
+        Validate that iniciadora and revisora follow the constraint rules.
+        """
+        from django.core.exceptions import ValidationError
+        
+        if self.iniciadora in ['CD', 'SF']:
+            expected_revisora = 'SF' if self.iniciadora == 'CD' else 'CD'
+            if self.revisora and self.revisora != expected_revisora:
+                raise ValidationError({
+                    'revisora': f'When iniciadora is {self.iniciadora}, revisora must be {expected_revisora}'
+                })
+        elif self.iniciadora not in ['CD', 'SF', None]:
+            # For EXECUTIVO or OUTROS, revisora should be None
+            if self.revisora:
+                raise ValidationError({
+                    'revisora': 'Revisora should only be set when iniciadora is CD or SF'
+                })
+    
+    def save(self, *args, **kwargs):
+        """
+        Override save to automatically set revisora when iniciadora is defined.
+        When iniciadora is CD, revisora becomes SF and vice versa.
+        """
+        if self.iniciadora in ['CD', 'SF']:
+            if self.iniciadora == 'CD':
+                self.revisora = 'SF'
+            else:  # iniciadora == 'SF'
+                self.revisora = 'CD'
+        elif self.iniciadora is None:
+            # If iniciadora is cleared, also clear revisora
+            self.revisora = None
+        else:
+            # For EXECUTIVO or OUTROS, clear revisora
+            self.revisora = None
+            
+        super().save(*args, **kwargs)
+    
     def __str__(self):
         return f"{self.tipo} {self.numero}/{self.ano}"
     
