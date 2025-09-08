@@ -41,7 +41,9 @@ class DataProcessingService:
             novo_current_house: Optional[str] = None
             if ultima_sf and ultima_cd:
                 # Comparar datas para decidir a casa com atividade mais recente
-                if ultima_cd > ultima_sf:
+                # Convert datetime to date for proper comparison
+                ultima_cd_date = ultima_cd.date() if hasattr(ultima_cd, 'date') else ultima_cd
+                if ultima_cd_date > ultima_sf:
                     novo_current_house = 'CD'
                 else:
                     novo_current_house = 'SF'

@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 
 class Eixo(models.Model):
@@ -477,3 +479,21 @@ class CamaraActivityHistory(models.Model):
     
     def __str__(self):
         return f"CD Activity {self.sequencia} - {self.proposicao} - {self.data_hora}"
+
+@receiver(post_save, sender=SenadoActivityHistory)
+@receiver(post_save, sender=CamaraActivityHistory)
+@receiver(post_delete, sender=SenadoActivityHistory)
+@receiver(post_delete, sender=CamaraActivityHistory)
+def update_proposicao_derived_fields(sender, instance, **kwargs):
+    """
+    Automatically update derived fields (like current_house) when activity history changes.
+    This ensures current_house is always up-to-date with the latest activity.
+    """
+    try:
+        from apps.pauta.services_impl.data_processing_service import DataProcessingService
+        processor = DataProcessingService()
+        processor.update_derived_fields(instance.proposicao)
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error updating derived fields after activity history change: {e}")

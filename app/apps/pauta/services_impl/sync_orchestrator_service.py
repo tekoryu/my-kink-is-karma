@@ -192,12 +192,8 @@ class SyncOrchestratorService:
             if proposicao.cd_id:
                 results['camara'] = self.activity_sync.sincronizar_atividades_camara(proposicao)
             
-            # Update derived fields after activity sync
-            if results['senado'] or results['camara']:
-                try:
-                    self.processor.update_derived_fields(proposicao)
-                except Exception as e:
-                    logger.warning(f"Error updating derived fields after activity sync: {e}")
+            # Note: Derived fields (like current_house) are now updated automatically
+            # via Django signals when activity history changes
             
             return results
             
